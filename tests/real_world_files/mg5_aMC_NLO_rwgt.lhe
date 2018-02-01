@@ -1,0 +1,839 @@
+<LesHouchesEvents version="3.0">
+  <header>
+  <MG5ProcCard>
+#************************************************************                                                                                         
+#*                     MadGraph5_aMC@NLO                    *                                                                                         
+#*                                                          *                                                                                         
+#*                *                       *                 *                                                                                         
+#*                  *        * *        *                   *                                                                                         
+#*                    * * * * 5 * * * *                     *                                                                                         
+#*                  *        * *        *                   *                                                                                         
+#*                *                       *                 *                                                                                         
+#*                                                          *                                                                                         
+#*                                                          *                                                                                         
+#*         VERSION 2.5.1                 2016-11-04         *                                                                                         
+#*                                                          *                                                                                         
+#*    The MadGraph5_aMC@NLO Development Team - Find us at   *                                                                                         
+#*    https://server06.fynu.ucl.ac.be/projects/madgraph     *                                                                                         
+#*                                                          *                                                                                         
+#************************************************************                                                                                         
+#*                                                          *                                                                                         
+#*               Command File for MadGraph5_aMC@NLO         *                                                                                         
+#*                                                          *                                                                                         
+#*     run as ./bin/mg5_aMC  filename                       *                                                                                         
+#*                                                          *                                                                                         
+#************************************************************                                                                                         
+set group_subprocesses Auto                                                                                                                           
+set ignore_six_quark_processes False                                                                                                                  
+set loop_optimized_output True                                                                                                                        
+set loop_color_flows False                                                                                                                            
+set gauge unitary                                                                                                                                     
+set complex_mass_scheme False                                                                                                                         
+set max_npoint_for_channel 0                                                                                                                          
+import model sm                                                                                                                                       
+define p = g u c d s u~ c~ d~ s~                                                                                                                      
+define j = g u c d s u~ c~ d~ s~                                                                                                                      
+define l+ = e+ mu+                                                                                                                                    
+define l- = e- mu-                                                                                                                                    
+define vl = ve vm vt                                                                                                                                  
+define vl~ = ve~ vm~ vt~                                                                                                                              
+import model loop_sm                                                                                                                                  
+generate g g > b b~ [QCD]                                                                                                                             
+output foo2                                                                                                                                           
+  </MG5ProcCard>
+  <slha>
+######################################################################                                                                                
+## PARAM_CARD AUTOMATICALY GENERATED BY MG5 FOLLOWING UFO MODEL   ####                                                                                
+######################################################################                                                                                
+##                                                                  ##                                                                                
+##  Width set on Auto will be computed following the information    ##                                                                                
+##        present in the decay.py files of the model.               ##                                                                                
+##        See  arXiv:1402.1178 for more details.                    ##                                                                                
+##                                                                  ##                                                                                
+######################################################################                                                                                
+                                                                                                                                                      
+###################################                                                                                                                   
+## INFORMATION FOR LOOP                                                                                                                               
+###################################                                                                                                                   
+Block loop                                                                                                                                            
+    1 9.118800e+01 # MU_R                                                                                                                             
+                                                                                                                                                      
+###################################                                                                                                                   
+## INFORMATION FOR MASS                                                                                                                               
+###################################                                                                                                                   
+Block mass                                                                                                                                            
+    5 4.700000e+00 # MB                                                                                                                               
+    6 1.730000e+02 # MT                                                                                                                               
+   15 1.777000e+00 # MTA                                                                                                                              
+   23 9.118800e+01 # MZ                                                                                                                               
+   25 1.250000e+02 # MH                                                                                                                               
+## Dependent parameters, given by model restrictions.                                                                                                 
+## Those values should be edited following the                                                                                                        
+## analytical expression. MG5 ignores those values                                                                                                    
+## but they are important for interfacing the output of MG5                                                                                           
+## to external program such as Pythia.                                                                                                                
+  1 0.000000 # d : 0.0                                                                                                                                
+  2 0.000000 # u : 0.0                                                                                                                                
+  3 0.000000 # s : 0.0                                                                                                                                
+  4 0.000000 # c : 0.0                                                                                                                                
+  11 0.000000 # e- : 0.0                                                                                                                              
+  12 0.000000 # ve : 0.0                                                                                                                              
+  13 0.000000 # mu- : 0.0                                                                                                                             
+  14 0.000000 # vm : 0.0                                                                                                                              
+  16 0.000000 # vt : 0.0                                                                                                                              
+  21 0.000000 # g : 0.0                                                                                                                               
+  22 0.000000 # a : 0.0                                                                                                                               
+  24 80.419002 # w+ : cmath.sqrt(MZ__exp__2/2. + cmath.sqrt(MZ__exp__4/4. - (aEW*cmath.pi*MZ__exp__2)/(Gf*sqrt__2)))                                  
+                                                                                                                                                      
+###################################                                                                                                                   
+## INFORMATION FOR SMINPUTS                                                                                                                           
+###################################                                                                                                                   
+Block sminputs                                                                                                                                        
+    1 1.325070e+02 # aEWM1                                                                                                                            
+    2 1.166390e-05 # Gf                                                                                                                               
+    3 1.180000e-01 # aS                                                                                                                               
+                                                                                                                                                      
+###################################                                                                                                                   
+## INFORMATION FOR YUKAWA                                                                                                                             
+###################################                                                                                                                   
+Block yukawa                                                                                                                                          
+    5 4.700000e+00 # ymb                                                                                                                              
+    6 1.730000e+02 # ymt                                                                                                                              
+   15 1.777000e+00 # ymtau                                                                                                                            
+                                                                                                                                                      
+###################################                                                                                                                   
+## INFORMATION FOR DECAY                                                                                                                              
+###################################                                                                                                                   
+DECAY   6 1.491500e+00 # WT                                                                                                                           
+DECAY  23 2.441404e+00 # WZ                                                                                                                           
+DECAY  24 2.047600e+00 # WW                                                                                                                           
+DECAY  25 6.382339e-03 # WH                                                                                                                           
+## Dependent parameters, given by model restrictions.                                                                                                 
+## Those values should be edited following the                                                                                                        
+## analytical expression. MG5 ignores those values                                                                                                    
+## but they are important for interfacing the output of MG5                                                                                           
+## to external program such as Pythia.                                                                                                                
+DECAY  1 0.000000 # d : 0.0                                                                                                                           
+DECAY  2 0.000000 # u : 0.0                                                                                                                           
+DECAY  3 0.000000 # s : 0.0                                                                                                                           
+DECAY  4 0.000000 # c : 0.0                                                                                                                           
+DECAY  5 0.000000 # b : 0.0                                                                                                                           
+DECAY  11 0.000000 # e- : 0.0                                                                                                                         
+DECAY  12 0.000000 # ve : 0.0                                                                                                                         
+DECAY  13 0.000000 # mu- : 0.0                                                                                                                        
+DECAY  14 0.000000 # vm : 0.0                                                                                                                         
+DECAY  15 0.000000 # ta- : 0.0                                                                                                                        
+DECAY  16 0.000000 # vt : 0.0                                                                                                                         
+DECAY  21 0.000000 # g : 0.0                                                                                                                          
+DECAY  22 0.000000 # a : 0.0                                                                                                                          
+  </slha>
+  <MGRunCard>
+#***********************************************************************                                                                              
+#                        MadGraph5_aMC@NLO                             *                                                                              
+#                                                                      *                                                                              
+#                      run_card.dat aMC@NLO                            *                                                                              
+#                                                                      *                                                                              
+#  This file is used to set the parameters of the run.                 *                                                                              
+#                                                                      *                                                                              
+#  Some notation/conventions:                                          *                                                                              
+#                                                                      *                                                                              
+#   Lines starting with a hash (#) are info or comments                *                                                                              
+#                                                                      *                                                                              
+#   mind the format:   value    = variable     ! comment               *                                                                              
+#                                                                      *                                                                              
+#   Some of the values of variables can be list. These can either be   *                                                                              
+#   comma or space separated.                                          *                                                                              
+#***********************************************************************                                                                              
+#                                                                                                                                                     
+#*******************                                                                                                                                  
+# Running parameters                                                                                                                                  
+#*******************                                                                                                                                  
+#                                                                                                                                                     
+#***********************************************************************                                                                              
+# Tag name for the run (one word)                                      *                                                                              
+#***********************************************************************                                                                              
+  tag_1	= run_tag ! name of the run                                                                                                                   
+#***********************************************************************                                                                              
+# Number of LHE events (and their normalization) and the required      *                                                                              
+# (relative) accuracy on the Xsec.                                     *                                                                              
+# These values are ignored for fixed order runs                        *                                                                              
+#***********************************************************************                                                                              
+         10 = nevents                                                                                                                                 
+  -1.0	= req_acc ! Required accuracy (-1=auto determined from nevents)                                                                                
+  -1	= nevt_job ! Max number of events per job in event generation.                                                                                   
+                 !  (-1= no split).                                                                                                                   
+#***********************************************************************                                                                              
+# Normalize the weights of LHE events such that they sum or average to *                                                                              
+# the total cross section                                              *                                                                              
+#***********************************************************************                                                                              
+  average	= event_norm ! average or sum                                                                                                               
+#***********************************************************************                                                                              
+# Number of points per itegration channel (ignored for aMC@NLO runs)   *                                                                              
+#***********************************************************************                                                                              
+  0.01	= req_acc_fo ! Required accuracy (-1=ignored, and use the                                                                                      
+ 	                   ! number of points and iter. below)                                                                                              
+# These numbers are ignored except if req_acc_FO is equal to -1                                                                                       
+  5000	= npoints_fo_grid ! number of points to setup grids                                                                                            
+  4	= niters_fo_grid ! number of iter. to setup grids                                                                                                 
+  10000	= npoints_fo ! number of points to compute Xsec                                                                                               
+  6	= niters_fo ! number of iter. to compute Xsec                                                                                                     
+#***********************************************************************                                                                              
+# Random number seed                                                   *                                                                              
+#***********************************************************************                                                                              
+         34 =  iseed                                                                                                                                  
+#***********************************************************************                                                                              
+# Collider type and energy                                             *                                                                              
+#***********************************************************************                                                                              
+  1	= lpp1 ! beam 1 type (0 = no PDF)                                                                                                                 
+  1	= lpp2 ! beam 2 type (0 = no PDF)                                                                                                                 
+  6500.0	= ebeam1 ! beam 1 energy in GeV                                                                                                              
+  6500.0	= ebeam2 ! beam 2 energy in GeV                                                                                                              
+#***********************************************************************                                                                              
+# PDF choice: this automatically fixes also alpha_s(MZ) and its evol.  *                                                                              
+#***********************************************************************                                                                              
+  nn23nlo	= pdlabel ! PDF set                                                                                                                         
+  244600	= lhaid ! If pdlabel=lhapdf, this is the lhapdf number. Only                                                                                 
+              ! numbers for central PDF sets are allowed. Can be a list;                                                                              
+              ! PDF sets beyond the first are included via reweighting.                                                                               
+#***********************************************************************                                                                              
+# Include the NLO Monte Carlo subtr. terms for the following parton    *                                                                              
+# shower (HERWIG6 | HERWIGPP | PYTHIA6Q | PYTHIA6PT | PYTHIA8)         *                                                                              
+# WARNING: PYTHIA6PT works only for processes without FSR!!!!          *                                                                              
+#***********************************************************************                                                                              
+  HERWIG6	= parton_shower                                                                                                                             
+  1.0	= shower_scale_factor ! multiply default shower starting                                                                                        
+                                  ! scale by this factor                                                                                              
+#***********************************************************************                                                                              
+# Renormalization and factorization scales                             *                                                                              
+# (Default functional form for the non-fixed scales is the sum of      *                                                                              
+# the transverse masses divided by two of all final state particles    *                                                                              
+# and partons. This can be changed in SubProcesses/set_scales.f or via *                                                                              
+# dynamical_scale_choice option)                                       *                                                                              
+#***********************************************************************                                                                              
+  False	= fixed_ren_scale ! if .true. use fixed ren scale                                                                                             
+  False	= fixed_fac_scale ! if .true. use fixed fac scale                                                                                             
+  91.118	= mur_ref_fixed ! fixed ren reference scale                                                                                                  
+  91.118	= muf_ref_fixed ! fixed fact reference scale                                                                                                 
+  -1	= dynamical_scale_choice ! Choose one (or more) of the predefined                                                                                
+           ! dynamical choices. Can be a list; scale choices beyond the                                                                               
+           ! first are included via reweighting                                                                                                       
+  1.0	= mur_over_ref ! ratio of current muR over reference muR                                                                                        
+  1.0	= muf_over_ref ! ratio of current muF over reference muF                                                                                        
+#***********************************************************************                                                                              
+# Reweight variables for scale dependence and PDF uncertainty          *                                                                              
+#***********************************************************************                                                                              
+  1.0, 2.0, 0.5	= rw_rscale ! muR factors to be included by reweighting                                                                               
+  1.0, 2.0, 0.5	= rw_fscale ! muF factors to be included by reweighting                                                                               
+  True	= reweight_scale ! Reweight to get scale variation using the                                                                                   
+            ! rw_rscale and rw_fscale factors. Should be a list of                                                                                    
+            ! booleans of equal length to dynamical_scale_choice to                                                                                   
+            ! specify for which choice to include scale dependence.                                                                                   
+  False	= reweight_pdf ! Reweight to get PDF uncertainty. Should be a                                                                                 
+            ! list booleans of equal length to lhaid to specify for                                                                                   
+            !  which PDF set to include the uncertainties.                                                                                            
+#***********************************************************************                                                                              
+# Store reweight information in the LHE file for off-line model-       *                                                                              
+# parameter reweighting at NLO+PS accuracy                             *                                                                              
+#***********************************************************************                                                                              
+  True	= store_rwgt_info ! Store info for reweighting in LHE file                                                                                     
+#***********************************************************************                                                                              
+# ickkw parameter:                                                     *                                                                              
+#   0: No merging                                                      *                                                                              
+#   3: FxFx Merging - WARNING! Applies merging only at the hard-event  *                                                                              
+#      level. After showering an MLM-type merging should be applied as *                                                                              
+#      well. See http://amcatnlo.cern.ch/FxFx_merging.htm for details. *                                                                              
+#   4: UNLOPS merging (with pythia8 only). No interface from within    *                                                                              
+#      MG5_aMC available, but available in Pythia8.                    *                                                                              
+#  -1: NNLL+NLO jet-veto computation. See arxiv:1412.8408 [hep-ph].    *                                                                              
+#***********************************************************************                                                                              
+  0	= ickkw                                                                                                                                           
+#***********************************************************************                                                                              
+#                                                                                                                                                     
+#***********************************************************************                                                                              
+# BW cutoff (M+/-bwcutoff*Gamma). Determines which resonances are      *                                                                              
+# written in the LHE event file                                        *                                                                              
+#***********************************************************************                                                                              
+  15.0	= bwcutoff                                                                                                                                     
+#***********************************************************************                                                                              
+# Cuts on the jets. Jet clustering is performed by FastJet.            *                                                                              
+#  - When matching to a parton shower, these generation cuts should be *                                                                              
+#    considerably softer than the analysis cuts.                       *                                                                              
+#  - More specific cuts can be specified in SubProcesses/cuts.f        *                                                                              
+#***********************************************************************                                                                              
+  1.0	= jetalgo ! FastJet jet algorithm (1=kT, 0=C/A, -1=anti-kT)                                                                                     
+  0.7	= jetradius ! The radius parameter for the jet algorithm                                                                                        
+  10.0	= ptj ! Min jet transverse momentum                                                                                                            
+  -1.0	= etaj ! Max jet abs(pseudo-rap) (a value .lt.0 means no cut)                                                                                  
+#***********************************************************************                                                                              
+# Cuts on the charged leptons (e+, e-, mu+, mu-, tau+ and tau-)        *                                                                              
+# More specific cuts can be specified in SubProcesses/cuts.f           *                                                                              
+#***********************************************************************                                                                              
+  0.0	= ptl ! Min lepton transverse momentum                                                                                                          
+  -1.0	= etal ! Max lepton abs(pseudo-rap) (a value .lt.0 means no cut)                                                                               
+  0.0	= drll ! Min distance between opposite sign lepton pairs                                                                                        
+  0.0	= drll_sf ! Min distance between opp. sign same-flavor lepton pairs                                                                             
+  0.0	= mll ! Min inv. mass of all opposite sign lepton pairs                                                                                         
+  30.0	= mll_sf ! Min inv. mass of all opp. sign same-flavor lepton pairs                                                                             
+#***********************************************************************                                                                              
+# Photon-isolation cuts, according to hep-ph/9801442. When ptgmin=0,   *                                                                              
+# all the other parameters are ignored.                                *                                                                              
+# More specific cuts can be specified in SubProcesses/cuts.f           *                                                                              
+#***********************************************************************                                                                              
+  20.0	= ptgmin ! Min photon transverse momentum                                                                                                      
+  -1.0	= etagamma ! Max photon abs(pseudo-rap)                                                                                                        
+  0.4	= r0gamma ! Radius of isolation code                                                                                                            
+  1.0	= xn ! n parameter of eq.(3.4) in hep-ph/9801442                                                                                                
+  1.0	= epsgamma ! epsilon_gamma parameter of eq.(3.4) in hep-ph/9801442                                                                              
+  True	= isoem ! isolate photons from EM energy (photons and leptons)                                                                                 
+#***********************************************************************                                                                              
+# For aMCfast+APPLGRID use in PDF fitting (http://amcfast.hepforge.org)*                                                                              
+#***********************************************************************                                                                              
+  0	= iappl ! aMCfast switch (0=OFF, 1=prepare grids, 2=fill grids)                                                                                   
+#***********************************************************************                                                                              
+  </MGRunCard>
+  <scalesfunctionalform>
+    muR  H_T/2 := sum_i mT(i)/2, i=final state
+    muF1 H_T/2 := sum_i mT(i)/2, i=final state
+    muF2 H_T/2 := sum_i mT(i)/2, i=final state
+    QES  H_T/2 := sum_i mT(i)/2, i=final state
+  </scalesfunctionalform>
+  <MonteCarloMasses>
+       1   0.320000E+00
+       2   0.320000E+00
+       3   0.500000E+00
+       4   0.155000E+01
+       5   0.495000E+01
+      11   0.510999E-03
+      13   0.105658E+00
+      15   0.177682E+01
+      21   0.750000E+00
+  </MonteCarloMasses>
+  <initrwgt>
+    <weightgroup name='scale_variation   -1' combine='envelope'>
+      <weight id='1001'> dyn=  -1 muR=0.10000E+01 muF=0.10000E+01 </weight>
+      <weight id='1002'> dyn=  -1 muR=0.20000E+01 muF=0.10000E+01 </weight>
+      <weight id='1003'> dyn=  -1 muR=0.50000E+00 muF=0.10000E+01 </weight>
+      <weight id='1004'> dyn=  -1 muR=0.10000E+01 muF=0.20000E+01 </weight>
+      <weight id='1005'> dyn=  -1 muR=0.20000E+01 muF=0.20000E+01 </weight>
+      <weight id='1006'> dyn=  -1 muR=0.50000E+00 muF=0.20000E+01 </weight>
+      <weight id='1007'> dyn=  -1 muR=0.10000E+01 muF=0.50000E+00 </weight>
+      <weight id='1008'> dyn=  -1 muR=0.20000E+01 muF=0.50000E+00 </weight>
+      <weight id='1009'> dyn=  -1 muR=0.50000E+00 muF=0.50000E+00 </weight>
+    </weightgroup>
+  </initrwgt>
+  </header>
+  <init>
+   2212   2212 0.65000000E+04 0.65000000E+04 -1 -1 244800 244800 -4   1
+ 0.36644676E+09 0.84294350E+07 0.74954605E+09      0
+  </init>
+  <event>
+  4      0 0.74954605E+09 0.15573566E+02 0.75467711E-02 0.12670036E+00
+       21 -1    0    0  501  502 0.00000000E+00 0.00000000E+00 0.99690121E+01 0.99971847E+01 0.75000000E+00 0.0000E+00 0.9000E+01
+       21 -1    0    0  502  503 0.00000000E+00 0.00000000E+00 -.60221977E+01 0.60687202E+01 0.75000000E+00 0.0000E+00 0.9000E+01
+        5  1    1    2  501    0 -.41571446E+01 0.54928288E+00 0.66963989E+01 0.91932215E+01 0.47000000E+01 0.0000E+00 0.9000E+01
+       -5  1    1    2    0  503 0.41571446E+01 -.54928288E+00 -.27495845E+01 0.68726834E+01 0.47000000E+01 0.0000E+00 0.9000E+01
+#aMCatNLO 1  0  0  2  1 0.60627164E+02 0.00000000E+00 -9  5  0 0.00000000E+00 0.00000000E+00 0.00000000E+00 0.00000000E+00 0.00000000E+00
+  <mgrwgt>
+ 0.6942526300D+08    3    2    0
+ 0.778678299709749D+01 0.000000000000000D+00 0.000000000000000D+00 0.778678299709749D+01
+ 0.778678299709749D+01 0.000000000000000D+00 0.000000000000000D+00 -.778678299709749D+01
+ 0.778678299709749D+01 -.415714459145412D+01 0.549282882804644D+00 0.457825584740393D+01
+ 0.778678299709749D+01 0.415714459145412D+01 -.549282882804644D+00 -.457825584740393D+01
+ 0.000000000000000D+00 0.000000000000000D+00 -.000000000000000D+00 0.000000000000000D+00
+ 0.112577592317716D+03 0.000000000000000D+00 0.000000000000000D+00 0.112577592317716D+03
+ 0.426032640698123D+02 0.000000000000000D+00 0.000000000000000D+00 -.426032640698123D+02
+ 0.449667526076417D+02 -.351921956400382D+02 0.272115376174489D+02 0.457825584740393D+01
+ 0.176286859839649D+02 -.107948461748315D+02 0.122959928016683D+02 -.457825584740393D+01
+ 0.925854177959223D+02 0.459870418148696D+02 -.395075304191172D+02 0.699743282479042D+02
+0.104486511661D+00 0.000000000000D+00 0.000000000000D+00 0.347355539454D+01 0.000000000000D+00  5 21 21 5 -5 21 4 0.15394400D-02 0.93223773D-03 0.39673563D+02 0.39673563D+02 0.39673563D+02 0.15946303D+01  1  2  2  2  5  2       21 0.620926011671D+08
+-.261795294138D-02 0.110278094127D-01 -.206006095817D-04 0.347355539454D+01 0.000000000000D+00  5 21 21 5 -5 21 6 0.15394400D-02 0.93223773D-03 0.39673563D+02 0.39673563D+02 0.39673563D+02 0.15946303D+01  1  2  3  2  5  2       21 -.395604755631D+07
+0.187912453161D-01 0.000000000000D+00 0.000000000000D+00 0.347355539454D+01 0.000000000000D+00  5 21 21 5 -5 21 6 0.15394400D-02 0.93223773D-03 0.39673563D+02 0.39673563D+02 0.39673563D+02 0.15946303D+01  1  2 15  2  5  2       21 0.283958733321D+08
+  </mgrwgt>
+  <rwgt>
+   <wgt id='1001'> 0.74954E+09 </wgt>
+   <wgt id='1002'> 0.63191E+09 </wgt>
+   <wgt id='1003'> 0.85919E+09 </wgt>
+   <wgt id='1004'> 0.14331E+10 </wgt>
+   <wgt id='1005'> 0.12083E+10 </wgt>
+   <wgt id='1006'> 0.16422E+10 </wgt>
+   <wgt id='1007'> 0.23829E+09 </wgt>
+   <wgt id='1008'> 0.20086E+09 </wgt>
+   <wgt id='1009'> 0.27324E+09 </wgt>
+  </rwgt>
+  </event>
+  <event>
+  4      0 -.74954605E+09 0.12499614E+02 0.75467711E-02 0.18511352E+00
+       21 -1    0    0  501  502 0.00000000E+00 0.00000000E+00 0.12919899E+02 0.12941649E+02 0.75000000E+00 0.0000E+00 0.9000E+01
+       21 -1    0    0  502  503 0.00000000E+00 0.00000000E+00 -.29520259E+01 0.30458097E+01 0.75000000E+00 0.0000E+00 0.9000E+01
+        5  1    1    2  501    0 0.10732213E+01 0.29094269E+01 0.84523463E+01 0.10156216E+02 0.47000000E+01 0.0000E+00 0.9000E+01
+       -5  1    1    2    0  503 -.10732213E+01 -.29094269E+01 0.15155263E+01 0.58312425E+01 0.47000000E+01 0.0000E+00 0.9000E+01
+#aMCatNLO 1  0  0  2  1 0.54256433E+01 0.00000000E+00 -9  5  0 0.00000000E+00 0.00000000E+00 0.00000000E+00 0.00000000E+00 0.00000000E+00
+  <mgrwgt>
+ -.6942526300D+08   48    2    0
+ 0.624980700650089D+01 0.000000000000000D+00 0.000000000000000D+00 0.624980700650089D+01
+ 0.624980700650089D+01 0.000000000000000D+00 0.000000000000000D+00 -.624980700650089D+01
+ 0.624980700650089D+01 0.107322134175917D+01 0.290942692713389D+01 0.271173717859393D+01
+ 0.624980700650089D+01 -.107322134175917D+01 -.290942692713389D+01 -.271173717859393D+01
+ 0.000000000000000D+00 0.000000000000000D+00 -.000000000000000D+00 -.000000000000000D+00
+ 0.688656270755194D+01 0.000000000000000D+00 0.000000000000000D+00 0.688656270755194D+01
+ 0.107107884120921D+03 0.000000000000000D+00 0.000000000000000D+00 -.107107884120921D+03
+ 0.806307097325661D+01 0.993230304600235D+00 0.588073877638077D+01 0.271173717859393D+01
+ 0.556329890174412D+01 -.113924178817150D+01 -.457060491032163D+00 -.271173717859393D+01
+ 0.100368076953472D+03 0.146011483571262D+00 -.542367828534861D+01 -.100221321413369D+03
+0.647895923914D-02 0.000000000000D+00 0.000000000000D+00 0.234802031318D+01 0.000000000000D+00  5 21 21 5 -5 21 4 0.19965639D-02 0.46304508D-03 0.31706569D+02 0.31706569D+02 0.31706569D+02 0.16190647D+01  1  2  2  2  5  2       21 0.610501596252D+07
+-.264751161550D-03 0.683808144666D-03 -.127739463840D-05 0.234802031318D+01 0.000000000000D+00  5 21 21 5 -5 21 6 0.19965639D-02 0.46304508D-03 0.31706569D+02 0.31706569D+02 0.31706569D+02 0.16190647D+01  1  2  3  2  5  2       21 -.653954947793D+06
+0.112899525105D-02 0.000000000000D+00 0.000000000000D+00 0.234802031318D+01 0.000000000000D+00  5 21 21 5 -5 21 6 0.19965639D-02 0.46304508D-03 0.31706569D+02 0.31706569D+02 0.31706569D+02 0.16190647D+01  1  2 15  2  5  2       21 0.278870176107D+07
+0.646456178867D+01 0.000000000000D+00 0.000000000000D+00 0.184901762472D+01 0.000000000000D+00  5 21 21 5 -5 21 6 0.19965639D-02 0.73256731D-02 0.79893977D+02 0.79893977D+02 0.79893977D+02 0.15251902D+01  1  2 12  2  5  2       21 0.474541611078D+09
+0.559951728712D+01 0.000000000000D+00 0.000000000000D+00 0.184901762472D+01 0.000000000000D+00  5 21 21 5 -5 21 6 0.19965639D-02 0.74404005D-02 0.79893977D+02 0.79893977D+02 0.79893977D+02 0.15251902D+01  1  2 12  2  5  2       21 0.402154134130D+09
+0.871898925039D+00 0.000000000000D+00 0.000000000000D+00 0.184901762472D+01 0.000000000000D+00  5 21 21 5 -5 21 6 0.19965639D-02 0.73437896D-02 0.79893977D+02 0.79893977D+02 0.79893977D+02 0.15251902D+01  1  2 12  2  5  2       21 0.637812529098D+08
+-.347626628463D+02 0.000000000000D+00 -.725931805562D+00 0.234802031318D+01 0.000000000000D+00  5 21 21 5 -5 21 6 0.19965639D-02 0.86751557D-02 0.31706569D+02 0.31706569D+02 0.31706569D+02 0.16190647D+01  1  2  5  2  5  2       21 -.205312752592D+10
+0.111660646931D+02 0.000000000000D+00 0.000000000000D+00 0.234802031318D+01 0.452204390706D+03  5 21 21 5 -5 21 6 0.21999820D-02 0.79355697D-02 0.79893977D+02 0.79893977D+02 0.79893977D+02 0.15251902D+01  1  2 11  2  5  2       21 0.643491188957D+09
+0.285486207877D+01 0.000000000000D+00 0.000000000000D+00 0.184901762472D+01 0.000000000000D+00  5 21 -1 5 -5 -1 6 0.19965639D-02 0.73256731D-02 0.79893977D+02 0.79893977D+02 0.79893977D+02 0.15251902D+01  1  2 12  7  5  2       21 0.137774393218D+08
+0.285486207877D+01 0.000000000000D+00 0.000000000000D+00 0.184901762472D+01 0.000000000000D+00  5 21 -2 5 -5 -2 6 0.19965639D-02 0.73256731D-02 0.79893977D+02 0.79893977D+02 0.79893977D+02 0.15251902D+01  1  2 12  7  5  2       21 0.128886561365D+08
+0.285486207877D+01 0.000000000000D+00 0.000000000000D+00 0.184901762472D+01 0.000000000000D+00  5 21 -3 5 -5 -3 6 0.19965639D-02 0.73256731D-02 0.79893977D+02 0.79893977D+02 0.79893977D+02 0.15251902D+01  1  2 12  7  5  2       21 0.962997625098D+07
+0.285486207877D+01 0.000000000000D+00 0.000000000000D+00 0.184901762472D+01 0.000000000000D+00  5 21 -4 5 -5 -4 6 0.19965639D-02 0.73256731D-02 0.79893977D+02 0.79893977D+02 0.79893977D+02 0.15251902D+01  1  2 12  7  5  2       21 0.712493587794D+07
+0.247334114616D+01 0.000000000000D+00 0.000000000000D+00 0.184901762472D+01 0.000000000000D+00  5 21 -1 5 -5 -1 6 0.19965639D-02 0.74404005D-02 0.79893977D+02 0.79893977D+02 0.79893977D+02 0.15251902D+01  1  2 12  7  5  2       21 0.116880912108D+08
+0.247334114616D+01 0.000000000000D+00 0.000000000000D+00 0.184901762472D+01 0.000000000000D+00  5 21 -2 5 -5 -2 6 0.19965639D-02 0.74404005D-02 0.79893977D+02 0.79893977D+02 0.79893977D+02 0.15251902D+01  1  2 12  7  5  2       21 0.109391483535D+08
+0.247334114616D+01 0.000000000000D+00 0.000000000000D+00 0.184901762472D+01 0.000000000000D+00  5 21 -3 5 -5 -3 6 0.19965639D-02 0.74404005D-02 0.79893977D+02 0.79893977D+02 0.79893977D+02 0.15251902D+01  1  2 12  7  5  2       21 0.816167473222D+07
+0.247334114616D+01 0.000000000000D+00 0.000000000000D+00 0.184901762472D+01 0.000000000000D+00  5 21 -4 5 -5 -4 6 0.19965639D-02 0.74404005D-02 0.79893977D+02 0.79893977D+02 0.79893977D+02 0.15251902D+01  1  2 12  7  5  2       21 0.603362671090D+07
+0.385058100759D+00 0.000000000000D+00 0.000000000000D+00 0.184901762472D+01 0.000000000000D+00  5 21 -1 5 -5 -1 6 0.19965639D-02 0.73437896D-02 0.79893977D+02 0.79893977D+02 0.79893977D+02 0.15251902D+01  1  2 12  7  5  2       21 0.185208079961D+07
+0.385058100759D+00 0.000000000000D+00 0.000000000000D+00 0.184901762472D+01 0.000000000000D+00  5 21 -2 5 -5 -2 6 0.19965639D-02 0.73437896D-02 0.79893977D+02 0.79893977D+02 0.79893977D+02 0.15251902D+01  1  2 12  7  5  2       21 0.173272899964D+07
+0.385058100759D+00 0.000000000000D+00 0.000000000000D+00 0.184901762472D+01 0.000000000000D+00  5 21 -3 5 -5 -3 6 0.19965639D-02 0.73437896D-02 0.79893977D+02 0.79893977D+02 0.79893977D+02 0.15251902D+01  1  2 12  7  5  2       21 0.129434514634D+07
+0.385058100759D+00 0.000000000000D+00 0.000000000000D+00 0.184901762472D+01 0.000000000000D+00  5 21 -4 5 -5 -4 6 0.19965639D-02 0.73437896D-02 0.79893977D+02 0.79893977D+02 0.79893977D+02 0.15251902D+01  1  2 12  7  5  2       21 0.957523066328D+06
+-.153905198766D+02 0.000000000000D+00 -.321185652245D+00 0.234802031318D+01 0.000000000000D+00  5 21 -1 5 -5 -1 6 0.19965639D-02 0.86751557D-02 0.31706569D+02 0.31706569D+02 0.31706569D+02 0.16190647D+01  1  2  5  7  5  2       21 -.617625122713D+08
+-.153905198766D+02 0.000000000000D+00 -.321185652245D+00 0.234802031318D+01 0.000000000000D+00  5 21 -2 5 -5 -2 6 0.19965639D-02 0.86751557D-02 0.31706569D+02 0.31706569D+02 0.31706569D+02 0.16190647D+01  1  2  5  7  5  2       21 -.576110254392D+08
+-.153905198766D+02 0.000000000000D+00 -.321185652245D+00 0.234802031318D+01 0.000000000000D+00  5 21 -3 5 -5 -3 6 0.19965639D-02 0.86751557D-02 0.31706569D+02 0.31706569D+02 0.31706569D+02 0.16190647D+01  1  2  5  7  5  2       21 -.404288207226D+08
+-.153905198766D+02 0.000000000000D+00 -.321185652245D+00 0.234802031318D+01 0.000000000000D+00  5 21 -4 5 -5 -4 6 0.19965639D-02 0.86751557D-02 0.31706569D+02 0.31706569D+02 0.31706569D+02 0.16190647D+01  1  2  5  7  5  2       21 -.275644090183D+08
+0.507127746530D+01 0.000000000000D+00 0.000000000000D+00 0.234802031318D+01 0.202163962944D+03  5 21 -1 5 -5 -1 6 0.21999820D-02 0.79355697D-02 0.79893977D+02 0.79893977D+02 0.79893977D+02 0.15251902D+01  1  2 11  7  5  2       21 0.192990480900D+08
+0.507127746530D+01 0.000000000000D+00 0.000000000000D+00 0.234802031318D+01 0.202163962944D+03  5 21 -2 5 -5 -2 6 0.21999820D-02 0.79355697D-02 0.79893977D+02 0.79893977D+02 0.79893977D+02 0.15251902D+01  1  2 11  7  5  2       21 0.180987538893D+08
+0.507127746530D+01 0.000000000000D+00 0.000000000000D+00 0.234802031318D+01 0.202163962944D+03  5 21 -3 5 -5 -3 6 0.21999820D-02 0.79355697D-02 0.79893977D+02 0.79893977D+02 0.79893977D+02 0.15251902D+01  1  2 11  7  5  2       21 0.134202261364D+08
+0.507127746530D+01 0.000000000000D+00 0.000000000000D+00 0.234802031318D+01 0.202163962944D+03  5 21 -4 5 -5 -4 6 0.21999820D-02 0.79355697D-02 0.79893977D+02 0.79893977D+02 0.79893977D+02 0.15251902D+01  1  2 11  7  5  2       21 0.988704250380D+07
+0.285486207877D+01 0.000000000000D+00 0.000000000000D+00 0.184901762472D+01 0.000000000000D+00  5 21 1 5 -5 1 6 0.19965639D-02 0.73256731D-02 0.79893977D+02 0.79893977D+02 0.79893977D+02 0.15251902D+01  1  2 12  8  5  2       21 0.163357944654D+08
+0.285486207877D+01 0.000000000000D+00 0.000000000000D+00 0.184901762472D+01 0.000000000000D+00  5 21 2 5 -5 2 6 0.19965639D-02 0.73256731D-02 0.79893977D+02 0.79893977D+02 0.79893977D+02 0.15251902D+01  1  2 12  8  5  2       21 0.182327737130D+08
+0.285486207877D+01 0.000000000000D+00 0.000000000000D+00 0.184901762472D+01 0.000000000000D+00  5 21 3 5 -5 3 6 0.19965639D-02 0.73256731D-02 0.79893977D+02 0.79893977D+02 0.79893977D+02 0.15251902D+01  1  2 12  8  5  2       21 0.954137687915D+07
+0.285486207877D+01 0.000000000000D+00 0.000000000000D+00 0.184901762472D+01 0.000000000000D+00  5 21 4 5 -5 4 6 0.19965639D-02 0.73256731D-02 0.79893977D+02 0.79893977D+02 0.79893977D+02 0.15251902D+01  1  2 12  8  5  2       21 0.712493587794D+07
+0.247334114616D+01 0.000000000000D+00 0.000000000000D+00 0.184901762472D+01 0.000000000000D+00  5 21 1 5 -5 1 6 0.19965639D-02 0.74404005D-02 0.79893977D+02 0.79893977D+02 0.79893977D+02 0.15251902D+01  1  2 12  8  5  2       21 0.139012270785D+08
+0.247334114616D+01 0.000000000000D+00 0.000000000000D+00 0.184901762472D+01 0.000000000000D+00  5 21 2 5 -5 2 6 0.19965639D-02 0.74404005D-02 0.79893977D+02 0.79893977D+02 0.79893977D+02 0.15251902D+01  1  2 12  8  5  2       21 0.155167481417D+08
+0.247334114616D+01 0.000000000000D+00 0.000000000000D+00 0.184901762472D+01 0.000000000000D+00  5 21 3 5 -5 3 6 0.19965639D-02 0.74404005D-02 0.79893977D+02 0.79893977D+02 0.79893977D+02 0.15251902D+01  1  2 12  8  5  2       21 0.808614262183D+07
+0.247334114616D+01 0.000000000000D+00 0.000000000000D+00 0.184901762472D+01 0.000000000000D+00  5 21 4 5 -5 4 6 0.19965639D-02 0.74404005D-02 0.79893977D+02 0.79893977D+02 0.79893977D+02 0.15251902D+01  1  2 12  8  5  2       21 0.603362671090D+07
+0.385058100759D+00 0.000000000000D+00 0.000000000000D+00 0.184901762472D+01 0.000000000000D+00  5 21 1 5 -5 1 6 0.19965639D-02 0.73437896D-02 0.79893977D+02 0.79893977D+02 0.79893977D+02 0.15251902D+01  1  2 12  8  5  2       21 0.219706672458D+07
+0.385058100759D+00 0.000000000000D+00 0.000000000000D+00 0.184901762472D+01 0.000000000000D+00  5 21 2 5 -5 2 6 0.19965639D-02 0.73437896D-02 0.79893977D+02 0.79893977D+02 0.79893977D+02 0.15251902D+01  1  2 12  8  5  2       21 0.245223087131D+07
+0.385058100759D+00 0.000000000000D+00 0.000000000000D+00 0.184901762472D+01 0.000000000000D+00  5 21 3 5 -5 3 6 0.19965639D-02 0.73437896D-02 0.79893977D+02 0.79893977D+02 0.79893977D+02 0.15251902D+01  1  2 12  8  5  2       21 0.128242551581D+07
+0.385058100759D+00 0.000000000000D+00 0.000000000000D+00 0.184901762472D+01 0.000000000000D+00  5 21 4 5 -5 4 6 0.19965639D-02 0.73437896D-02 0.79893977D+02 0.79893977D+02 0.79893977D+02 0.15251902D+01  1  2 12  8  5  2       21 0.957523066328D+06
+-.153905198766D+02 0.000000000000D+00 -.321185652245D+00 0.234802031318D+01 0.000000000000D+00  5 21 1 5 -5 1 6 0.19965639D-02 0.86751557D-02 0.31706569D+02 0.31706569D+02 0.31706569D+02 0.16190647D+01  1  2  5  8  5  2       21 -.763144060090D+08
+-.153905198766D+02 0.000000000000D+00 -.321185652245D+00 0.234802031318D+01 0.000000000000D+00  5 21 2 5 -5 2 6 0.19965639D-02 0.86751557D-02 0.31706569D+02 0.31706569D+02 0.31706569D+02 0.16190647D+01  1  2  5  8  5  2       21 -.857711563982D+08
+-.153905198766D+02 0.000000000000D+00 -.321185652245D+00 0.234802031318D+01 0.000000000000D+00  5 21 3 5 -5 3 6 0.19965639D-02 0.86751557D-02 0.31706569D+02 0.31706569D+02 0.31706569D+02 0.16190647D+01  1  2  5  8  5  2       21 -.399482375571D+08
+-.153905198766D+02 0.000000000000D+00 -.321185652245D+00 0.234802031318D+01 0.000000000000D+00  5 21 4 5 -5 4 6 0.19965639D-02 0.86751557D-02 0.31706569D+02 0.31706569D+02 0.31706569D+02 0.16190647D+01  1  2  5  8  5  2       21 -.275644090183D+08
+0.496971997654D+01 0.000000000000D+00 0.000000000000D+00 0.234802031318D+01 0.198115423984D+03  5 21 1 5 -5 1 6 0.21999820D-02 0.79355697D-02 0.79893977D+02 0.79893977D+02 0.79893977D+02 0.15251902D+01  1  2 11  8  5  2       21 0.227913056434D+08
+0.496971997654D+01 0.000000000000D+00 0.000000000000D+00 0.234802031318D+01 0.198115423984D+03  5 21 2 5 -5 2 6 0.21999820D-02 0.79355697D-02 0.79893977D+02 0.79893977D+02 0.79893977D+02 0.15251902D+01  1  2 11  8  5  2       21 0.254486737446D+08
+0.496971997654D+01 0.000000000000D+00 0.000000000000D+00 0.234802031318D+01 0.198115423984D+03  5 21 3 5 -5 3 6 0.21999820D-02 0.79355697D-02 0.79893977D+02 0.79893977D+02 0.79893977D+02 0.15251902D+01  1  2 11  8  5  2       21 0.130268842335D+08
+0.496971997654D+01 0.000000000000D+00 0.000000000000D+00 0.234802031318D+01 0.198115423984D+03  5 21 4 5 -5 4 6 0.21999820D-02 0.79355697D-02 0.79893977D+02 0.79893977D+02 0.79893977D+02 0.15251902D+01  1  2 11  8  5  2       21 0.968904442248D+07
+  </mgrwgt>
+  <rwgt>
+   <wgt id='1001'> -.74954E+09 </wgt>
+   <wgt id='1002'> -.35215E+09 </wgt>
+   <wgt id='1003'> -.21932E+10 </wgt>
+   <wgt id='1004'> -.17705E+10 </wgt>
+   <wgt id='1005'> -.91577E+09 </wgt>
+   <wgt id='1006'> -.45563E+10 </wgt>
+   <wgt id='1007'> 0.11809E+09 </wgt>
+   <wgt id='1008'> 0.12155E+09 </wgt>
+   <wgt id='1009'> -.14392E+09 </wgt>
+  </rwgt>
+  </event>
+  <event>
+  4      0 0.74954605E+09 0.18538290E+02 0.75467711E-02 0.19046536E+00
+       21 -1    0    0  503  502 0.00000000E+00 0.00000000E+00 0.69618988E+03 0.69619028E+03 0.75000000E+00 0.0000E+00 0.9000E+01
+       21 -1    0    0  501  503 0.00000000E+00 0.00000000E+00 -.48782222E-02 0.24149651E+00 0.24144724E+00 0.0000E+00 0.9000E+01
+        5  1    1    2  501    0 -.36571278E+01 -.52846194E+01 0.16979559E+03 0.16998215E+03 0.47000000E+01 0.0000E+00 0.9000E+01
+       -5  1    1    2    0  502 0.36571278E+01 0.52846194E+01 0.52638942E+03 0.52644963E+03 0.47000000E+01 0.0000E+00 0.9000E+01
+#aMCatNLO 1  0  0  0  0 0.00000000E+00 0.00000000E+00 -9  5  0 0.00000000E+00 0.00000000E+00 0.00000000E+00 0.00000000E+00 0.00000000E+00
+  <mgrwgt>
+ 0.6899293100D+08    1    2    0
+ 0.926914484080453D+01 0.000000000000000D+00 0.000000000000000D+00 0.926914484080453D+01
+ 0.926914484080453D+01 0.000000000000000D+00 0.000000000000000D+00 -.926914484080453D+01
+ 0.926914484080453D+01 -.365712778910532D+01 -.528461936274823D+01 -.474607844486724D+01
+ 0.926914484080453D+01 0.365712778910532D+01 0.528461936274823D+01 0.474607844486724D+01
+ 0.000000000000000D+00 -.000000000000000D+00 -.000000000000000D+00 0.000000000000000D+00
+ 0.161941374841037D+02 0.000000000000000D+00 0.000000000000000D+00 0.161941374841037D+02
+ 0.103190514703654D+02 0.000000000000000D+00 0.000000000000000D+00 -.103190514703654D+02
+ 0.820209609784624D+01 -.354366436996407D+01 -.317829555367625D+01 -.474607844486724D+01
+ 0.108846448242640D+02 0.378801247509196D+01 0.771434986464130D+01 0.474607844486724D+01
+ 0.742644803235892D+01 -.244348105127890D+00 -.453605431096505D+01 0.587508601373831D+01
+0.174436736882D-01 0.000000000000D+00 0.000000000000D+00 0.241809289435D+01 0.000000000000D+00  5 21 21 5 -5 21 6 0.10712437D+00 0.18982978D-04 0.63391785D+02 0.63391785D+02 0.63391785D+02 0.15470806D+01  1  2 14  1  5  1       21 0.591031640572D+07
+  </mgrwgt>
+  <rwgt>
+   <wgt id='1001'> 0.74955E+09 </wgt>
+   <wgt id='1002'> 0.46507E+09 </wgt>
+   <wgt id='1003'> 0.13551E+10 </wgt>
+   <wgt id='1004'> 0.10585E+10 </wgt>
+   <wgt id='1005'> 0.65677E+09 </wgt>
+   <wgt id='1006'> 0.19137E+10 </wgt>
+   <wgt id='1007'> 0.45037E+09 </wgt>
+   <wgt id='1008'> 0.27945E+09 </wgt>
+   <wgt id='1009'> 0.81423E+09 </wgt>
+  </rwgt>
+  </event>
+  <event>
+  4      0 -.74954605E+09 0.12450703E+02 0.75467711E-02 0.17799957E+00
+       21 -1    0    0  503  502 0.00000000E+00 0.00000000E+00 0.56947668E+01 0.57439419E+01 0.75000000E+00 0.0000E+00 0.9000E+01
+       21 -1    0    0  501  503 0.00000000E+00 0.00000000E+00 -.67059447E+01 0.67477547E+01 0.75000000E+00 0.0000E+00 0.9000E+01
+        5  1    1    2  501    0 0.37541220E+01 0.42422623E+00 -.20571611E+01 0.63714450E+01 0.47000000E+01 0.0000E+00 0.9000E+01
+       -5  1    1    2    0  502 -.37541220E+01 -.42422623E+00 0.10459832E+01 0.61202517E+01 0.47000000E+01 0.0000E+00 0.9000E+01
+#aMCatNLO 1  0  0  1  2 0.71148944E+01 0.00000000E+00 -9  5  0 0.00000000E+00 0.00000000E+00 0.00000000E+00 0.00000000E+00 0.00000000E+00
+  <mgrwgt>
+ -.6899293100D+08   39    2    0
+ 0.622535150147362D+01 0.000000000000000D+00 0.000000000000000D+00 0.622535150147362D+01
+ 0.622535150147362D+01 0.000000000000000D+00 0.000000000000000D+00 -.622535150147362D+01
+ 0.622535150147362D+01 0.375412196843334D+01 0.424226229509146D+00 -.154648041346229D+01
+ 0.622535150147362D+01 -.375412196843334D+01 -.424226229509146D+00 0.154648041346229D+01
+ 0.000000000000000D+00 -.000000000000000D+00 -.000000000000000D+00 0.000000000000000D+00
+ 0.657151485225363D+02 0.000000000000000D+00 0.000000000000000D+00 0.657151485225363D+02
+ 0.738627254560806D+01 0.000000000000000D+00 0.000000000000000D+00 -.738627254560806D+01
+ 0.931170981479152D+01 0.776273755705892D+01 0.140222809338890D+01 -.154648041346229D+01
+ 0.502850385057249D+01 -.850588341445388D+00 0.284163297061889D+00 0.154648041346229D+01
+ 0.587612074027804D+02 -.691214921561354D+01 -.168639139045079D+01 0.583288759769283D+02
+0.244519023337D-01 0.000000000000D+00 0.000000000000D+00 0.167580867245D+01 0.000000000000D+00  5 21 21 5 -5 21 4 0.88311683D-03 0.10386827D-02 0.36363400D+02 0.36363400D+02 0.36363400D+02 0.16039882D+01  1  2  2  1  5  1       21 0.248628871537D+08
+-.216383307932D-02 0.258072467371D-02 -.482094851766D-05 0.167580867245D+01 0.000000000000D+00  5 21 21 5 -5 21 6 0.88311683D-03 0.10386827D-02 0.36363400D+02 0.36363400D+02 0.36363400D+02 0.16039882D+01  1  2  3  1  5  1       21 -.566063335039D+07
+0.422556330115D-02 0.000000000000D+00 0.000000000000D+00 0.167580867245D+01 0.000000000000D+00  5 21 21 5 -5 21 6 0.88311683D-03 0.10386827D-02 0.36363400D+02 0.36363400D+02 0.36363400D+02 0.16039882D+01  1  2 15  1  5  1       21 0.110541634543D+08
+0.511885186920D+01 0.000000000000D+00 0.000000000000D+00 0.126671047478D+01 0.000000000000D+00  5 21 21 5 -5 21 6 0.82526405D-02 0.10386827D-02 0.11111353D+03 0.11111353D+03 0.11111353D+03 0.14955964D+01  1  2 12  1  5  1       21 0.745603936566D+09
+0.136346850806D+01 0.000000000000D+00 0.000000000000D+00 0.126671047478D+01 0.000000000000D+00  5 21 21 5 -5 21 6 0.83453788D-02 0.10386827D-02 0.11111353D+03 0.11111353D+03 0.11111353D+03 0.14955964D+01  1  2 12  1  5  1       21 0.195432435263D+09
+-.214325948485D+02 0.000000000000D+00 -.125608138458D+01 0.167580867245D+01 0.000000000000D+00  5 21 21 5 -5 21 6 0.10952190D-01 0.10386827D-02 0.36363400D+02 0.36363400D+02 0.36363400D+02 0.16039882D+01  1  2  5  1  5  1       21 -.210653692954D+10
+0.513864189277D+00 0.000000000000D+00 0.000000000000D+00 0.167580867245D+01 0.682221383918D+02  5 21 21 5 -5 21 6 0.93222292D-02 0.12323791D-02 0.11111353D+03 0.11111353D+03 0.11111353D+03 0.14955964D+01  1  2 11  1  5  1       21 0.500358106334D+08
+0.223202087845D+01 0.000000000000D+00 0.000000000000D+00 0.126671047478D+01 0.000000000000D+00  5 -1 21 5 -5 -1 6 0.82526405D-02 0.10386827D-02 0.11111353D+03 0.11111353D+03 0.11111353D+03 0.14955964D+01  1  2 12  5  5  1       21 0.214089292582D+08
+0.223202087845D+01 0.000000000000D+00 0.000000000000D+00 0.126671047478D+01 0.000000000000D+00  5 -2 21 5 -5 -2 6 0.82526405D-02 0.10386827D-02 0.11111353D+03 0.11111353D+03 0.11111353D+03 0.14955964D+01  1  2 12  5  5  1       21 0.201524595045D+08
+0.223202087845D+01 0.000000000000D+00 0.000000000000D+00 0.126671047478D+01 0.000000000000D+00  5 -3 21 5 -5 -3 6 0.82526405D-02 0.10386827D-02 0.11111353D+03 0.11111353D+03 0.11111353D+03 0.14955964D+01  1  2 12  5  5  1       21 0.150747237939D+08
+0.223202087845D+01 0.000000000000D+00 0.000000000000D+00 0.126671047478D+01 0.000000000000D+00  5 -4 21 5 -5 -4 6 0.82526405D-02 0.10386827D-02 0.11111353D+03 0.11111353D+03 0.11111353D+03 0.14955964D+01  1  2 12  5  5  1       21 0.112909054043D+08
+0.594789707519D+00 0.000000000000D+00 0.000000000000D+00 0.126671047478D+01 0.000000000000D+00  5 -1 21 5 -5 -1 6 0.83453788D-02 0.10386827D-02 0.11111353D+03 0.11111353D+03 0.11111353D+03 0.14955964D+01  1  2 12  5  5  1       21 0.561842302033D+07
+0.594789707519D+00 0.000000000000D+00 0.000000000000D+00 0.126671047478D+01 0.000000000000D+00  5 -2 21 5 -5 -2 6 0.83453788D-02 0.10386827D-02 0.11111353D+03 0.11111353D+03 0.11111353D+03 0.14955964D+01  1  2 12  5  5  1       21 0.529039752368D+07
+0.594789707519D+00 0.000000000000D+00 0.000000000000D+00 0.126671047478D+01 0.000000000000D+00  5 -3 21 5 -5 -3 6 0.83453788D-02 0.10386827D-02 0.11111353D+03 0.11111353D+03 0.11111353D+03 0.14955964D+01  1  2 12  5  5  1       21 0.395294814811D+07
+0.594789707519D+00 0.000000000000D+00 0.000000000000D+00 0.126671047478D+01 0.000000000000D+00  5 -4 21 5 -5 -4 6 0.83453788D-02 0.10386827D-02 0.11111353D+03 0.11111353D+03 0.11111353D+03 0.14955964D+01  1  2 12  5  5  1       21 0.295895689717D+07
+-.944964810456D+01 0.000000000000D+00 -.552391691095D+00 0.167580867245D+01 0.000000000000D+00  5 -1 21 5 -5 -1 6 0.10952190D-01 0.10386827D-02 0.36363400D+02 0.36363400D+02 0.36363400D+02 0.16039882D+01  1  2  5  5  5  1       21 -.634005127304D+08
+-.944964810456D+01 0.000000000000D+00 -.552391691095D+00 0.167580867245D+01 0.000000000000D+00  5 -2 21 5 -5 -2 6 0.10952190D-01 0.10386827D-02 0.36363400D+02 0.36363400D+02 0.36363400D+02 0.16039882D+01  1  2  5  5  5  1       21 -.595255841280D+08
+-.944964810456D+01 0.000000000000D+00 -.552391691095D+00 0.167580867245D+01 0.000000000000D+00  5 -3 21 5 -5 -3 6 0.10952190D-01 0.10386827D-02 0.36363400D+02 0.36363400D+02 0.36363400D+02 0.16039882D+01  1  2  5  5  5  1       21 -.410708534020D+08
+-.944964810456D+01 0.000000000000D+00 -.552391691095D+00 0.167580867245D+01 0.000000000000D+00  5 -4 21 5 -5 -4 6 0.10952190D-01 0.10386827D-02 0.36363400D+02 0.36363400D+02 0.36363400D+02 0.16039882D+01  1  2  5  5  5  1       21 -.279858067594D+08
+0.247802511185D+00 0.000000000000D+00 0.000000000000D+00 0.167580867245D+01 0.308089943241D+02  5 -1 21 5 -5 -1 6 0.93222292D-02 0.12323791D-02 0.11111353D+03 0.11111353D+03 0.11111353D+03 0.14955964D+01  1  2 11  5  5  1       21 0.160343635825D+07
+0.247802511185D+00 0.000000000000D+00 0.000000000000D+00 0.167580867245D+01 0.308089943241D+02  5 -2 21 5 -5 -2 6 0.93222292D-02 0.12323791D-02 0.11111353D+03 0.11111353D+03 0.11111353D+03 0.14955964D+01  1  2 11  5  5  1       21 0.151361948003D+07
+0.247802511185D+00 0.000000000000D+00 0.000000000000D+00 0.167580867245D+01 0.308089943241D+02  5 -3 21 5 -5 -3 6 0.93222292D-02 0.12323791D-02 0.11111353D+03 0.11111353D+03 0.11111353D+03 0.14955964D+01  1  2 11  5  5  1       21 0.111835407454D+07
+0.247802511185D+00 0.000000000000D+00 0.000000000000D+00 0.167580867245D+01 0.308089943241D+02  5 -4 21 5 -5 -4 6 0.93222292D-02 0.12323791D-02 0.11111353D+03 0.11111353D+03 0.11111353D+03 0.14955964D+01  1  2 11  5  5  1       21 0.832013595970D+06
+0.223202087845D+01 0.000000000000D+00 0.000000000000D+00 0.126671047478D+01 0.000000000000D+00  5 1 21 5 -5 1 6 0.82526405D-02 0.10386827D-02 0.11111353D+03 0.11111353D+03 0.11111353D+03 0.14955964D+01  1  2 12  6  5  1       21 0.259715351618D+08
+0.223202087845D+01 0.000000000000D+00 0.000000000000D+00 0.126671047478D+01 0.000000000000D+00  5 2 21 5 -5 2 6 0.82526405D-02 0.10386827D-02 0.11111353D+03 0.11111353D+03 0.11111353D+03 0.14955964D+01  1  2 12  6  5  1       21 0.289540517913D+08
+0.223202087845D+01 0.000000000000D+00 0.000000000000D+00 0.126671047478D+01 0.000000000000D+00  5 3 21 5 -5 3 6 0.82526405D-02 0.10386827D-02 0.11111353D+03 0.11111353D+03 0.11111353D+03 0.14955964D+01  1  2 12  6  5  1       21 0.149385254201D+08
+0.223202087845D+01 0.000000000000D+00 0.000000000000D+00 0.126671047478D+01 0.000000000000D+00  5 4 21 5 -5 4 6 0.82526405D-02 0.10386827D-02 0.11111353D+03 0.11111353D+03 0.11111353D+03 0.14955964D+01  1  2 12  6  5  1       21 0.112909054043D+08
+0.594789707519D+00 0.000000000000D+00 0.000000000000D+00 0.126671047478D+01 0.000000000000D+00  5 1 21 5 -5 1 6 0.83453788D-02 0.10386827D-02 0.11111353D+03 0.11111353D+03 0.11111353D+03 0.14955964D+01  1  2 12  6  5  1       21 0.683183590606D+07
+0.594789707519D+00 0.000000000000D+00 0.000000000000D+00 0.126671047478D+01 0.000000000000D+00  5 2 21 5 -5 2 6 0.83453788D-02 0.10386827D-02 0.11111353D+03 0.11111353D+03 0.11111353D+03 0.14955964D+01  1  2 12  6  5  1       21 0.761728370762D+07
+0.594789707519D+00 0.000000000000D+00 0.000000000000D+00 0.126671047478D+01 0.000000000000D+00  5 3 21 5 -5 3 6 0.83453788D-02 0.10386827D-02 0.11111353D+03 0.11111353D+03 0.11111353D+03 0.14955964D+01  1  2 12  6  5  1       21 0.391710440694D+07
+0.594789707519D+00 0.000000000000D+00 0.000000000000D+00 0.126671047478D+01 0.000000000000D+00  5 4 21 5 -5 4 6 0.83453788D-02 0.10386827D-02 0.11111353D+03 0.11111353D+03 0.11111353D+03 0.14955964D+01  1  2 12  6  5  1       21 0.295895689717D+07
+-.944964810456D+01 0.000000000000D+00 -.552391691095D+00 0.167580867245D+01 0.000000000000D+00  5 1 21 5 -5 1 6 0.10952190D-01 0.10386827D-02 0.36363400D+02 0.36363400D+02 0.36363400D+02 0.16039882D+01  1  2  5  6  5  1       21 -.825565010458D+08
+-.944964810456D+01 0.000000000000D+00 -.552391691095D+00 0.167580867245D+01 0.000000000000D+00  5 2 21 5 -5 2 6 0.10952190D-01 0.10386827D-02 0.36363400D+02 0.36363400D+02 0.36363400D+02 0.16039882D+01  1  2  5  6  5  1       21 -.930525956082D+08
+-.944964810456D+01 0.000000000000D+00 -.552391691095D+00 0.167580867245D+01 0.000000000000D+00  5 3 21 5 -5 3 6 0.10952190D-01 0.10386827D-02 0.36363400D+02 0.36363400D+02 0.36363400D+02 0.16039882D+01  1  2  5  6  5  1       21 -.405676186457D+08
+-.944964810456D+01 0.000000000000D+00 -.552391691095D+00 0.167580867245D+01 0.000000000000D+00  5 4 21 5 -5 4 6 0.10952190D-01 0.10386827D-02 0.36363400D+02 0.36363400D+02 0.36363400D+02 0.16039882D+01  1  2  5  6  5  1       21 -.279858067594D+08
+0.234673926316D+00 0.000000000000D+00 0.000000000000D+00 0.167580867245D+01 0.291767328317D+02  5 1 21 5 -5 1 6 0.93222292D-02 0.12323791D-02 0.11111353D+03 0.11111353D+03 0.11111353D+03 0.14955964D+01  1  2 11  6  5  1       21 0.189044946250D+07
+0.234673926316D+00 0.000000000000D+00 0.000000000000D+00 0.167580867245D+01 0.291767328317D+02  5 2 21 5 -5 2 6 0.93222292D-02 0.12323791D-02 0.11111353D+03 0.11111353D+03 0.11111353D+03 0.14955964D+01  1  2 11  6  5  1       21 0.211180813968D+07
+0.234673926316D+00 0.000000000000D+00 0.000000000000D+00 0.167580867245D+01 0.291767328317D+02  5 3 21 5 -5 3 6 0.93222292D-02 0.12323791D-02 0.11111353D+03 0.11111353D+03 0.11111353D+03 0.14955964D+01  1  2 11  6  5  1       21 0.104918500581D+07
+0.234673926316D+00 0.000000000000D+00 0.000000000000D+00 0.167580867245D+01 0.291767328317D+02  5 4 21 5 -5 4 6 0.93222292D-02 0.12323791D-02 0.11111353D+03 0.11111353D+03 0.11111353D+03 0.14955964D+01  1  2 11  6  5  1       21 0.787933489377D+06
+  </mgrwgt>
+  <rwgt>
+   <wgt id='1001'> -.74955E+09 </wgt>
+   <wgt id='1002'> -.41689E+09 </wgt>
+   <wgt id='1003'> -.16722E+10 </wgt>
+   <wgt id='1004'> -.15160E+10 </wgt>
+   <wgt id='1005'> -.85908E+09 </wgt>
+   <wgt id='1006'> -.32775E+10 </wgt>
+   <wgt id='1007'> -.15523E+09 </wgt>
+   <wgt id='1008'> -.75891E+08 </wgt>
+   <wgt id='1009'> -.41389E+09 </wgt>
+  </rwgt>
+  </event>
+  <event>
+  5      0 0.74954605E+09 0.30000000E+02 0.75467711E-02 0.14910591E+00
+        1 -1    0    0  503    0 0.00000000E+00 0.00000000E+00 0.99050358E+01 0.99102035E+01 0.32000000E+00 0.0000E+00 0.9000E+01
+       21 -1    0    0  501  503 0.00000000E+00 0.00000000E+00 -.71457285E+02 0.71461220E+02 0.75000000E+00 0.0000E+00 0.9000E+01
+        5  1    1    2  501    0 0.30923964E+01 -.52376296E+00 -.13664750E+02 0.14786907E+02 0.47000000E+01 0.0000E+00 0.9000E+01
+       -5  1    1    2    0  502 -.11201350E+02 -.18642751E+02 -.12478471E+02 0.25511265E+02 0.47000000E+01 0.0000E+00 0.9000E+01
+        1  1    1    2  502    0 0.81089532E+01 0.19166514E+02 -.35409028E+02 0.41073252E+02 0.32000000E+00 0.0000E+00 0.9000E+01
+#aMCatNLO 2  0  0  1  2 0.20811304E+02 0.00000000E+00 -9  5  0 0.00000000E+00 0.00000000E+00 0.00000000E+00 0.00000000E+00 0.00000000E+00
+  <mgrwgt>
+ 0.6899293100D+08    1    2    0
+ 0.112623743178063D+02 0.000000000000000D+00 0.000000000000000D+00 0.112623743178063D+02
+ 0.112623743178063D+02 0.000000000000000D+00 0.000000000000000D+00 -.112623743178063D+02
+ 0.112623743178063D+02 0.599562129151535D+01 0.633836798635967D+01 -.535057864838957D+01
+ 0.112623743178063D+02 -.599562129151535D+01 -.633836798635967D+01 0.535057864838957D+01
+ 0.000000000000000D+00 0.000000000000000D+00 0.000000000000000D+00 -.000000000000000D+00
+ 0.214684963853532D+02 0.000000000000000D+00 0.000000000000000D+00 0.214684963853532D+02
+ 0.329829784220620D+02 0.000000000000000D+00 0.000000000000000D+00 -.329829784220620D+02
+ 0.778176940296653D+01 0.309239640533350D+01 -.523762962249196D+00 -.535057864838957D+01
+ 0.228853899810398D+02 -.112013496547047D+02 -.186427505648904D+02 0.535057864838957D+01
+ 0.237843154234089D+02 0.810895324937124D+01 0.191665135271396D+02 -.115144820367089D+02
+0.560068557171D+00 0.000000000000D+00 0.000000000000D+00 0.127600112207D+01 0.606035336983D-01  5 1 21 5 -5 1 6 0.15244848D-02 0.10993645D-01 0.59323530D+03 0.59323530D+03 0.59323530D+03 0.13688390D+01  1  2  1  6  5  1       21 0.159415055122D+07
+  </mgrwgt>
+  <rwgt>
+   <wgt id='1001'> 0.74955E+09 </wgt>
+   <wgt id='1002'> 0.51509E+09 </wgt>
+   <wgt id='1003'> 0.11550E+10 </wgt>
+   <wgt id='1004'> 0.89953E+09 </wgt>
+   <wgt id='1005'> 0.61816E+09 </wgt>
+   <wgt id='1006'> 0.13860E+10 </wgt>
+   <wgt id='1007'> 0.58832E+09 </wgt>
+   <wgt id='1008'> 0.40430E+09 </wgt>
+   <wgt id='1009'> 0.90653E+09 </wgt>
+  </rwgt>
+  </event>
+  <event>
+  4      0 0.74954605E+09 0.13291918E+02 0.75467711E-02 0.15426646E+00
+       21 -1    0    0  501  502 0.00000000E+00 0.00000000E+00 0.60229905E+00 0.96190651E+00 0.75000000E+00 0.0000E+00 0.9000E+01
+       21 -1    0    0  502  503 0.00000000E+00 0.00000000E+00 -.56111693E+02 0.56116705E+02 0.75000000E+00 0.0000E+00 0.9000E+01
+        5  1    1    2  501    0 0.35962217E+01 0.16897953E+01 -.38525055E+02 0.39013563E+02 0.47000000E+01 0.0000E+00 0.9000E+01
+       -5  1    1    2    0  503 -.35962217E+01 -.16897953E+01 -.16984339E+02 0.18065048E+02 0.47000000E+01 0.0000E+00 0.9000E+01
+#aMCatNLO 1  0  0  1  2 0.18726316E+02 0.00000000E+00 -9  5  0 0.00000000E+00 0.00000000E+00 0.00000000E+00 0.00000000E+00 0.00000000E+00
+  <mgrwgt>
+ 0.6942526300D+08   12    2    0
+ 0.664595904485499D+01 0.000000000000000D+00 0.000000000000000D+00 0.664595904485499D+01
+ 0.664595904485499D+01 0.000000000000000D+00 0.000000000000000D+00 -.664595904485499D+01
+ 0.664595904485499D+01 0.359622169098592D+01 0.168979532250653D+01 -.250809747482175D+01
+ 0.664595904485499D+01 -.359622169098592D+01 -.168979532250653D+01 0.250809747482175D+01
+ 0.000000000000000D+00 0.000000000000000D+00 0.000000000000000D+00 0.000000000000000D+00
+ 0.275649646688565D+02 0.000000000000000D+00 0.000000000000000D+00 0.275649646688565D+02
+ 0.169330992257435D+02 0.000000000000000D+00 0.000000000000000D+00 -.169330992257435D+02
+ 0.607459099807451D+01 -.142510501771004D+01 -.254738660968027D+01 -.250809747482175D+01
+ 0.168895116526817D+02 -.128866444491559D+02 -.952939902427759D+01 0.250809747482175D+01
+ 0.215339612438438D+02 0.143117494668659D+02 0.120767856339579D+02 0.106318654431130D+02
+0.726353926888D-01 0.000000000000D+00 0.000000000000D+00 0.205388937166D+01 0.000000000000D+00  5 21 21 5 -5 21 4 0.12070905D-03 0.86606158D-02 0.37878219D+02 0.37878219D+02 0.37878219D+02 0.15995829D+01  1  2  2  1  5  1       21 0.554390732551D+08
+-.493585919958D-02 0.766614995996D-02 -.143208280457D-04 0.205388937166D+01 0.000000000000D+00  5 21 21 5 -5 21 6 0.12070905D-03 0.86606158D-02 0.37878219D+02 0.37878219D+02 0.37878219D+02 0.15995829D+01  1  2  3  1  5  1       21 -.963926587970D+07
+0.124980684318D-01 0.000000000000D+00 0.000000000000D+00 0.205388937166D+01 0.000000000000D+00  5 21 21 5 -5 21 6 0.12070905D-03 0.86606158D-02 0.37878219D+02 0.37878219D+02 0.37878219D+02 0.15995829D+01  1  2 15  1  5  1       21 0.244075448115D+08
+0.359863413277D+01 0.000000000000D+00 -.281292935745D+01 0.205388937166D+01 0.000000000000D+00  5 21 21 5 -5 21 6 0.12746440D-02 0.86606158D-02 0.37878219D+02 0.37878219D+02 0.37878219D+02 0.15995829D+01  1  2  5  1  5  1       21 0.377703185943D+09
+0.157615403529D+01 0.000000000000D+00 -.123185613516D+01 0.205388937166D+01 0.000000000000D+00  5 -1 21 5 -5 -1 6 0.12746440D-02 0.86606158D-02 0.37878219D+02 0.37878219D+02 0.37878219D+02 0.15995829D+01  1  2  5  5  5  1       21 0.105807596426D+08
+0.157615403529D+01 0.000000000000D+00 -.123185613516D+01 0.205388937166D+01 0.000000000000D+00  5 -2 21 5 -5 -2 6 0.12746440D-02 0.86606158D-02 0.37878219D+02 0.37878219D+02 0.37878219D+02 0.15995829D+01  1  2  5  5  5  1       21 0.104485190875D+08
+0.157615403529D+01 0.000000000000D+00 -.123185613516D+01 0.205388937166D+01 0.000000000000D+00  5 -3 21 5 -5 -3 6 0.12746440D-02 0.86606158D-02 0.37878219D+02 0.37878219D+02 0.37878219D+02 0.15995829D+01  1  2  5  5  5  1       21 0.747154292547D+07
+0.157615403529D+01 0.000000000000D+00 -.123185613516D+01 0.205388937166D+01 0.000000000000D+00  5 -4 21 5 -5 -4 6 0.12746440D-02 0.86606158D-02 0.37878219D+02 0.37878219D+02 0.37878219D+02 0.15995829D+01  1  2  5  5  5  1       21 0.574871117810D+07
+0.157615403529D+01 0.000000000000D+00 -.123185613516D+01 0.205388937166D+01 0.000000000000D+00  5 1 21 5 -5 1 6 0.12746440D-02 0.86606158D-02 0.37878219D+02 0.37878219D+02 0.37878219D+02 0.15995829D+01  1  2  5  6  5  1       21 0.111649526819D+08
+0.157615403529D+01 0.000000000000D+00 -.123185613516D+01 0.205388937166D+01 0.000000000000D+00  5 2 21 5 -5 2 6 0.12746440D-02 0.86606158D-02 0.37878219D+02 0.37878219D+02 0.37878219D+02 0.15995829D+01  1  2  5  6  5  1       21 0.115188134189D+08
+0.157615403529D+01 0.000000000000D+00 -.123185613516D+01 0.205388937166D+01 0.000000000000D+00  5 3 21 5 -5 3 6 0.12746440D-02 0.86606158D-02 0.37878219D+02 0.37878219D+02 0.37878219D+02 0.15995829D+01  1  2  5  6  5  1       21 0.743964878576D+07
+0.157615403529D+01 0.000000000000D+00 -.123185613516D+01 0.205388937166D+01 0.000000000000D+00  5 4 21 5 -5 4 6 0.12746440D-02 0.86606158D-02 0.37878219D+02 0.37878219D+02 0.37878219D+02 0.15995829D+01  1  2  5  6  5  1       21 0.574871117810D+07
+  </mgrwgt>
+  <rwgt>
+   <wgt id='1001'> 0.74954E+09 </wgt>
+   <wgt id='1002'> 0.47728E+09 </wgt>
+   <wgt id='1003'> 0.13754E+10 </wgt>
+   <wgt id='1004'> 0.10702E+09 </wgt>
+   <wgt id='1005'> 0.11574E+09 </wgt>
+   <wgt id='1006'> 0.37262E+08 </wgt>
+   <wgt id='1007'> 0.61413E+09 </wgt>
+   <wgt id='1008'> 0.37743E+09 </wgt>
+   <wgt id='1009'> 0.11724E+10 </wgt>
+  </rwgt>
+  </event>
+  <event>
+  4      0 0.74954605E+09 0.12299153E+02 0.75467711E-02 0.13706291E+00
+       21 -1    0    0  501  502 0.00000000E+00 0.00000000E+00 0.13705618E-01 0.67848141E+00 0.67834297E+00 0.0000E+00 0.9000E+01
+       21 -1    0    0  502  503 0.00000000E+00 0.00000000E+00 -.10852775E+03 0.10853034E+03 0.75000000E+00 0.0000E+00 0.9000E+01
+        5  1    1    2  501    0 -.38842965E+01 -.67321079E+00 -.50424253E+02 0.50796026E+02 0.47000000E+01 0.0000E+00 0.9000E+01
+       -5  1    1    2    0  503 0.38842965E+01 0.67321079E+00 -.58089792E+02 0.58412798E+02 0.47000000E+01 0.0000E+00 0.9000E+01
+#aMCatNLO 1  0  0  1  1 0.37478468E+02 0.00000000E+00 -9  5  0 0.00000000E+00 0.00000000E+00 0.00000000E+00 0.00000000E+00 0.00000000E+00
+  <mgrwgt>
+ 0.6942526300D+08   12    2    0
+ 0.614957660097078D+01 0.000000000000000D+00 0.000000000000000D+00 0.614957660097078D+01
+ 0.614957660097078D+01 0.000000000000000D+00 0.000000000000000D+00 -.614957660097078D+01
+ 0.614957660097078D+01 -.388429648714971D+01 -.673210788574690D+00 0.431648474189796D+00
+ 0.614957660097078D+01 0.388429648714971D+01 0.673210788574690D+00 -.431648474189796D+00
+ 0.000000000000000D+00 -.000000000000000D+00 0.000000000000000D+00 0.000000000000000D+00
+ 0.986527212063295D+02 0.000000000000000D+00 0.000000000000000D+00 0.986527212063295D+02
+ 0.241714570387640D+02 0.000000000000000D+00 0.000000000000000D+00 -.241714570387640D+02
+ 0.171999342506865D+02 0.243857162719623D+01 -.163589359752309D+02 0.431648474189796D+00
+ 0.222450242156069D+02 0.115733361960898D+02 -.184017029440197D+02 -.431648474189796D+00
+ 0.833792197788002D+02 -.140119078232860D+02 0.347606389192506D+02 0.744812641675655D+02
+0.244998404009D-01 0.000000000000D+00 0.000000000000D+00 0.143867284959D+01 0.000000000000D+00  5 21 21 5 -5 21 4 0.53444500D-04 0.16747913D-01 0.37630972D+02 0.37630972D+02 0.37630972D+02 0.16002872D+01  1  2  2  1  5  1       21 0.209319551919D+08
+-.271657469981D-02 0.258578419632D-02 -.483040000943D-05 0.143867284959D+01 0.000000000000D+00  5 21 21 5 -5 21 6 0.53444500D-04 0.16747913D-01 0.37630972D+02 0.37630972D+02 0.37630972D+02 0.16002872D+01  1  2  3  1  5  1       21 -.594379841953D+07
+0.438230311078D-02 0.000000000000D+00 0.000000000000D+00 0.143867284959D+01 0.000000000000D+00  5 21 21 5 -5 21 6 0.53444500D-04 0.16747913D-01 0.37630972D+02 0.37630972D+02 0.37630972D+02 0.16002872D+01  1  2 15  1  5  1       21 0.958837108569D+07
+0.105779841484D+03 0.000000000000D+00 -.361306291191D+02 0.143867284959D+01 0.000000000000D+00  5 21 21 5 -5 21 6 0.33722810D-02 0.16747913D-01 0.37630972D+02 0.37630972D+02 0.37630972D+02 0.16002872D+01  1  2  5  1  5  1       21 0.126342356299D+10
+0.470021762592D+02 0.000000000000D+00 -.160519122301D+02 0.143867284959D+01 0.000000000000D+00  5 -1 21 5 -5 -1 6 0.33722810D-02 0.16747913D-01 0.37630972D+02 0.37630972D+02 0.37630972D+02 0.16002872D+01  1  2  5  5  5  1       21 0.366963211526D+08
+0.470021762592D+02 0.000000000000D+00 -.160519122301D+02 0.143867284959D+01 0.000000000000D+00  5 -2 21 5 -5 -2 6 0.33722810D-02 0.16747913D-01 0.37630972D+02 0.37630972D+02 0.37630972D+02 0.16002872D+01  1  2  5  5  5  1       21 0.346820198047D+08
+0.470021762592D+02 0.000000000000D+00 -.160519122301D+02 0.143867284959D+01 0.000000000000D+00  5 -3 21 5 -5 -3 6 0.33722810D-02 0.16747913D-01 0.37630972D+02 0.37630972D+02 0.37630972D+02 0.16002872D+01  1  2  5  5  5  1       21 0.255875434983D+08
+0.470021762592D+02 0.000000000000D+00 -.160519122301D+02 0.143867284959D+01 0.000000000000D+00  5 -4 21 5 -5 -4 6 0.33722810D-02 0.16747913D-01 0.37630972D+02 0.37630972D+02 0.37630972D+02 0.16002872D+01  1  2  5  5  5  1       21 0.186737696253D+08
+0.470021762592D+02 0.000000000000D+00 -.160519122301D+02 0.143867284959D+01 0.000000000000D+00  5 1 21 5 -5 1 6 0.33722810D-02 0.16747913D-01 0.37630972D+02 0.37630972D+02 0.37630972D+02 0.16002872D+01  1  2  5  6  5  1       21 0.399110173175D+08
+0.470021762592D+02 0.000000000000D+00 -.160519122301D+02 0.143867284959D+01 0.000000000000D+00  5 2 21 5 -5 2 6 0.33722810D-02 0.16747913D-01 0.37630972D+02 0.37630972D+02 0.37630972D+02 0.16002872D+01  1  2  5  6  5  1       21 0.434552760818D+08
+0.470021762592D+02 0.000000000000D+00 -.160519122301D+02 0.143867284959D+01 0.000000000000D+00  5 3 21 5 -5 3 6 0.33722810D-02 0.16747913D-01 0.37630972D+02 0.37630972D+02 0.37630972D+02 0.16002872D+01  1  2  5  6  5  1       21 0.253965729401D+08
+0.470021762592D+02 0.000000000000D+00 -.160519122301D+02 0.143867284959D+01 0.000000000000D+00  5 4 21 5 -5 4 6 0.33722810D-02 0.16747913D-01 0.37630972D+02 0.37630972D+02 0.37630972D+02 0.16002872D+01  1  2  5  6  5  1       21 0.186737696253D+08
+  </mgrwgt>
+  <rwgt>
+   <wgt id='1001'> 0.74954E+09 </wgt>
+   <wgt id='1002'> 0.45356E+09 </wgt>
+   <wgt id='1003'> 0.14556E+10 </wgt>
+   <wgt id='1004'> 0.56184E+09 </wgt>
+   <wgt id='1005'> 0.34369E+09 </wgt>
+   <wgt id='1006'> 0.10786E+10 </wgt>
+   <wgt id='1007'> 0.59168E+09 </wgt>
+   <wgt id='1008'> 0.35655E+09 </wgt>
+   <wgt id='1009'> 0.11540E+10 </wgt>
+  </rwgt>
+  </event>
+  <event>
+  4      0 0.74954605E+09 0.13348626E+02 0.75467711E-02 0.14624982E+00
+       21 -1    0    0  503  502 0.00000000E+00 0.00000000E+00 0.14466942E+02 0.14486370E+02 0.75000000E+00 0.0000E+00 0.9000E+01
+       21 -1    0    0  501  503 0.00000000E+00 0.00000000E+00 -.30116735E+01 0.31036555E+01 0.75000000E+00 0.0000E+00 0.9000E+01
+        5  1    1    2  501    0 -.45935893E+01 0.11502163E+01 0.59648087E+01 0.89494694E+01 0.47000000E+01 0.0000E+00 0.9000E+01
+       -5  1    1    2    0  502 0.45935893E+01 -.11502163E+01 0.54904603E+01 0.86405563E+01 0.47000000E+01 0.0000E+00 0.9000E+01
+#aMCatNLO 1  0  0  2  4 0.25302974E+02 0.00000000E+00 -9  5  0 0.00000000E+00 0.00000000E+00 0.00000000E+00 0.00000000E+00 0.00000000E+00
+  <mgrwgt>
+ 0.6899293100D+08   12    2    0
+ 0.667431304839697D+01 0.000000000000000D+00 0.000000000000000D+00 0.667431304839697D+01
+ 0.667431304839697D+01 0.000000000000000D+00 0.000000000000000D+00 -.667431304839697D+01
+ 0.667431304839697D+01 -.459358925726536D+01 0.115021633186545D+01 0.179985536775278D+00
+ 0.667431304839697D+01 0.459358925726536D+01 -.115021633186545D+01 -.179985536775278D+00
+ 0.000000000000000D+00 0.000000000000000D+00 0.000000000000000D+00 -.000000000000000D+00
+ 0.181829397212586D+02 0.000000000000000D+00 0.000000000000000D+00 0.181829397212586D+02
+ 0.555687635052257D+02 0.000000000000000D+00 0.000000000000000D+00 -.555687635052257D+02
+ 0.223012747071637D+02 -.216234211752538D+02 -.276624573176673D+01 0.179985536775278D+00
+ 0.630687631082018D+01 -.303584952230256D+01 -.290480837310689D+01 -.179985536775278D+00
+ 0.451435522085005D+02 0.246592706975563D+02 0.567105410487362D+01 -.373858237839671D+02
+0.504614069185D-01 0.000000000000D+00 0.000000000000D+00 0.137457705286D+01 0.000000000000D+00  5 21 21 5 -5 21 4 0.22342534D-02 0.47190437D-03 0.44514060D+02 0.44514060D+02 0.44514060D+02 0.15825248D+01  1  2  2  2  5  2       21 0.451762907743D+08
+-.635832679677D-02 0.532584320546D-02 -.994899462472D-05 0.137457705286D+01 0.000000000000D+00  5 21 21 5 -5 21 6 0.22342534D-02 0.47190437D-03 0.44514060D+02 0.44514060D+02 0.44514060D+02 0.15825248D+01  1  2  3  2  5  2       21 -.142559154380D+08
+0.996972672639D-02 0.000000000000D+00 0.000000000000D+00 0.137457705286D+01 0.000000000000D+00  5 21 21 5 -5 21 6 0.22342534D-02 0.47190437D-03 0.44514060D+02 0.44514060D+02 0.44514060D+02 0.15825248D+01  1  2 15  2  5  2       21 0.223529846286D+08
+0.868314434817D+01 0.000000000000D+00 -.837225964921D+01 0.137457705286D+01 0.000000000000D+00  5 21 21 5 -5 21 6 0.22342534D-02 0.10595659D-01 0.44514060D+02 0.44514060D+02 0.44514060D+02 0.15825248D+01  1  2  5  2  5  2       21 0.335525450827D+09
+0.384599282763D+01 0.000000000000D+00 -.370944877912D+01 0.137457705286D+01 0.000000000000D+00  5 21 -1 5 -5 -1 6 0.22342534D-02 0.10595659D-01 0.44514060D+02 0.44514060D+02 0.44514060D+02 0.15825248D+01  1  2  5  7  5  2       21 0.100883389507D+08
+0.384599282763D+01 0.000000000000D+00 -.370944877912D+01 0.137457705286D+01 0.000000000000D+00  5 21 -2 5 -5 -2 6 0.22342534D-02 0.10595659D-01 0.44514060D+02 0.44514060D+02 0.44514060D+02 0.15825248D+01  1  2  5  7  5  2       21 0.948170202720D+07
+0.384599282763D+01 0.000000000000D+00 -.370944877912D+01 0.137457705286D+01 0.000000000000D+00  5 21 -3 5 -5 -3 6 0.22342534D-02 0.10595659D-01 0.44514060D+02 0.44514060D+02 0.44514060D+02 0.15825248D+01  1  2  5  7  5  2       21 0.663895916890D+07
+0.384599282763D+01 0.000000000000D+00 -.370944877912D+01 0.137457705286D+01 0.000000000000D+00  5 21 -4 5 -5 -4 6 0.22342534D-02 0.10595659D-01 0.44514060D+02 0.44514060D+02 0.44514060D+02 0.15825248D+01  1  2  5  7  5  2       21 0.461375539068D+07
+0.384599282763D+01 0.000000000000D+00 -.370944877912D+01 0.137457705286D+01 0.000000000000D+00  5 21 1 5 -5 1 6 0.22342534D-02 0.10595659D-01 0.44514060D+02 0.44514060D+02 0.44514060D+02 0.15825248D+01  1  2  5  8  5  2       21 0.130098241405D+08
+0.384599282763D+01 0.000000000000D+00 -.370944877912D+01 0.137457705286D+01 0.000000000000D+00  5 21 2 5 -5 2 6 0.22342534D-02 0.10595659D-01 0.44514060D+02 0.44514060D+02 0.44514060D+02 0.15825248D+01  1  2  5  8  5  2       21 0.146382157208D+08
+0.384599282763D+01 0.000000000000D+00 -.370944877912D+01 0.137457705286D+01 0.000000000000D+00  5 21 3 5 -5 3 6 0.22342534D-02 0.10595659D-01 0.44514060D+02 0.44514060D+02 0.44514060D+02 0.15825248D+01  1  2  5  8  5  2       21 0.656183493084D+07
+0.384599282763D+01 0.000000000000D+00 -.370944877912D+01 0.137457705286D+01 0.000000000000D+00  5 21 4 5 -5 4 6 0.22342534D-02 0.10595659D-01 0.44514060D+02 0.44514060D+02 0.44514060D+02 0.15825248D+01  1  2  5  8  5  2       21 0.461375539068D+07
+  </mgrwgt>
+  <rwgt>
+   <wgt id='1001'> 0.74955E+09 </wgt>
+   <wgt id='1002'> 0.47965E+09 </wgt>
+   <wgt id='1003'> 0.13490E+10 </wgt>
+   <wgt id='1004'> -.16547E+09 </wgt>
+   <wgt id='1005'> -.53612E+08 </wgt>
+   <wgt id='1006'> -.46549E+09 </wgt>
+   <wgt id='1007'> 0.79809E+09 </wgt>
+   <wgt id='1008'> 0.49262E+09 </wgt>
+   <wgt id='1009'> 0.14944E+10 </wgt>
+  </rwgt>
+  </event>
+  <event>
+  4      0 0.74954605E+09 0.10735529E+02 0.75467711E-02 0.20938083E+00
+       21 -1    0    0  503  502 0.00000000E+00 0.00000000E+00 0.64179236E+03 0.64179280E+03 0.75000000E+00 0.0000E+00 0.9000E+01
+       21 -1    0    0  501  503 0.00000000E+00 0.00000000E+00 -.17690248E-02 0.87575553E-01 0.87557684E-01 0.0000E+00 0.9000E+01
+        5  1    1    2  501    0 -.21199921E+01 0.14379262E+01 0.29691227E+03 0.29696052E+03 0.47000000E+01 0.0000E+00 0.9000E+01
+       -5  1    1    2    0  502 0.21199921E+01 -.14379262E+01 0.34487833E+03 0.34491986E+03 0.47000000E+01 0.0000E+00 0.9000E+01
+#aMCatNLO 1  0  0  1  4 0.39799731E+00 0.00000000E+00 -9  5  0 0.00000000E+00 0.00000000E+00 0.00000000E+00 0.00000000E+00 0.00000000E+00
+  <mgrwgt>
+ 0.6899293100D+08   13    2    0
+ 0.536776439253312D+01 0.000000000000000D+00 0.000000000000000D+00 0.536776439253312D+01
+ 0.536776439253312D+01 0.000000000000000D+00 0.000000000000000D+00 -.536776439253312D+01
+ 0.536776439253312D+01 -.211999206347032D+01 0.143792617140724D+01 -.401119122146270D+00
+ 0.536776439253312D+01 0.211999206347032D+01 -.143792617140724D+01 0.401119122146270D+00
+ 0.000000000000000D+00 -.000000000000000D+00 -.000000000000000D+00 -.000000000000000D+00
+ 0.538742915172933D+01 0.000000000000000D+00 0.000000000000000D+00 0.538742915172933D+01
+ 0.784999791555814D+01 0.000000000000000D+00 0.000000000000000D+00 -.784999791555814D+01
+ 0.541293950012581D+01 -.209134750638118D+01 0.163562926405223D+01 -.401119122146270D+00
+ 0.532996421123856D+01 0.214841615347092D+01 -.124174472998182D+01 0.401119122146270D+00
+ 0.249452335592311D+01 -.570686470897410D-01 -.393884534070410D+00 -.246256876382882D+01
+0.553271167730D+00 0.000000000000D+00 0.000000000000D+00 0.141638792042D+01 0.000000000000D+00  5 21 21 5 -5 21 4 0.98743921D-01 0.69063695D-05 0.28651998D+02 0.28651998D+02 0.28651998D+02 0.16305013D+01  1  2  2  1  5  1       21 0.365504856132D+09
+-.492181980108D-01 0.583938433225D-01 -.109083202588D-03 0.141638792042D+01 0.000000000000D+00  5 21 21 5 -5 21 6 0.98743921D-01 0.69063695D-05 0.28651998D+02 0.28651998D+02 0.28651998D+02 0.16305013D+01  1  2  3  1  5  1       21 -.864416688803D+08
+0.110346255356D+00 0.000000000000D+00 0.000000000000D+00 0.141638792042D+01 0.000000000000D+00  5 21 21 5 -5 21 6 0.98743921D-01 0.69063695D-05 0.28651998D+02 0.28651998D+02 0.28651998D+02 0.16305013D+01  1  2 15  1  5  1       21 0.193800562661D+09
+-.302733837987D-01 0.000000000000D+00 0.000000000000D+00 0.141638792042D+01 0.000000000000D+00  5 21 21 5 -5 21 6 0.98743921D-01 0.69063695D-05 0.28651998D+02 0.28651998D+02 0.28651998D+02 0.16305013D+01  1  2  4  1  5  1       21 -.531689887883D+08
+0.387227886018D-01 0.000000000000D+00 0.000000000000D+00 0.141638792042D+01 0.350599580231D+03  5 21 21 5 -5 21 6 0.99105669D-01 0.10100105D-04 0.30863043D+02 0.30863043D+02 0.30863043D+02 0.16220842D+01  1  2 11  1  5  1       21 0.391313223293D+08
+0.151333332486D+01 0.000000000000D+00 0.000000000000D+00 0.138736626107D+01 0.123986253952D+02  5 -1 21 5 -5 -1 6 0.99105669D-01 0.10100105D-04 0.30863043D+02 0.30863043D+02 0.30863043D+02 0.16220842D+01  1  2 11  5  5  1       21 0.156867090186D+09
+0.151333332486D+01 0.000000000000D+00 0.000000000000D+00 0.138736626107D+01 0.123986253952D+02  5 -2 21 5 -5 -2 6 0.99105669D-01 0.10100105D-04 0.30863043D+02 0.30863043D+02 0.30863043D+02 0.16220842D+01  1  2 11  5  5  1       21 0.113084132912D+09
+0.151333332486D+01 0.000000000000D+00 0.000000000000D+00 0.138736626107D+01 0.123986253952D+02  5 -3 21 5 -5 -3 6 0.99105669D-01 0.10100105D-04 0.30863043D+02 0.30863043D+02 0.30863043D+02 0.16220842D+01  1  2 11  5  5  1       21 0.604490848802D+08
+0.151333332486D+01 0.000000000000D+00 0.000000000000D+00 0.138736626107D+01 0.123986253952D+02  5 -4 21 5 -5 -4 6 0.99105669D-01 0.10100105D-04 0.30863043D+02 0.30863043D+02 0.30863043D+02 0.16220842D+01  1  2 11  5  5  1       21 0.273286635527D+08
+0.146673543308D+01 0.000000000000D+00 0.000000000000D+00 0.138736626107D+01 0.120168523947D+02  5 1 21 5 -5 1 6 0.99105669D-01 0.10100105D-04 0.30863043D+02 0.30863043D+02 0.30863043D+02 0.16220842D+01  1  2 11  6  5  1       21 0.449280946845D+09
+0.146673543308D+01 0.000000000000D+00 0.000000000000D+00 0.138736626107D+01 0.120168523947D+02  5 2 21 5 -5 2 6 0.99105669D-01 0.10100105D-04 0.30863043D+02 0.30863043D+02 0.30863043D+02 0.16220842D+01  1  2 11  6  5  1       21 0.692410581306D+09
+0.146673543308D+01 0.000000000000D+00 0.000000000000D+00 0.138736626107D+01 0.120168523947D+02  5 3 21 5 -5 3 6 0.99105669D-01 0.10100105D-04 0.30863043D+02 0.30863043D+02 0.30863043D+02 0.16220842D+01  1  2 11  6  5  1       21 0.651701539750D+08
+0.146673543308D+01 0.000000000000D+00 0.000000000000D+00 0.138736626107D+01 0.120168523947D+02  5 4 21 5 -5 4 6 0.99105669D-01 0.10100105D-04 0.30863043D+02 0.30863043D+02 0.30863043D+02 0.16220842D+01  1  2 11  6  5  1       21 0.264871714071D+08
+  </mgrwgt>
+  <rwgt>
+   <wgt id='1001'> 0.74955E+09 </wgt>
+   <wgt id='1002'> 0.48933E+09 </wgt>
+   <wgt id='1003'> 0.13574E+10 </wgt>
+   <wgt id='1004'> 0.12031E+10 </wgt>
+   <wgt id='1005'> 0.77969E+09 </wgt>
+   <wgt id='1006'> 0.21993E+10 </wgt>
+   <wgt id='1007'> 0.40215E+09 </wgt>
+   <wgt id='1008'> 0.26546E+09 </wgt>
+   <wgt id='1009'> 0.71788E+09 </wgt>
+  </rwgt>
+  </event>
+  <event>
+  4      0 0.74954605E+09 0.18813125E+02 0.75467711E-02 0.18207259E+00
+       21 -1    0    0  501  502 0.00000000E+00 0.00000000E+00 0.54632260E+02 0.54637408E+02 0.75000000E+00 0.0000E+00 0.9000E+01
+       21 -1    0    0  502  503 0.00000000E+00 0.00000000E+00 -.24541687E+01 0.25662120E+01 0.75000000E+00 0.0000E+00 0.9000E+01
+        5  1    1    2  501    0 0.58790075E+01 0.34312481E+01 0.46355688E+02 0.47087960E+02 0.47000000E+01 0.0000E+00 0.9000E+01
+       -5  1    1    2    0  503 -.58790075E+01 -.34312481E+01 0.58224036E+01 0.10115660E+02 0.47000000E+01 0.0000E+00 0.9000E+01
+#aMCatNLO 1  0  0  2  1 0.24792138E+01 0.00000000E+00 -9  5  0 0.00000000E+00 0.00000000E+00 0.00000000E+00 0.00000000E+00 0.00000000E+00
+  <mgrwgt>
+ 0.6942526300D+08   48    2    0
+ 0.117228507286199D+02 0.000000000000000D+00 0.000000000000000D+00 0.117228507286199D+02
+ 0.117228507286199D+02 0.000000000000000D+00 0.000000000000000D+00 -.117228507286199D+02
+ 0.117228507286199D+02 0.587900745551021D+01 0.343124806556550D+01 0.830656591234390D+01
+ 0.117228507286199D+02 -.587900745551021D+01 -.343124806556550D+01 -.830656591234390D+01
+ 0.000000000000000D+00 0.000000000000000D+00 0.000000000000000D+00 -.000000000000000D+00
+ 0.118221208083518D+02 0.000000000000000D+00 0.000000000000000D+00 0.118221208083518D+02
+ 0.570996385625252D+02 0.000000000000000D+00 0.000000000000000D+00 -.570996385625252D+02
+ 0.110997093327591D+02 0.470802955094568D+01 0.315419843431718D+01 0.830656591234390D+01
+ 0.124767072248312D+02 -.712063624682504D+01 -.372501347090763D+01 -.830656591234390D+01
+ 0.453453428132866D+02 0.241260669587936D+01 0.570815036590452D+00 -.452775177541734D+02
+0.810672225048D-01 0.000000000000D+00 0.000000000000D+00 0.465879172318D+01 0.000000000000D+00  5 21 21 5 -5 21 4 0.84139778D-02 0.38657912D-03 0.68426192D+02 0.68426192D+02 0.68426192D+02 0.15397413D+01  1  2  2  2  5  2       21 0.173435533475D+08
+-.364964866850D-02 0.855606972790D-02 -.159832515618D-04 0.465879172318D+01 0.000000000000D+00  5 21 21 5 -5 21 6 0.84139778D-02 0.38657912D-03 0.68426192D+02 0.68426192D+02 0.68426192D+02 0.15397413D+01  1  2  3  2  5  2       21 -.185114030823D+07
+0.142677192910D-01 0.000000000000D+00 0.000000000000D+00 0.465879172318D+01 0.000000000000D+00  5 21 21 5 -5 21 6 0.84139778D-02 0.38657912D-03 0.68426192D+02 0.68426192D+02 0.68426192D+02 0.15397413D+01  1  2 15  2  5  2       21 0.723673774791D+07
+0.186203312489D+00 0.000000000000D+00 0.000000000000D+00 0.433901547641D+01 0.000000000000D+00  5 21 21 5 -5 21 6 0.84139778D-02 0.18752288D-02 0.91692246D+02 0.91692246D+02 0.91692246D+02 0.15126109D+01  1  2 12  2  5  2       21 0.121277146177D+08
+0.181003232610D+00 0.000000000000D+00 0.000000000000D+00 0.433901547641D+01 0.000000000000D+00  5 21 21 5 -5 21 6 0.84139778D-02 0.18910178D-02 0.91692246D+02 0.91692246D+02 0.91692246D+02 0.15126109D+01  1  2 12  2  5  2       21 0.116577541429D+08
+0.526390883459D-02 0.000000000000D+00 0.000000000000D+00 0.433901547641D+01 0.000000000000D+00  5 21 21 5 -5 21 6 0.84139778D-02 0.18756919D-02 0.91692246D+02 0.91692246D+02 0.91692246D+02 0.15126109D+01  1  2 12  2  5  2       21 0.342733640456D+06
+-.861489076077D+02 0.000000000000D+00 -.576382360232D+00 0.465879172318D+01 0.000000000000D+00  5 21 21 5 -5 21 6 0.84139778D-02 0.18963291D-02 0.68426192D+02 0.68426192D+02 0.68426192D+02 0.15397413D+01  1  2  5  2  5  2       21 -.560642800287D+10
+0.985743870119D+02 0.000000000000D+00 0.000000000000D+00 0.465879172318D+01 0.404914412184D+03  5 21 21 5 -5 21 6 0.84852280D-02 0.18829488D-02 0.91692246D+02 0.91692246D+02 0.91692246D+02 0.15126109D+01  1  2 11  2  5  2       21 0.630872963090D+10
+0.765560732743D-01 0.000000000000D+00 0.000000000000D+00 0.433901547641D+01 0.000000000000D+00  5 21 -1 5 -5 -1 6 0.84139778D-02 0.18752288D-02 0.91692246D+02 0.91692246D+02 0.91692246D+02 0.15126109D+01  1  2 12  7  5  2       21 0.299037570023D+06
+0.765560732743D-01 0.000000000000D+00 0.000000000000D+00 0.433901547641D+01 0.000000000000D+00  5 21 -2 5 -5 -2 6 0.84139778D-02 0.18752288D-02 0.91692246D+02 0.91692246D+02 0.91692246D+02 0.15126109D+01  1  2 12  7  5  2       21 0.292990838175D+06
+0.765560732743D-01 0.000000000000D+00 0.000000000000D+00 0.433901547641D+01 0.000000000000D+00  5 21 -3 5 -5 -3 6 0.84139778D-02 0.18752288D-02 0.91692246D+02 0.91692246D+02 0.91692246D+02 0.15126109D+01  1  2 12  7  5  2       21 0.224069533771D+06
+0.765560732743D-01 0.000000000000D+00 0.000000000000D+00 0.433901547641D+01 0.000000000000D+00  5 21 -4 5 -5 -4 6 0.84139778D-02 0.18752288D-02 0.91692246D+02 0.91692246D+02 0.91692246D+02 0.15126109D+01  1  2 12  7  5  2       21 0.179112447954D+06
+0.745237011604D-01 0.000000000000D+00 0.000000000000D+00 0.433901547641D+01 0.000000000000D+00  5 21 -1 5 -5 -1 6 0.84139778D-02 0.18910178D-02 0.91692246D+02 0.91692246D+02 0.91692246D+02 0.15126109D+01  1  2 12  7  5  2       21 0.287965121079D+06
+0.745237011604D-01 0.000000000000D+00 0.000000000000D+00 0.433901547641D+01 0.000000000000D+00  5 21 -2 5 -5 -2 6 0.84139778D-02 0.18910178D-02 0.91692246D+02 0.91692246D+02 0.91692246D+02 0.15126109D+01  1  2 12  7  5  2       21 0.282071452128D+06
+0.745237011604D-01 0.000000000000D+00 0.000000000000D+00 0.433901547641D+01 0.000000000000D+00  5 21 -3 5 -5 -3 6 0.84139778D-02 0.18910178D-02 0.91692246D+02 0.91692246D+02 0.91692246D+02 0.15126109D+01  1  2 12  7  5  2       21 0.215754494560D+06
+0.745237011604D-01 0.000000000000D+00 0.000000000000D+00 0.433901547641D+01 0.000000000000D+00  5 21 -4 5 -5 -4 6 0.84139778D-02 0.18910178D-02 0.91692246D+02 0.91692246D+02 0.91692246D+02 0.15126109D+01  1  2 12  7  5  2       21 0.172393299105D+06
+0.216430722708D-02 0.000000000000D+00 0.000000000000D+00 0.433901547641D+01 0.000000000000D+00  5 21 -1 5 -5 -1 6 0.84139778D-02 0.18756919D-02 0.91692246D+02 0.91692246D+02 0.91692246D+02 0.15126109D+01  1  2 12  7  5  2       21 0.845135964316D+04
+0.216430722708D-02 0.000000000000D+00 0.000000000000D+00 0.433901547641D+01 0.000000000000D+00  5 21 -2 5 -5 -2 6 0.84139778D-02 0.18756919D-02 0.91692246D+02 0.91692246D+02 0.91692246D+02 0.15126109D+01  1  2 12  7  5  2       21 0.828040699753D+04
+0.216430722708D-02 0.000000000000D+00 0.000000000000D+00 0.433901547641D+01 0.000000000000D+00  5 21 -3 5 -5 -3 6 0.84139778D-02 0.18756919D-02 0.91692246D+02 0.91692246D+02 0.91692246D+02 0.15126109D+01  1  2 12  7  5  2       21 0.633260750184D+04
+0.216430722708D-02 0.000000000000D+00 0.000000000000D+00 0.433901547641D+01 0.000000000000D+00  5 21 -4 5 -5 -4 6 0.84139778D-02 0.18756919D-02 0.91692246D+02 0.91692246D+02 0.91692246D+02 0.15126109D+01  1  2 12  7  5  2       21 0.506197693386D+04
+-.357272341844D+02 0.000000000000D+00 -.237422664827D+00 0.465879172318D+01 0.000000000000D+00  5 21 -1 5 -5 -1 6 0.84139778D-02 0.18963291D-02 0.68426192D+02 0.68426192D+02 0.68426192D+02 0.15397413D+01  1  2  5  7  5  2       21 -.142054453857D+09
+-.357272341844D+02 0.000000000000D+00 -.237422664827D+00 0.465879172318D+01 0.000000000000D+00  5 21 -2 5 -5 -2 6 0.84139778D-02 0.18963291D-02 0.68426192D+02 0.68426192D+02 0.68426192D+02 0.15397413D+01  1  2  5  7  5  2       21 -.139100465272D+09
+-.357272341844D+02 0.000000000000D+00 -.237422664827D+00 0.465879172318D+01 0.000000000000D+00  5 21 -3 5 -5 -3 6 0.84139778D-02 0.18963291D-02 0.68426192D+02 0.68426192D+02 0.68426192D+02 0.15397413D+01  1  2  5  7  5  2       21 -.104716992963D+09
+-.357272341844D+02 0.000000000000D+00 -.237422664827D+00 0.465879172318D+01 0.000000000000D+00  5 21 -4 5 -5 -4 6 0.84139778D-02 0.18963291D-02 0.68426192D+02 0.68426192D+02 0.68426192D+02 0.15397413D+01  1  2  5  7  5  2       21 -.823083525373D+08
+0.413802726090D+02 0.000000000000D+00 0.000000000000D+00 0.465879172318D+01 0.169462866512D+03  5 21 -1 5 -5 -1 6 0.84852280D-02 0.18829488D-02 0.91692246D+02 0.91692246D+02 0.91692246D+02 0.15126109D+01  1  2 11  7  5  2       21 0.158856534795D+09
+0.413802726090D+02 0.000000000000D+00 0.000000000000D+00 0.465879172318D+01 0.169462866512D+03  5 21 -2 5 -5 -2 6 0.84852280D-02 0.18829488D-02 0.91692246D+02 0.91692246D+02 0.91692246D+02 0.15126109D+01  1  2 11  7  5  2       21 0.155625289191D+09
+0.413802726090D+02 0.000000000000D+00 0.000000000000D+00 0.465879172318D+01 0.169462866512D+03  5 21 -3 5 -5 -3 6 0.84852280D-02 0.18829488D-02 0.91692246D+02 0.91692246D+02 0.91692246D+02 0.15126109D+01  1  2 11  7  5  2       21 0.119026641897D+09
+0.413802726090D+02 0.000000000000D+00 0.000000000000D+00 0.465879172318D+01 0.169462866512D+03  5 21 -4 5 -5 -4 6 0.84852280D-02 0.18829488D-02 0.91692246D+02 0.91692246D+02 0.91692246D+02 0.15126109D+01  1  2 11  7  5  2       21 0.951256824222D+08
+0.765560732743D-01 0.000000000000D+00 0.000000000000D+00 0.433901547641D+01 0.000000000000D+00  5 21 1 5 -5 1 6 0.84139778D-02 0.18752288D-02 0.91692246D+02 0.91692246D+02 0.91692246D+02 0.15126109D+01  1  2 12  8  5  2       21 0.318254594408D+06
+0.765560732743D-01 0.000000000000D+00 0.000000000000D+00 0.433901547641D+01 0.000000000000D+00  5 21 2 5 -5 2 6 0.84139778D-02 0.18752288D-02 0.91692246D+02 0.91692246D+02 0.91692246D+02 0.15126109D+01  1  2 12  8  5  2       21 0.332000018791D+06
+0.765560732743D-01 0.000000000000D+00 0.000000000000D+00 0.433901547641D+01 0.000000000000D+00  5 21 3 5 -5 3 6 0.84139778D-02 0.18752288D-02 0.91692246D+02 0.91692246D+02 0.91692246D+02 0.15126109D+01  1  2 12  8  5  2       21 0.223066504870D+06
+0.765560732743D-01 0.000000000000D+00 0.000000000000D+00 0.433901547641D+01 0.000000000000D+00  5 21 4 5 -5 4 6 0.84139778D-02 0.18752288D-02 0.91692246D+02 0.91692246D+02 0.91692246D+02 0.15126109D+01  1  2 12  8  5  2       21 0.179112447954D+06
+0.745237011604D-01 0.000000000000D+00 0.000000000000D+00 0.433901547641D+01 0.000000000000D+00  5 21 1 5 -5 1 6 0.84139778D-02 0.18910178D-02 0.91692246D+02 0.91692246D+02 0.91692246D+02 0.15126109D+01  1  2 12  8  5  2       21 0.306559630126D+06
+0.745237011604D-01 0.000000000000D+00 0.000000000000D+00 0.433901547641D+01 0.000000000000D+00  5 21 2 5 -5 2 6 0.84139778D-02 0.18910178D-02 0.91692246D+02 0.91692246D+02 0.91692246D+02 0.15126109D+01  1  2 12  8  5  2       21 0.319913183986D+06
+0.745237011604D-01 0.000000000000D+00 0.000000000000D+00 0.433901547641D+01 0.000000000000D+00  5 21 3 5 -5 3 6 0.84139778D-02 0.18910178D-02 0.91692246D+02 0.91692246D+02 0.91692246D+02 0.15126109D+01  1  2 12  8  5  2       21 0.214783873732D+06
+0.745237011604D-01 0.000000000000D+00 0.000000000000D+00 0.433901547641D+01 0.000000000000D+00  5 21 4 5 -5 4 6 0.84139778D-02 0.18910178D-02 0.91692246D+02 0.91692246D+02 0.91692246D+02 0.15126109D+01  1  2 12  8  5  2       21 0.172393299105D+06
+0.216430722708D-02 0.000000000000D+00 0.000000000000D+00 0.433901547641D+01 0.000000000000D+00  5 21 1 5 -5 1 6 0.84139778D-02 0.18756919D-02 0.91692246D+02 0.91692246D+02 0.91692246D+02 0.15126109D+01  1  2 12  8  5  2       21 0.899454561216D+04
+0.216430722708D-02 0.000000000000D+00 0.000000000000D+00 0.433901547641D+01 0.000000000000D+00  5 21 2 5 -5 2 6 0.84139778D-02 0.18756919D-02 0.91692246D+02 0.91692246D+02 0.91692246D+02 0.15126109D+01  1  2 12  8  5  2       21 0.938311753035D+04
+0.216430722708D-02 0.000000000000D+00 0.000000000000D+00 0.433901547641D+01 0.000000000000D+00  5 21 3 5 -5 3 6 0.84139778D-02 0.18756919D-02 0.91692246D+02 0.91692246D+02 0.91692246D+02 0.15126109D+01  1  2 12  8  5  2       21 0.630425595041D+04
+0.216430722708D-02 0.000000000000D+00 0.000000000000D+00 0.433901547641D+01 0.000000000000D+00  5 21 4 5 -5 4 6 0.84139778D-02 0.18756919D-02 0.91692246D+02 0.91692246D+02 0.91692246D+02 0.15126109D+01  1  2 12  8  5  2       21 0.506197693386D+04
+-.357272341844D+02 0.000000000000D+00 -.237422664827D+00 0.465879172318D+01 0.000000000000D+00  5 21 1 5 -5 1 6 0.84139778D-02 0.18963291D-02 0.68426192D+02 0.68426192D+02 0.68426192D+02 0.15397413D+01  1  2  5  8  5  2       21 -.151496514205D+09
+-.357272341844D+02 0.000000000000D+00 -.237422664827D+00 0.465879172318D+01 0.000000000000D+00  5 21 2 5 -5 2 6 0.84139778D-02 0.18963291D-02 0.68426192D+02 0.68426192D+02 0.68426192D+02 0.15397413D+01  1  2  5  8  5  2       21 -.158219134529D+09
+-.357272341844D+02 0.000000000000D+00 -.237422664827D+00 0.465879172318D+01 0.000000000000D+00  5 21 3 5 -5 3 6 0.84139778D-02 0.18963291D-02 0.68426192D+02 0.68426192D+02 0.68426192D+02 0.15397413D+01  1  2  5  8  5  2       21 -.104217969477D+09
+-.357272341844D+02 0.000000000000D+00 -.237422664827D+00 0.465879172318D+01 0.000000000000D+00  5 21 4 5 -5 4 6 0.84139778D-02 0.18963291D-02 0.68426192D+02 0.68426192D+02 0.68426192D+02 0.15397413D+01  1  2  5  8  5  2       21 -.823083525373D+08
+0.418273208869D+02 0.000000000000D+00 0.000000000000D+00 0.465879172318D+01 0.171293644268D+03  5 21 1 5 -5 1 6 0.84852280D-02 0.18829488D-02 0.91692246D+02 0.91692246D+02 0.91692246D+02 0.15126109D+01  1  2 11  8  5  2       21 0.170915934692D+09
+0.418273208869D+02 0.000000000000D+00 0.000000000000D+00 0.465879172318D+01 0.171293644268D+03  5 21 2 5 -5 2 6 0.84852280D-02 0.18829488D-02 0.91692246D+02 0.91692246D+02 0.91692246D+02 0.15126109D+01  1  2 11  8  5  2       21 0.178328635676D+09
+0.418273208869D+02 0.000000000000D+00 0.000000000000D+00 0.465879172318D+01 0.171293644268D+03  5 21 3 5 -5 3 6 0.84852280D-02 0.18829488D-02 0.91692246D+02 0.91692246D+02 0.91692246D+02 0.15126109D+01  1  2 11  8  5  2       21 0.119772652956D+09
+0.418273208869D+02 0.000000000000D+00 0.000000000000D+00 0.465879172318D+01 0.171293644268D+03  5 21 4 5 -5 4 6 0.84852280D-02 0.18829488D-02 0.91692246D+02 0.91692246D+02 0.91692246D+02 0.15126109D+01  1  2 11  8  5  2       21 0.961533646927D+08
+  </mgrwgt>
+  <rwgt>
+   <wgt id='1001'> 0.74954E+09 </wgt>
+   <wgt id='1002'> 0.53617E+09 </wgt>
+   <wgt id='1003'> 0.92730E+09 </wgt>
+   <wgt id='1004'> 0.74653E+09 </wgt>
+   <wgt id='1005'> 0.56334E+09 </wgt>
+   <wgt id='1006'> 0.75089E+09 </wgt>
+   <wgt id='1007'> 0.69144E+09 </wgt>
+   <wgt id='1008'> 0.47108E+09 </wgt>
+   <wgt id='1009'> 0.99444E+09 </wgt>
+  </rwgt>
+  </event>
+</LesHouchesEvents>
