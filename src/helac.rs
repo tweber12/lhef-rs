@@ -50,9 +50,12 @@ impl WriteLhe for Comment {
 #[cfg(test)]
 impl Arbitrary for Comment {
     fn arbitrary<G: Gen>(gen: &mut G) -> Comment {
-        let comment: String = Arbitrary::arbitrary(gen);
-        let comment = comment.trim().to_string();
-        Comment(comment)
+        let mut contents: String = Arbitrary::arbitrary(gen);
+        while contents.contains("-->") {
+            contents = Arbitrary::arbitrary(gen);
+        }
+        let contents = contents.trim().to_string();
+        Comment(contents)
     }
 }
 
@@ -1017,30 +1020,6 @@ mod tests {
     use {ReadLhe, WriteLhe};
     use super::*;
 
-    quickcheck! {
-        fn comment_roundtrip_qc(start: Comment) -> quickcheck::TestResult {
-            let Comment(ref comment) = start;
-            if comment.contains("-->") {
-                return quickcheck::TestResult::discard();
-            }
-            let mut bytes = Vec::new();
-            start.write_lhe(&mut bytes).unwrap();
-                let round = match Comment::read_from_lhe(&bytes).to_full_result() {
-                Ok(r) => r,
-                Err(err) => {
-                    println!("{}", str::from_utf8(&bytes).unwrap());
-                    panic!("Failed to read roundtrip: {:?}", err);
-                },
-            };
-            if start == round {
-                quickcheck::TestResult::passed()
-            } else {
-                println!("After: {:?}", round);
-                quickcheck::TestResult::failed()
-            }
-        }
-    }
-
     macro_rules! roundtrip_qc {
         ($name:ident, $ty:ident) => {
             quickcheck! {
@@ -1065,6 +1044,7 @@ mod tests {
         }
     }
 
+    roundtrip_qc!(comment_roundtrip_qc, Comment);
     roundtrip_qc!(pdfsum_roundtrip_qc, PdfSum);
     roundtrip_qc!(pdfinfo_roundtrip_qc, PdfInfo);
     roundtrip_qc!(jetalgo_roundtrip_qc, JetAlgoInfo);
