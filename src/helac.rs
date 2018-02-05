@@ -22,6 +22,7 @@ use quickcheck::Gen;
 pub type LheFileRS = LheFileGeneric<Comment, Header, InitExtraRS, EventExtraRS>;
 pub type LheFileI = LheFileGeneric<Comment, Header, PdfSum, EventExtraI>;
 pub type LheFileKP = LheFileGeneric<Comment, Header, PdfSumKP, EventExtraKP>;
+pub type LheFile1loop = LheFileGeneric<Comment, Header, InitExtra1loop, EventExtra1loop>;
 
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(test, derive(Serialize, Deserialize))]
@@ -815,6 +816,196 @@ impl Arbitrary for MeInfoKP {
     }
 }
 
+#[derive(Clone, Debug, PartialEq)]
+#[cfg_attr(test, derive(Serialize, Deserialize))]
+pub struct InitExtra1loop {
+    pdf_sum: PdfSum,
+    norm: Norm,
+}
+
+impl ReadLhe for InitExtra1loop {
+    fn read_from_lhe(input: &[u8]) -> nom::IResult<&[u8], InitExtra1loop> {
+        do_parse!(
+            input,
+            ex: permutation!(ws!(PdfSum::read_from_lhe), ws!(Norm::read_from_lhe))
+                >> (InitExtra1loop {
+                    pdf_sum: ex.0,
+                    norm: ex.1,
+                })
+        )
+    }
+}
+
+impl WriteLhe for InitExtra1loop {
+    fn write_lhe<W: io::Write>(&self, writer: &mut W) -> io::Result<()> {
+        self.norm.write_lhe(writer)?;
+        self.pdf_sum.write_lhe(writer)
+    }
+}
+
+#[cfg(test)]
+impl Arbitrary for InitExtra1loop {
+    fn arbitrary<G: Gen>(gen: &mut G) -> InitExtra1loop {
+        InitExtra1loop {
+            pdf_sum: Arbitrary::arbitrary(gen),
+            norm: Arbitrary::arbitrary(gen),
+        }
+    }
+}
+
+#[derive(Clone, Debug, PartialEq)]
+#[cfg_attr(test, derive(Serialize, Deserialize))]
+pub struct Norm {
+    n_unweighted_events: u64,
+    alpha: f64,
+    alpha_err: f64,
+}
+
+impl ReadLhe for Norm {
+    fn read_from_lhe(input: &[u8]) -> nom::IResult<&[u8], Norm> {
+        do_parse!(
+            input,
+            ws!(tag!("#")) >> ws!(tag!("NORM")) >> n_unweighted_events: ws!(parse_u64)
+                >> alpha: ws!(parse_f64) >> alpha_err: ws!(parse_f64) >> (Norm {
+                n_unweighted_events,
+                alpha,
+                alpha_err,
+            })
+        )
+    }
+}
+
+impl WriteLhe for Norm {
+    fn write_lhe<W: io::Write>(&self, writer: &mut W) -> io::Result<()> {
+        writeln!(
+            writer,
+            "# NORM {} {:e} {:e}",
+            self.n_unweighted_events, self.alpha, self.alpha_err
+        )
+    }
+}
+
+#[cfg(test)]
+impl Arbitrary for Norm {
+    fn arbitrary<G: Gen>(gen: &mut G) -> Norm {
+        Norm {
+            n_unweighted_events: Arbitrary::arbitrary(gen),
+            alpha: Arbitrary::arbitrary(gen),
+            alpha_err: Arbitrary::arbitrary(gen),
+        }
+    }
+}
+
+#[derive(Clone, Debug, PartialEq)]
+#[cfg_attr(test, derive(Serialize, Deserialize))]
+pub struct EventExtra1loop {
+    pdf: PdfInfo,
+    me: MeInfo1loop,
+}
+
+impl ReadLhe for EventExtra1loop {
+    fn read_from_lhe(input: &[u8]) -> nom::IResult<&[u8], EventExtra1loop> {
+        do_parse!(
+            input,
+            ex: permutation!(ws!(PdfInfo::read_from_lhe), ws!(MeInfo1loop::read_from_lhe))
+                >> (EventExtra1loop {
+                    pdf: ex.0,
+                    me: ex.1,
+                })
+        )
+    }
+}
+
+impl WriteLhe for EventExtra1loop {
+    fn write_lhe<W: io::Write>(&self, writer: &mut W) -> io::Result<()> {
+        self.pdf.write_lhe(writer)?;
+        self.me.write_lhe(writer)
+    }
+}
+
+#[cfg(test)]
+impl Arbitrary for EventExtra1loop {
+    fn arbitrary<G: Gen>(gen: &mut G) -> EventExtra1loop {
+        EventExtra1loop {
+            pdf: Arbitrary::arbitrary(gen),
+            me: Arbitrary::arbitrary(gen),
+        }
+    }
+}
+
+#[derive(Clone, Debug, PartialEq)]
+#[cfg_attr(test, derive(Serialize, Deserialize))]
+pub struct MeInfo1loop {
+    max_ew_lo: i64,
+    max_qcd_lo: i64,
+    weight_lo: f64,
+    max_ew_1loop: i64,
+    max_qcd_1loop: i64,
+    weight_1loop: f64,
+    coeff_a: f64,
+    coeff_b: f64,
+    coeff_c: f64,
+}
+
+impl ReadLhe for MeInfo1loop {
+    fn read_from_lhe(input: &[u8]) -> nom::IResult<&[u8], MeInfo1loop> {
+        do_parse!(
+            input,
+            ws!(tag!("#")) >> ws!(tag!("me")) >> max_ew_lo: ws!(parse_i64)
+                >> max_qcd_lo: ws!(parse_i64) >> weight_lo: ws!(parse_f64)
+                >> max_ew_1loop: ws!(parse_i64) >> max_qcd_1loop: ws!(parse_i64)
+                >> weight_1loop: ws!(parse_f64) >> coeff_a: ws!(parse_f64)
+                >> coeff_b: ws!(parse_f64) >> coeff_c: ws!(parse_f64)
+                >> (MeInfo1loop {
+                    max_ew_lo,
+                    max_qcd_lo,
+                    weight_lo,
+                    max_ew_1loop,
+                    max_qcd_1loop,
+                    weight_1loop,
+                    coeff_a,
+                    coeff_b,
+                    coeff_c,
+                })
+        )
+    }
+}
+
+impl WriteLhe for MeInfo1loop {
+    fn write_lhe<W: io::Write>(&self, writer: &mut W) -> io::Result<()> {
+        writeln!(
+            writer,
+            "# me {} {} {:e} {} {} {:e} {:e} {:e} {:e}",
+            self.max_ew_lo,
+            self.max_qcd_lo,
+            self.weight_lo,
+            self.max_ew_1loop,
+            self.max_qcd_1loop,
+            self.weight_1loop,
+            self.coeff_a,
+            self.coeff_b,
+            self.coeff_c,
+        )
+    }
+}
+
+#[cfg(test)]
+impl Arbitrary for MeInfo1loop {
+    fn arbitrary<G: Gen>(gen: &mut G) -> MeInfo1loop {
+        MeInfo1loop {
+            max_ew_lo: Arbitrary::arbitrary(gen),
+            max_qcd_lo: Arbitrary::arbitrary(gen),
+            weight_lo: Arbitrary::arbitrary(gen),
+            max_ew_1loop: Arbitrary::arbitrary(gen),
+            max_qcd_1loop: Arbitrary::arbitrary(gen),
+            weight_1loop: Arbitrary::arbitrary(gen),
+            coeff_a: Arbitrary::arbitrary(gen),
+            coeff_b: Arbitrary::arbitrary(gen),
+            coeff_c: Arbitrary::arbitrary(gen),
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use quickcheck;
@@ -887,6 +1078,10 @@ mod tests {
     roundtrip_qc!(pdfsumkp_roundtrip_qc, PdfSumKP);
     roundtrip_qc!(meinfokp_roundtrip_qc, MeInfoKP);
     roundtrip_qc!(eventextrakp_roundtrip_qc, EventExtraKP);
+    roundtrip_qc!(norm_roundtrip_qc, Norm);
+    roundtrip_qc!(initextra1loop_roundtrip_qc, InitExtra1loop);
+    roundtrip_qc!(meinfo1loop_roundtrip_qc, MeInfo1loop);
+    roundtrip_qc!(eventextra1loop_roundtrip_qc, EventExtra1loop);
 
     #[test]
     fn meinfors_roundtrip() {
@@ -1253,6 +1448,92 @@ File generated with HELAC-DIPOLES
     }
 
     #[test]
+    fn read_norm() {
+        let bytes = b"# NORM 1 2. 3.\n";
+        let expected = Norm {
+            n_unweighted_events: 1,
+            alpha: 2.,
+            alpha_err: 3.,
+        };
+        let result = Norm::read_from_lhe(bytes).to_full_result().unwrap();
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn read_initextra1loop() {
+        let bytes_normal = b"# NORM 1 2. 3.\n# SUMPDF 4 1 2 3 4 -1 -2 0 8\n";
+        let bytes_reverse = b"# SUMPDF 4 1 2 3 4 -1 -2 0 8\n# NORM 1 2. 3.\n";
+        let expected = InitExtra1loop {
+            pdf_sum: PdfSum {
+                pdf_sum_pairs: vec![(1, 2), (3, 4), (-1, -2), (0, 8)],
+            },
+            norm: Norm {
+                n_unweighted_events: 1,
+                alpha: 2.,
+                alpha_err: 3.,
+            },
+        };
+        let result_normal = InitExtra1loop::read_from_lhe(bytes_normal)
+            .to_full_result()
+            .unwrap();
+        assert_eq!(result_normal, expected);
+        let result_reverse = InitExtra1loop::read_from_lhe(bytes_reverse)
+            .to_full_result()
+            .unwrap();
+        assert_eq!(result_reverse, expected);
+    }
+
+    #[test]
+    fn read_meinfo1loop() {
+        let bytes = b"# me 1 2 3. 4 5 6. 7. 8. 9.\n";
+        let expected = MeInfo1loop {
+            max_ew_lo: 1,
+            max_qcd_lo: 2,
+            weight_lo: 3.,
+            max_ew_1loop: 4,
+            max_qcd_1loop: 5,
+            weight_1loop: 6.,
+            coeff_a: 7.,
+            coeff_b: 8.,
+            coeff_c: 9.,
+        };
+        let result = MeInfo1loop::read_from_lhe(bytes).to_full_result().unwrap();
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn read_eventextra1loop() {
+        let bytes_normal = b"# pdf 1.0 2.0 3.0\n# me 1 2 3. 4 5 6. 7. 8. 9.\n";
+        let bytes_reverse = b"# me 1 2 3. 4 5 6. 7. 8. 9.\n# pdf 1.0 2.0 3.0\n";
+        let expected = EventExtra1loop {
+            pdf: PdfInfo {
+                x1: 1.0,
+                x2: 2.0,
+                scale: 3.0,
+            },
+            me: MeInfo1loop {
+                max_ew_lo: 1,
+                max_qcd_lo: 2,
+                weight_lo: 3.,
+                max_ew_1loop: 4,
+                max_qcd_1loop: 5,
+                weight_1loop: 6.,
+                coeff_a: 7.,
+                coeff_b: 8.,
+                coeff_c: 9.,
+            },
+        };
+        let result_normal = EventExtra1loop::read_from_lhe(bytes_normal)
+            .to_full_result()
+            .unwrap();
+        assert_eq!(result_normal, expected);
+        let result_reverse = EventExtra1loop::read_from_lhe(bytes_reverse)
+            .to_full_result()
+            .unwrap();
+        assert_eq!(result_reverse, expected);
+    }
+
+    #[test]
     fn read_rs() {
         let mut file = fs::File::open("tests/real_world_files/helac_dipoles_rs.lhe").unwrap();
         let mut contents = Vec::new();
@@ -1367,6 +1648,46 @@ File generated with HELAC-DIPOLES
             .unwrap();
         let mut file = fs::File::open("tests/real_world_files/helac_dipoles_kp.json").unwrap();
         let valid: LheFileKP = serde_json::from_reader(&mut file).unwrap();
+        assert_eq!(lhe, valid);
+    }
+
+    #[test]
+    fn read_1loop() {
+        let mut file = fs::File::open("tests/real_world_files/helac_1loop_virt.lhe").unwrap();
+        let mut contents = Vec::new();
+        file.read_to_end(&mut contents).unwrap();
+        LheFile1loop::read_from_lhe(&contents).unwrap();
+    }
+
+    #[test]
+    fn roundtrip_1loop() {
+        let mut file = fs::File::open("tests/real_world_files/helac_1loop_virt.lhe").unwrap();
+        let mut contents = Vec::new();
+        file.read_to_end(&mut contents).unwrap();
+        let lhe = match LheFile1loop::read_from_lhe(&contents).to_full_result() {
+            Ok(l) => l,
+            Err(e) => panic!("Failed to read: {:?}", e),
+        };
+
+        let mut bytes = Vec::new();
+        lhe.write_lhe(&mut bytes).unwrap();
+        let round = match LheFile1loop::read_from_lhe(&bytes).to_full_result() {
+            Ok(l) => l,
+            Err(e) => panic!("Failed to read roundtrip: {:?}", e),
+        };
+        assert_eq!(lhe, round);
+    }
+
+    #[test]
+    fn validate_1loop() {
+        let mut file = fs::File::open("tests/real_world_files/helac_1loop_virt.lhe").unwrap();
+        let mut contents = Vec::new();
+        file.read_to_end(&mut contents).unwrap();
+        let lhe = LheFile1loop::read_from_lhe(&contents)
+            .to_full_result()
+            .unwrap();
+        let mut file = fs::File::open("tests/real_world_files/helac_1loop_virt.json").unwrap();
+        let valid: LheFile1loop = serde_json::from_reader(&mut file).unwrap();
         assert_eq!(lhe, valid);
     }
 }
