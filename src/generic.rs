@@ -92,8 +92,12 @@ where
     EventExtra: Arbitrary,
 {
     fn arbitrary<G: Gen>(gen: &mut G) -> LheFileGeneric<Header, Comment, InitExtra, EventExtra> {
+        let mut version: String = Arbitrary::arbitrary(gen);
+        while version.contains("\"") {
+            version = Arbitrary::arbitrary(gen);
+        }
         LheFileGeneric {
-            version: Arbitrary::arbitrary(gen),
+            version,
             comment: Arbitrary::arbitrary(gen),
             header: Arbitrary::arbitrary(gen),
             init: Arbitrary::arbitrary(gen),
@@ -724,9 +728,6 @@ mod tests {
 
     quickcheck! {
         fn lhefile_roundtrip_qc(start: LheFileGeneric<Nothing, Nothing, Nothing, Nothing>) -> quickcheck::TestResult {
-            if start.version.contains('"') {
-                return quickcheck::TestResult::discard();
-            }
             let mut bytes = Vec::new();
             start.write_lhe(&mut bytes).unwrap();
             let round = match LheFileGeneric::<Nothing, Nothing, Nothing, Nothing>::read_from_lhe(&bytes).to_full_result() {
