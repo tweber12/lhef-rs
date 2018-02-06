@@ -39,19 +39,18 @@ where
     fn read_from_lhe(
         input: &[u8],
     ) -> nom::IResult<&[u8], LheFileGeneric<Comment, Header, InitExtra, EventExtra>> {
+        let parse_comment = Comment::read_from_lhe;
+        let parse_header = Header::read_from_lhe;
+        let parse_init = InitGeneric::read_from_lhe;
         do_parse!(
             input,
             ws!(tag!("<LesHouchesEvents")) >> ws!(tag!("version=")) >> tag!("\"")
                 >> version:
                     map_res!(take_until!("\""), |x| str::from_utf8(x)
                         .map(|x| x.to_string())) >> tag!("\"") >> ws!(tag!(">"))
-                >> hi:
-                    dbg!(permutation!(
-                        ws!(Comment::read_from_lhe),
-                        ws!(Header::read_from_lhe),
-                        ws!(InitGeneric::read_from_lhe)
-                    )) >> events: dbg!(many0!(EventGeneric::read_from_lhe))
-                >> dbg!(ws!(tag!("</LesHouchesEvents>"))) >> (LheFileGeneric {
+                >> hi: permutation_opt!(parse_comment, parse_header, parse_init)
+                >> events: dbg_dmp!(many0!(EventGeneric::read_from_lhe))
+                >> dbg_dmp!(ws!(tag!("</LesHouchesEvents>"))) >> (LheFileGeneric {
                 version,
                 comment: hi.0,
                 header: hi.1,

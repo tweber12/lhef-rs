@@ -21,9 +21,10 @@ extern crate serde;
 #[cfg(test)]
 extern crate serde_json;
 
+#[macro_use]
+pub mod nom_util;
 pub mod generic;
 pub mod helac;
-pub mod nom_util;
 
 use lorentz_vector::LorentzVector;
 use std::io;

@@ -13,6 +13,45 @@ use std::str::FromStr;
 
 use nom;
 
+macro_rules! consumed {
+    ($i:expr, $parser:expr) => {
+        match ws!($i, $parser) {
+            nom::IResult::Done(rest,_) if rest.len() == $i.len()
+                => nom::IResult::Error(nom::ErrorKind::Custom(0)),
+            e => e,
+        }
+    }
+}
+
+macro_rules! perm_two {
+    ($i:ident, $p1:ident, $p2:ident) => {
+        alt!($i,
+            do_parse!(v1: consumed!($p1) >> v2: ws!($p2) >> ((v1, v2))) |
+            do_parse!(v2: $p2 >> v1: ws!($p1) >> ((v1, v2)))
+        )
+    }
+}
+
+macro_rules! perm_three {
+    ($i:ident, $p1:ident, $p2:ident, $p3:ident) => {
+        do_parse!($i,
+            v1: consumed!($p1) >>
+            v23: perm_two!($p2, $p3) >>
+            ((v1, v23.0, v23.1))
+        )
+    }
+}
+
+macro_rules! permutation_opt {
+    ($i:ident, $p1:ident, $p2:ident, $p3:ident) => {
+        alt!($i,
+             do_parse!(v: perm_three!($p1, $p2, $p3) >> ((v.0, v.1, v.2))) |
+             do_parse!(v: perm_three!($p2, $p3, $p1) >> ((v.2, v.0, v.1))) |
+             do_parse!(v: perm_three!($p3, $p1, $p2) >> ((v.1, v.2, v.0)))
+           )
+    }
+}
+
 named!(pub parse_f64<f64>,
     alt!(
         parse_finite_f64 => {|x| x} |
@@ -276,5 +315,133 @@ mod test {
             let string = n.to_string();
             TestResult::from_bool(super::parse_u8(string.as_bytes()).to_full_result().is_err())
         }
+    }
+
+    mod permutation_opt {
+        use nom;
+
+        fn a(input: &[u8]) -> nom::IResult<&[u8], &[u8]> {
+            ws!(input, tag!("a"))
+        }
+        fn b(input: &[u8]) -> nom::IResult<&[u8], &[u8]> {
+            ws!(input, tag!("b"))
+        }
+        fn c(input: &[u8]) -> nom::IResult<&[u8], &[u8]> {
+            ws!(input, tag!("c"))
+        }
+
+        fn oa(input: &[u8]) -> nom::IResult<&[u8], Option<&[u8]>> {
+            opt!(input, ws!(tag!("a")))
+        }
+        fn ob(input: &[u8]) -> nom::IResult<&[u8], Option<&[u8]>> {
+            opt!(input, ws!(tag!("b")))
+        }
+        fn oc(input: &[u8]) -> nom::IResult<&[u8], Option<&[u8]>> {
+            opt!(input, ws!(tag!("c")))
+        }
+
+        macro_rules! perm_3 {
+            ($name:ident, $bytes:expr) => {
+                #[test]
+                fn $name() {
+                    let bytes = $bytes;
+                    let bs = bytes as &[u8];
+                    let (ra, rb, rc) = permutation_opt!(bs, a, b, c).to_full_result().unwrap();
+                    assert_eq!(ra, b"a");
+                    assert_eq!(rb, b"b");
+                    assert_eq!(rc, b"c");
+                }
+            }
+        }
+        perm_3!(abc, b"a b c");
+        perm_3!(acb, b"a c b");
+        perm_3!(bac, b"b a c");
+        perm_3!(bca, b"b c a");
+        perm_3!(cab, b"c a b");
+        perm_3!(cba, b"c b a");
+
+        macro_rules! perm_o_3 {
+            ($name:ident, $bytes:expr) => {
+                #[test]
+                fn $name() {
+                    let bytes = $bytes;
+                    let bs = bytes as &[u8];
+                    let (ra, rb, rc) = permutation_opt!(bs, oa, ob, oc).to_full_result().unwrap();
+                    assert_eq!(ra, Some(b"a" as &[u8]));
+                    assert_eq!(rb, Some(b"b" as &[u8]));
+                    assert_eq!(rc, Some(b"c" as &[u8]));
+                }
+            }
+        }
+        perm_o_3!(abc_o, b"a b c");
+        perm_o_3!(acb_o, b"a c b");
+        perm_o_3!(bac_o, b"b a c");
+        perm_o_3!(bca_o, b"b c a");
+        perm_o_3!(cab_o, b"c a b");
+        perm_o_3!(cba_o, b"c b a");
+
+        macro_rules! perm_r_3 {
+            ($name:ident, $bytes:expr) => {
+                #[test]
+                fn $name() {
+                    let bytes = $bytes;
+                    let bs = bytes as &[u8];
+                    let (ra, rb, rc) = permutation_opt!(bs, oa, ob, c).to_full_result().unwrap();
+                    assert_eq!(ra, Some(b"a" as &[u8]));
+                    assert_eq!(rb, Some(b"b" as &[u8]));
+                    assert_eq!(rc, b"c");
+                }
+            }
+        }
+        perm_r_3!(abc_r, b"a b c");
+        perm_r_3!(acb_r, b"a c b");
+        perm_r_3!(bac_r, b"b a c");
+        perm_r_3!(bca_r, b"b c a");
+        perm_r_3!(cab_r, b"c a b");
+        perm_r_3!(cba_r, b"c b a");
+
+        macro_rules! perm_o {
+            ($name:ident, $bytes:expr, $ra:expr, $rb:expr, $rc:expr) => {
+                #[test]
+                fn $name() {
+                    let bytes = $bytes;
+                    let bs = bytes as &[u8];
+                    let (ra, rb, rc) = permutation_opt!(bs, oa, ob, oc).to_full_result().unwrap();
+                    assert_eq!(ra, $ra);
+                    assert_eq!(rb, $rb);
+                    assert_eq!(rc, $rc);
+                }
+            }
+        }
+        perm_o!(ab_o, b"abx", Some(b"a" as &[u8]), Some(b"b" as &[u8]), None);
+        perm_o!(ba_o, b"bax", Some(b"a" as &[u8]), Some(b"b" as &[u8]), None);
+        perm_o!(ac_o, b"acx", Some(b"a" as &[u8]), None, Some(b"c" as &[u8]));
+        perm_o!(ca_o, b"cax", Some(b"a" as &[u8]), None, Some(b"c" as &[u8]));
+        perm_o!(bc_o, b"bcx", None, Some(b"b" as &[u8]), Some(b"c" as &[u8]));
+        perm_o!(cb_o, b"cbx", None, Some(b"b" as &[u8]), Some(b"c" as &[u8]));
+        perm_o!(a_o, b"ax", Some(b"a" as &[u8]), None, None);
+        perm_o!(b_o, b"bx", None, Some(b"b" as &[u8]), None);
+        perm_o!(c_o, b"cx", None, None, Some(b"c" as &[u8]));
+
+        macro_rules! perm_r {
+            ($name:ident, $bytes:expr, $ra:expr, $rb:expr) => {
+                #[test]
+                fn $name() {
+                    let bytes = $bytes;
+                    let bs = bytes as &[u8];
+                    let (ra, rb, rc) = permutation_opt!(bs, oa, ob, c).to_full_result().unwrap();
+                    assert_eq!(ra, $ra);
+                    assert_eq!(rb, $rb);
+                    assert_eq!(rc, b"c");
+                }
+            }
+        }
+        perm_r!(ac_r, b"acx", Some(b"a" as &[u8]), None);
+        perm_r!(ca_r, b"cax", Some(b"a" as &[u8]), None);
+        perm_r!(bc_r, b"bcx", None, Some(b"b" as &[u8]));
+        perm_r!(cb_r, b"cbx", None, Some(b"b" as &[u8]));
+        perm_r!(c_r, b"cx", None, None);
+
+        perm_r!(c_r_lead, b"    cx", None, None);
     }
 }
