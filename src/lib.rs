@@ -25,6 +25,7 @@ extern crate serde_json;
 pub mod nom_util;
 pub mod generic;
 pub mod helac;
+pub mod string;
 
 use lorentz_vector::LorentzVector;
 use std::io;
