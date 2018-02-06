@@ -55,6 +55,7 @@ macro_rules! permutation_opt {
 named!(pub parse_f64<f64>,
     alt!(
         parse_finite_f64 => {|x| x} |
+        parse_finite_f64_leading => {|x| x} |
         tag!("Infinity") => {|_| f64::INFINITY} |
         tag!("-Infinity") => {|_| f64::NEG_INFINITY} |
         tag!("NaN") => {|_| f64::NAN}
@@ -68,6 +69,27 @@ named!(
             recognize!(do_parse!(
                 opt!(alt!(tag!("+") | tag!("-"))) >> take_while1!(nom::is_digit)
                     >> opt!(preceded!(tag!("."), take_while!(nom::is_digit)))
+                    >> opt!(preceded!(
+                        alt!(tag!("e") | tag!("E")),
+                        preceded!(
+                            opt!(alt!(tag!("+") | tag!("-"))),
+                            take_while1!(nom::is_digit)
+                        )
+                    )) >> (())
+            )),
+            str::from_utf8
+        ),
+        f64::from_str
+    )
+);
+
+named!(
+    parse_finite_f64_leading<f64>,
+    map_res!(
+        map_res!(
+            recognize!(do_parse!(
+                opt!(alt!(tag!("+") | tag!("-")))
+                    >> preceded!(tag!("."), take_while!(nom::is_digit))
                     >> opt!(preceded!(
                         alt!(tag!("e") | tag!("E")),
                         preceded!(
@@ -156,6 +178,14 @@ mod test {
         assert_eq!(
             parse_f64(b"2.228997274254760E-08"),
             IResult::Done(b"" as &[u8], 2.228997274254760E-08)
+        );
+        assert_eq!(
+            parse_f64(b"-.20889051E+01"),
+            IResult::Done(b"" as &[u8], -0.20889051E+01)
+        );
+        assert_eq!(
+            parse_f64(b".20889051E+01"),
+            IResult::Done(b"" as &[u8], 0.20889051E+01)
         );
     }
 
