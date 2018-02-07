@@ -134,7 +134,11 @@ impl ReadLhe for InitExtra {
 impl WriteLhe for InitExtra {
     fn write_lhe<W: io::Write>(&self, writer: &mut W) -> io::Result<()> {
         let &InitExtra(ref s) = self;
-        writeln!(writer, "{}", s)
+        if s.is_empty() {
+            Ok(())
+        } else {
+            writeln!(writer, "{}", s)
+        }
     }
 }
 
@@ -164,7 +168,11 @@ impl ReadLhe for EventExtra {
 impl WriteLhe for EventExtra {
     fn write_lhe<W: io::Write>(&self, writer: &mut W) -> io::Result<()> {
         let &EventExtra(ref s) = self;
-        writeln!(writer, "{}", s)
+        if s.is_empty() {
+            Ok(())
+        } else {
+            writeln!(writer, "{}", s)
+        }
     }
 }
 
