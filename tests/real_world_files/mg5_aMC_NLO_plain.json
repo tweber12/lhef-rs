@@ -1,0 +1,114 @@
+{
+"version": "3.0",
+"comment": {},
+"header": {},
+"init": {
+	"beam_1_id": 2212, "beam_2_id":   2212, "beam_1_energy": 0.65000000E+04, "beam_2_energy":  0.65000000E+04, "beam_1_pdf_group_id": -1, "beam_2_pdf_group_id": -1, "beam_1_pdf_id": 244800, "beam_2_pdf_id": 244800, "weighting_strategy": -4,
+		"process_info": [
+		{ "xsect": 0.36129743E+09, "xsect_err": 0.82276777E+07, "maximum_weight": 0.73958823E+09, "process_id":      0}
+	],
+	"extra": {}
+},
+"events": [
+  {
+  "process_id": 0, "weight": 0.73958823E+09, "scale": 0.11758293E+02, "alpha_ew": 0.75467711E-02, "alpha_qcd": 0.18342605E+00,
+  	"particles": [
+		{"pdg_id": 21, "status": -1,    "mother_1_id": 0,    "mother_2_id": 0,  "color_1": 501,  "color_2": 502, "momentum": {"px": 0.00000000E+00, "py": 0.00000000E+00, "pz": 0.46619178E+03, "e": 0.46619238E+03}, "mass": 0.75000000E+00, "proper_lifetime": 0.0000E+00, "spin": 0.9000E+01},
+		{"pdg_id": 21, "status": -1,    "mother_1_id": 0,    "mother_2_id": 0,  "color_1": 502,  "color_2": 503, "momentum": {"px": 0.00000000E+00, "py": 0.00000000E+00, "pz": -0.29236310E-02, "e": 0.14473432E+00}, "mass": 0.14470479E+00, "proper_lifetime": 0.0000E+00, "spin": 0.9000E+01},
+		{"pdg_id": 5,  "status": 1,    "mother_1_id": 1,    "mother_2_id": 2,  "color_1": 501,    "color_2": 0, "momentum": {"px": 0.20889051E+01, "py": -0.27052776E+01, "pz": 0.19779205E+03, "e": 0.19787740E+03}, "mass": 0.47000000E+01, "proper_lifetime": 0.0000E+00, "spin": 0.9000E+01},
+		{"pdg_id": -5,  "status": 1,    "mother_1_id": 1,    "mother_2_id": 2,    "color_1": 0,  "color_2": 503, "momentum": {"px": -0.20889051E+01, "py": 0.27052776E+01, "pz": 0.26839681E+03, "e": 0.26845972E+03}, "mass": 0.47000000E+01, "proper_lifetime": 0.0000E+00, "spin": 0.9000E+01}
+	],
+	"extra": {}
+  },
+  {
+  "process_id": 0, "weight": 0.73958823E+09, "scale": 0.19304825E+02, "alpha_ew": 0.75467711E-02, "alpha_qcd": 0.19956896E+00,
+  	"particles": [
+		{"pdg_id": 21, "status": -1,    "mother_1_id": 0,    "mother_2_id": 0,  "color_1": 503,  "color_2": 502, "momentum": {"px": 0.00000000E+00, "py": 0.00000000E+00, "pz": 0.14834457E-01, "e": 0.73437743E+00}, "mass": 0.73422759E+00, "proper_lifetime": 0.0000E+00, "spin": 0.9000E+01},
+		{"pdg_id": 21, "status": -1,    "mother_1_id": 0,    "mother_2_id": 0,  "color_1": 501,  "color_2": 503, "momentum": {"px": 0.00000000E+00, "py": 0.00000000E+00, "pz": -0.25516725E+03, "e": 0.25516835E+03}, "mass": 0.75000000E+00, "proper_lifetime": 0.0000E+00, "spin": 0.9000E+01},
+		{"pdg_id": 5,  "status": 1,    "mother_1_id": 1,    "mother_2_id": 2,  "color_1": 501,    "color_2": 0, "momentum": {"px": -0.16952901E+01, "py": -0.43158889E+01, "pz": -0.22205935E+03, "e": 0.22215748E+03}, "mass": 0.47000000E+01, "proper_lifetime": 0.0000E+00, "spin": 0.9000E+01},
+		{"pdg_id": -5,  "status": 1,    "mother_1_id": 1,    "mother_2_id": 2,    "color_1": 0,  "color_2": 502, "momentum": {"px": 0.16952901E+01, "py": 0.43158889E+01, "pz": -0.33093069E+02, "e": 0.33745253E+02}, "mass": 0.47000000E+01, "proper_lifetime": 0.0000E+00, "spin": 0.9000E+01}
+	],
+	"extra": {}
+  },
+  {
+  "process_id": 0, "weight": 0.73958823E+09, "scale": 0.15742991E+02, "alpha_ew": 0.75467711E-02, "alpha_qcd": 0.96830396E-01,
+  	"particles": [
+		{"pdg_id": 21, "status": -1,    "mother_1_id": 0,    "mother_2_id": 0,  "color_1": 503,  "color_2": 502, "momentum": {"px": 0.00000000E+00, "py": 0.00000000E+00, "pz": 0.97984437E+02, "e": 0.97987307E+02}, "mass": 0.75000000E+00, "proper_lifetime": 0.0000E+00, "spin": 0.9000E+01},
+		{"pdg_id": 21, "status": -1,    "mother_1_id": 0,    "mother_2_id": 0,  "color_1": 501,  "color_2": 503, "momentum": {"px": 0.00000000E+00, "py": 0.00000000E+00, "pz": -0.40606363E+00, "e": 0.85287025E+00}, "mass": 0.75000000E+00, "proper_lifetime": 0.0000E+00, "spin": 0.9000E+01},
+		{"pdg_id": 5,  "status": 1,    "mother_1_id": 1,    "mother_2_id": 2,  "color_1": 501,    "color_2": 0, "momentum": {"px": -0.80722078E+00, "py": 0.20741211E+01, "pz": 0.11690047E+02, "e": 0.12794561E+02}, "mass": 0.47000000E+01, "proper_lifetime": 0.0000E+00, "spin": 0.9000E+01},
+		{"pdg_id": -5,  "status": 1,    "mother_1_id": 1,    "mother_2_id": 2,    "color_1": 0,  "color_2": 502, "momentum": {"px": 0.80722078E+00, "py": -0.20741211E+01, "pz": 0.85888326E+02, "e": 0.86045617E+02}, "mass": 0.47000000E+01, "proper_lifetime": 0.0000E+00, "spin": 0.9000E+01}
+	],
+	"extra": {}
+  },
+  {
+  "process_id": 0, "weight": -0.73958823E+09, "scale": 0.11673875E+02, "alpha_ew": 0.75467711E-02, "alpha_qcd": 0.13057778E+00,
+  	"particles": [
+		{"pdg_id": 21, "status": -1,    "mother_1_id": 0,    "mother_2_id": 0,  "color_1": 503,  "color_2": 502, "momentum": {"px": 0.00000000E+00, "py": 0.00000000E+00, "pz": 0.35410961E+03, "e": 0.35411041E+03}, "mass": 0.75000000E+00, "proper_lifetime": 0.0000E+00, "spin": 0.9000E+01},
+		{"pdg_id": 21, "status": -1,    "mother_1_id": 0,    "mother_2_id": 0,  "color_1": 501,  "color_2": 503, "momentum": {"px": 0.00000000E+00, "py": 0.00000000E+00, "pz": -0.37933112E-02, "e": 0.18778765E+00}, "mass": 0.18774933E+00, "proper_lifetime": 0.0000E+00, "spin": 0.9000E+01},
+		{"pdg_id": 5,  "status": 1,    "mother_1_id": 1,    "mother_2_id": 2,  "color_1": 501,    "color_2": 0, "momentum": {"px": 0.68561862E+00, "py": 0.33858253E+01, "pz": 0.17054676E+03, "e": 0.17064648E+03}, "mass": 0.47000000E+01, "proper_lifetime": 0.0000E+00, "spin": 0.9000E+01},
+		{"pdg_id": -5,  "status": 1,    "mother_1_id": 1,    "mother_2_id": 2,    "color_1": 0,  "color_2": 502, "momentum": {"px": -0.68561862E+00, "py": -0.33858253E+01, "pz": 0.18355906E+03, "e": 0.18365171E+03}, "mass": 0.47000000E+01, "proper_lifetime": 0.0000E+00, "spin": 0.9000E+01}
+	],
+	"extra": {}
+  },
+  {
+  "process_id": 0, "weight": 0.73958823E+09, "scale": 0.12634356E+02, "alpha_ew": 0.75467711E-02, "alpha_qcd": 0.20133308E+00,
+  	"particles": [
+		{"pdg_id": 21, "status": -1,    "mother_1_id": 0,    "mother_2_id": 0,  "color_1": 503,  "color_2": 502, "momentum": {"px": 0.00000000E+00, "py": 0.00000000E+00, "pz": 0.43922327E+01, "e": 0.44558061E+01}, "mass": 0.75000000E+00, "proper_lifetime": 0.0000E+00, "spin": 0.9000E+01},
+		{"pdg_id": 21, "status": -1,    "mother_1_id": 0,    "mother_2_id": 0,  "color_1": 501,  "color_2": 503, "momentum": {"px": 0.00000000E+00, "py": 0.00000000E+00, "pz": -0.89410839E+01, "e": 0.89724847E+01}, "mass": 0.75000000E+00, "proper_lifetime": 0.0000E+00, "spin": 0.9000E+01},
+		{"pdg_id": 5,  "status": 1,    "mother_1_id": 1,    "mother_2_id": 2,  "color_1": 501,    "color_2": 0, "momentum": {"px": 0.32660809E+00, "py": -0.24882824E+01, "pz": -0.58815895E+01, "e": 0.79360769E+01}, "mass": 0.47000000E+01, "proper_lifetime": 0.0000E+00, "spin": 0.9000E+01},
+		{"pdg_id": -5,  "status": 1,    "mother_1_id": 1,    "mother_2_id": 2,    "color_1": 0,  "color_2": 502, "momentum": {"px": -0.32660809E+00, "py": 0.24882824E+01, "pz": 0.13327383E+01, "e": 0.54922139E+01}, "mass": 0.47000000E+01, "proper_lifetime": 0.0000E+00, "spin": 0.9000E+01}
+	],
+	"extra": {}
+  },
+  {
+  "process_id": 0, "weight": 0.73958823E+09, "scale": 0.15473132E+02, "alpha_ew": 0.75467711E-02, "alpha_qcd": 0.15599358E+00,
+  	"particles": [
+		{"pdg_id": 21, "status": -1,    "mother_1_id": 0,    "mother_2_id": 0,  "color_1": 503,  "color_2": 502, "momentum": {"px": 0.00000000E+00, "py": 0.00000000E+00, "pz": 0.35251874E+02, "e": 0.35259852E+02}, "mass": 0.75000000E+00, "proper_lifetime": 0.0000E+00, "spin": 0.9000E+01},
+		{"pdg_id": 21, "status": -1,    "mother_1_id": 0,    "mother_2_id": 0,  "color_1": 501,  "color_2": 503, "momentum": {"px": 0.00000000E+00, "py": 0.00000000E+00, "pz": -0.16065061E+01, "e": 0.17729528E+01}, "mass": 0.75000000E+00, "proper_lifetime": 0.0000E+00, "spin": 0.9000E+01},
+		{"pdg_id": 5,  "status": 1,    "mother_1_id": 1,    "mother_2_id": 2,  "color_1": 501,    "color_2": 0, "momentum": {"px": -0.28372224E+00, "py": 0.14733289E+01, "pz": 0.25599226E+01, "e": 0.55582731E+01}, "mass": 0.47000000E+01, "proper_lifetime": 0.0000E+00, "spin": 0.9000E+01},
+		{"pdg_id": -5,  "status": 1,    "mother_1_id": 1,    "mother_2_id": 2,    "color_1": 0,  "color_2": 502, "momentum": {"px": 0.28372224E+00, "py": -0.14733289E+01, "pz": 0.31085445E+02, "e": 0.31474531E+02}, "mass": 0.47000000E+01, "proper_lifetime": 0.0000E+00, "spin": 0.9000E+01}
+	],
+	"extra": {}
+  },
+  {
+  "process_id": 0, "weight": 0.73958823E+09, "scale": 0.12884156E+02, "alpha_ew": 0.75467711E-02, "alpha_qcd": 0.18590388E+00,
+  	"particles": [
+		{"pdg_id": 21, "status": -1,    "mother_1_id": 0,    "mother_2_id": 0,  "color_1": 501,  "color_2": 502, "momentum": {"px": 0.00000000E+00, "py": 0.00000000E+00, "pz": 0.22846748E+03, "e": 0.22846871E+03}, "mass": 0.75000000E+00, "proper_lifetime": 0.0000E+00, "spin": 0.9000E+01},
+		{"pdg_id": 21, "status": -1,    "mother_1_id": 0,    "mother_2_id": 0,  "color_1": 502,  "color_2": 503, "momentum": {"px": 0.00000000E+00, "py": 0.00000000E+00, "pz": -0.71633886E-02, "e": 0.35462204E+00}, "mass": 0.35454968E+00, "proper_lifetime": 0.0000E+00, "spin": 0.9000E+01},
+		{"pdg_id": 5,  "status": 1,    "mother_1_id": 1,    "mother_2_id": 2,  "color_1": 501,    "color_2": 0, "momentum": {"px": -0.11759259E-02, "py": -0.27789522E+01, "pz": 0.17494720E+03, "e": 0.17503238E+03}, "mass": 0.47000000E+01, "proper_lifetime": 0.0000E+00, "spin": 0.9000E+01},
+		{"pdg_id": -5,  "status": 1,    "mother_1_id": 1,    "mother_2_id": 2,    "color_1": 0,  "color_2": 503, "momentum": {"px": 0.11759259E-02, "py": 0.27789522E+01, "pz": 0.53513114E+02, "e": 0.53790947E+02}, "mass": 0.47000000E+01, "proper_lifetime": 0.0000E+00, "spin": 0.9000E+01}
+	],
+	"extra": {}
+  },
+  {
+  "process_id": 0, "weight": 0.73958823E+09, "scale": 0.13366560E+02, "alpha_ew": 0.75467711E-02, "alpha_qcd": 0.20217951E+00,
+  	"particles": [
+		{"pdg_id": 21, "status": -1,    "mother_1_id": 0,    "mother_2_id": 0,  "color_1": 503,  "color_2": 502, "momentum": {"px": 0.00000000E+00, "py": 0.00000000E+00, "pz": 0.54324449E+00, "e": 0.92607482E+00}, "mass": 0.75000000E+00, "proper_lifetime": 0.0000E+00, "spin": 0.9000E+01},
+		{"pdg_id": 21, "status": -1,    "mother_1_id": 0,    "mother_2_id": 0,  "color_1": 501,  "color_2": 503, "momentum": {"px": 0.00000000E+00, "py": 0.00000000E+00, "pz": -0.60412775E+02, "e": 0.60417430E+02}, "mass": 0.75000000E+00, "proper_lifetime": 0.0000E+00, "spin": 0.9000E+01},
+		{"pdg_id": 5,  "status": 1,    "mother_1_id": 1,    "mother_2_id": 2,  "color_1": 501,    "color_2": 0, "momentum": {"px": -0.31641655E+01, "py": -0.27311378E+01, "pz": -0.40304182E+02, "e": 0.40792011E+02}, "mass": 0.47000000E+01, "proper_lifetime": 0.0000E+00, "spin": 0.9000E+01},
+		{"pdg_id": -5,  "status": 1,    "mother_1_id": 1,    "mother_2_id": 2,    "color_1": 0,  "color_2": 502, "momentum": {"px": 0.31641655E+01, "py": 0.27311378E+01, "pz": -0.19565349E+02, "e": 0.20551495E+02}, "mass": 0.47000000E+01, "proper_lifetime": 0.0000E+00, "spin": 0.9000E+01}
+	],
+	"extra": {}
+  },
+  {
+  "process_id": 0, "weight": -0.73958823E+09, "scale": 0.96844619E+01, "alpha_ew": 0.75467711E-02, "alpha_qcd": 0.21786413E+00,
+  	"particles": [
+		{"pdg_id": 21, "status": -1,    "mother_1_id": 0,    "mother_2_id": 0,  "color_1": 503,  "color_2": 502, "momentum": {"px": 0.00000000E+00, "py": 0.00000000E+00, "pz": 0.10493053E+02, "e": 0.10519822E+02}, "mass": 0.75000000E+00, "proper_lifetime": 0.0000E+00, "spin": 0.9000E+01},
+		{"pdg_id": 21, "status": -1,    "mother_1_id": 0,    "mother_2_id": 0,  "color_1": 501,  "color_2": 503, "momentum": {"px": 0.00000000E+00, "py": 0.00000000E+00, "pz": -0.21410681E+01, "e": 0.22686279E+01}, "mass": 0.75000000E+00, "proper_lifetime": 0.0000E+00, "spin": 0.9000E+01},
+		{"pdg_id": 5,  "status": 1,    "mother_1_id": 1,    "mother_2_id": 2,  "color_1": 501,    "color_2": 0, "momentum": {"px": 0.11605315E+01, "py": 0.37797701E-01, "pz": 0.40511451E+01, "e": 0.63126887E+01}, "mass": 0.47000000E+01, "proper_lifetime": 0.0000E+00, "spin": 0.9000E+01},
+		{"pdg_id": -5,  "status": 1,    "mother_1_id": 1,    "mother_2_id": 2,    "color_1": 0,  "color_2": 502, "momentum": {"px": -0.11605315E+01, "py": -0.37797701E-01, "pz": 0.43008393E+01, "e": 0.64757610E+01}, "mass": 0.47000000E+01, "proper_lifetime": 0.0000E+00, "spin": 0.9000E+01}
+	],
+	"extra": {}
+  },
+  {
+  "process_id": 0, "weight": 0.73958823E+09, "scale": 0.30879108E+02, "alpha_ew": 0.75467711E-02, "alpha_qcd": 0.14091931E+00,
+  	"particles": [
+		{"pdg_id": 21, "status": -1,    "mother_1_id": 0,    "mother_2_id": 0,  "color_1": 503,  "color_2": 502, "momentum": {"px": 0.00000000E+00, "py": 0.00000000E+00, "pz": 0.27550109E+01, "e": 0.28552732E+01}, "mass": 0.75000000E+00, "proper_lifetime": 0.0000E+00, "spin": 0.9000E+01},
+		{"pdg_id": 21, "status": -1,    "mother_1_id": 0,    "mother_2_id": 0,  "color_1": 501,  "color_2": 503, "momentum": {"px": 0.00000000E+00, "py": 0.00000000E+00, "pz": -0.84877646E+02, "e": 0.84880959E+02}, "mass": 0.75000000E+00, "proper_lifetime": 0.0000E+00, "spin": 0.9000E+01},
+		{"pdg_id": 5,  "status": 1,    "mother_1_id": 1,    "mother_2_id": 2,  "color_1": 501,    "color_2": 0, "momentum": {"px": -0.35840471E+01, "py": 0.24443906E+01, "pz": -0.80988083E+02, "e": 0.81240261E+02}, "mass": 0.47000000E+01, "proper_lifetime": 0.0000E+00, "spin": 0.9000E+01},
+		{"pdg_id": -5,  "status": 1,    "mother_1_id": 1,    "mother_2_id": 2,    "color_1": 0,  "color_2": 502, "momentum": {"px": 0.35840471E+01, "py": -0.24443906E+01, "pz": -0.11345522E+01, "e": 0.64959717E+01}, "mass": 0.47000000E+01, "proper_lifetime": 0.0000E+00, "spin": 0.9000E+01}
+	],
+	"extra": {}
+  }
+  ]
+  }

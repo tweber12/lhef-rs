@@ -1,0 +1,114 @@
+{
+"version": "3.0",
+"comment": {},
+"header": {},
+"init": {
+	"beam_1_id": -11, "beam_2_id": 11, "beam_1_energy": 5.000000e+02, "beam_2_energy":  5.000000e+02, "beam_1_pdf_group_id": 0, "beam_2_pdf_group_id": 0, "beam_1_pdf_id": 247000, "beam_2_pdf_id": 247000, "weighting_strategy": -4,
+		"process_info": [
+		{ "xsect": 1.042230e-01, "xsect_err": 4.052415e-04, "maximum_weight": 1.042230e-01, "process_id": 1}
+	],
+	"extra": {}
+},
+"events": [
+{
+ "process_id": 1, "weight": 1.0422300e-01, "scale": 1.00000000e+03, "alpha_ew": 7.54677100e-03, "alpha_qcd": 8.68436700e-02,
+ 	"particles": [
+      {"pdg_id": -11, "status": -1,    "mother_1_id": 0,    "mother_2_id": 0,    "color_1": 0,    "color_2": 0, "momentum": {"px": 0.0000000000e+00, "py": 0.0000000000e+00, "pz": 5.0000000000e+02, "e": 5.0000000000e+02}, "mass": 0.0000000000e+00, "proper_lifetime": 0.0000e+00, "spin": -1.0000e+00},
+       {"pdg_id": 11, "status": -1,    "mother_1_id": 0,    "mother_2_id": 0,    "color_1": 0,    "color_2": 0, "momentum": {"px": -0.0000000000e+00, "py": -0.0000000000e+00, "pz": -5.0000000000e+02, "e": 5.0000000000e+02}, "mass": 0.0000000000e+00, "proper_lifetime": 0.0000e+00, "spin": 1.0000e+00},
+      {"pdg_id": -13,  "status": 1,    "mother_1_id": 1,    "mother_2_id": 2,    "color_1": 0,    "color_2": 0, "momentum": {"px": 1.5896445767e+02, "py": 5.5131636361e+01, "pz": 4.7084052913e+02, "e": 5.0000000000e+02}, "mass": 0.0000000000e+00, "proper_lifetime": 0.0000e+00, "spin": -1.0000e+00},
+       {"pdg_id": 13,  "status": 1,    "mother_1_id": 1,    "mother_2_id": 2,    "color_1": 0,    "color_2": 0, "momentum": {"px": -1.5896445767e+02, "py": -5.5131636361e+01, "pz": -4.7084052913e+02, "e": 5.0000000000e+02}, "mass": 0.0000000000e+00, "proper_lifetime": 0.0000e+00, "spin": 1.0000e+00}
+       ],
+       "extra": {}
+},
+{
+ "process_id": 1, "weight": 1.0422300e-01, "scale": 1.00000000e+03, "alpha_ew": 7.54677100e-03, "alpha_qcd": 8.68436700e-02,
+ 	"particles": [
+      {"pdg_id": -11, "status": -1,    "mother_1_id": 0,    "mother_2_id": 0,    "color_1": 0,    "color_2": 0, "momentum": {"px": 0.0000000000e+00, "py": 0.0000000000e+00, "pz": 5.0000000000e+02, "e": 5.0000000000e+02}, "mass": 0.0000000000e+00, "proper_lifetime": 0.0000e+00, "spin": -1.0000e+00},
+       {"pdg_id": 11, "status": -1,    "mother_1_id": 0,    "mother_2_id": 0,    "color_1": 0,    "color_2": 0, "momentum": {"px": -0.0000000000e+00, "py": -0.0000000000e+00, "pz": -5.0000000000e+02, "e": 5.0000000000e+02}, "mass": 0.0000000000e+00, "proper_lifetime": 0.0000e+00, "spin": 1.0000e+00},
+      {"pdg_id": -13,  "status": 1,    "mother_1_id": 1,    "mother_2_id": 2,    "color_1": 0,    "color_2": 0, "momentum": {"px": -4.1351526109e+01, "py": -7.3358386233e+01, "pz": 4.9285758436e+02, "e": 5.0000000000e+02}, "mass": 0.0000000000e+00, "proper_lifetime": 0.0000e+00, "spin": -1.0000e+00},
+       {"pdg_id": 13,  "status": 1,    "mother_1_id": 1,    "mother_2_id": 2,    "color_1": 0,    "color_2": 0, "momentum": {"px": 4.1351526109e+01, "py": 7.3358386233e+01, "pz": -4.9285758436e+02, "e": 5.0000000000e+02}, "mass": 0.0000000000e+00, "proper_lifetime": 0.0000e+00, "spin": 1.0000e+00}
+       ],
+       "extra": {}
+},
+{
+ "process_id": 1, "weight": 1.0422300e-01, "scale": 1.00000000e+03, "alpha_ew": 7.54677100e-03, "alpha_qcd": 8.68436700e-02,
+ 	"particles": [
+      {"pdg_id": -11, "status": -1,    "mother_1_id": 0,    "mother_2_id": 0,    "color_1": 0,    "color_2": 0, "momentum": {"px": 0.0000000000e+00, "py": 0.0000000000e+00, "pz": 5.0000000000e+02, "e": 5.0000000000e+02}, "mass": 0.0000000000e+00, "proper_lifetime": 0.0000e+00, "spin": -1.0000e+00},
+       {"pdg_id": 11, "status": -1,    "mother_1_id": 0,    "mother_2_id": 0,    "color_1": 0,    "color_2": 0, "momentum": {"px": -0.0000000000e+00, "py": -0.0000000000e+00, "pz": -5.0000000000e+02, "e": 5.0000000000e+02}, "mass": 0.0000000000e+00, "proper_lifetime": 0.0000e+00, "spin": 1.0000e+00},
+      {"pdg_id": -13,  "status": 1,    "mother_1_id": 1,    "mother_2_id": 2,    "color_1": 0,    "color_2": 0, "momentum": {"px": -1.9732017450e+02, "py": -4.5249456795e+02, "pz": -7.9456999123e+01, "e": 5.0000000000e+02}, "mass": 0.0000000000e+00, "proper_lifetime": 0.0000e+00, "spin": -1.0000e+00},
+       {"pdg_id": 13,  "status": 1,    "mother_1_id": 1,    "mother_2_id": 2,    "color_1": 0,    "color_2": 0, "momentum": {"px": 1.9732017450e+02, "py": 4.5249456795e+02, "pz": 7.9456999123e+01, "e": 5.0000000000e+02}, "mass": 0.0000000000e+00, "proper_lifetime": 0.0000e+00, "spin": 1.0000e+00}
+       ],
+       "extra": {}
+},
+{
+ "process_id": 1, "weight": 1.0422300e-01, "scale": 1.00000000e+03, "alpha_ew": 7.54677100e-03, "alpha_qcd": 8.68436700e-02,
+ 	"particles": [
+      {"pdg_id": -11, "status": -1,    "mother_1_id": 0,    "mother_2_id": 0,    "color_1": 0,    "color_2": 0, "momentum": {"px": 0.0000000000e+00, "py": 0.0000000000e+00, "pz": 5.0000000000e+02, "e": 5.0000000000e+02}, "mass": 0.0000000000e+00, "proper_lifetime": 0.0000e+00, "spin": 1.0000e+00},
+       {"pdg_id": 11, "status": -1,    "mother_1_id": 0,    "mother_2_id": 0,    "color_1": 0,    "color_2": 0, "momentum": {"px": -0.0000000000e+00, "py": -0.0000000000e+00, "pz": -5.0000000000e+02, "e": 5.0000000000e+02}, "mass": 0.0000000000e+00, "proper_lifetime": 0.0000e+00, "spin": -1.0000e+00},
+      {"pdg_id": -13,  "status": 1,    "mother_1_id": 1,    "mother_2_id": 2,    "color_1": 0,    "color_2": 0, "momentum": {"px": 4.2929607886e+01, "py": -2.6053824029e+02, "pz": 4.2459024260e+02, "e": 5.0000000000e+02}, "mass": 0.0000000000e+00, "proper_lifetime": 0.0000e+00, "spin": 1.0000e+00},
+       {"pdg_id": 13,  "status": 1,    "mother_1_id": 1,    "mother_2_id": 2,    "color_1": 0,    "color_2": 0, "momentum": {"px": -4.2929607886e+01, "py": 2.6053824029e+02, "pz": -4.2459024260e+02, "e": 5.0000000000e+02}, "mass": 0.0000000000e+00, "proper_lifetime": 0.0000e+00, "spin": -1.0000e+00}
+       ],
+       "extra": {}
+},
+{
+ "process_id": 1, "weight": 1.0422300e-01, "scale": 1.00000000e+03, "alpha_ew": 7.54677100e-03, "alpha_qcd": 8.68436700e-02,
+ 	"particles": [
+      {"pdg_id": -11, "status": -1,    "mother_1_id": 0,    "mother_2_id": 0,    "color_1": 0,    "color_2": 0, "momentum": {"px": 0.0000000000e+00, "py": 0.0000000000e+00, "pz": 5.0000000000e+02, "e": 5.0000000000e+02}, "mass": 0.0000000000e+00, "proper_lifetime": 0.0000e+00, "spin": -1.0000e+00},
+       {"pdg_id": 11, "status": -1,    "mother_1_id": 0,    "mother_2_id": 0,    "color_1": 0,    "color_2": 0, "momentum": {"px": -0.0000000000e+00, "py": -0.0000000000e+00, "pz": -5.0000000000e+02, "e": 5.0000000000e+02}, "mass": 0.0000000000e+00, "proper_lifetime": 0.0000e+00, "spin": 1.0000e+00},
+      {"pdg_id": -13,  "status": 1,    "mother_1_id": 1,    "mother_2_id": 2,    "color_1": 0,    "color_2": 0, "momentum": {"px": 5.8700592530e+00, "py": -3.6293832703e+02, "pz": 3.4386234626e+02, "e": 5.0000000000e+02}, "mass": 0.0000000000e+00, "proper_lifetime": 0.0000e+00, "spin": -1.0000e+00},
+       {"pdg_id": 13,  "status": 1,    "mother_1_id": 1,    "mother_2_id": 2,    "color_1": 0,    "color_2": 0, "momentum": {"px": -5.8700592530e+00, "py": 3.6293832703e+02, "pz": -3.4386234626e+02, "e": 5.0000000000e+02}, "mass": 0.0000000000e+00, "proper_lifetime": 0.0000e+00, "spin": 1.0000e+00}
+       ],
+       "extra": {}
+},
+{
+ "process_id": 1, "weight": 1.0422300e-01, "scale": 1.00000000e+03, "alpha_ew": 7.54677100e-03, "alpha_qcd": 8.68436700e-02,
+ 	"particles": [
+      {"pdg_id": -11, "status": -1,    "mother_1_id": 0,    "mother_2_id": 0,    "color_1": 0,    "color_2": 0, "momentum": {"px": 0.0000000000e+00, "py": 0.0000000000e+00, "pz": 5.0000000000e+02, "e": 5.0000000000e+02}, "mass": 0.0000000000e+00, "proper_lifetime": 0.0000e+00, "spin": -1.0000e+00},
+       {"pdg_id": 11, "status": -1,    "mother_1_id": 0,    "mother_2_id": 0,    "color_1": 0,    "color_2": 0, "momentum": {"px": -0.0000000000e+00, "py": -0.0000000000e+00, "pz": -5.0000000000e+02, "e": 5.0000000000e+02}, "mass": 0.0000000000e+00, "proper_lifetime": 0.0000e+00, "spin": 1.0000e+00},
+      {"pdg_id": -13,  "status": 1,    "mother_1_id": 1,    "mother_2_id": 2,    "color_1": 0,    "color_2": 0, "momentum": {"px": 2.5419618700e+02, "py": 3.3145983141e+02, "pz": 2.7480662051e+02, "e": 5.0000000000e+02}, "mass": 0.0000000000e+00, "proper_lifetime": 0.0000e+00, "spin": -1.0000e+00},
+       {"pdg_id": 13,  "status": 1,    "mother_1_id": 1,    "mother_2_id": 2,    "color_1": 0,    "color_2": 0, "momentum": {"px": -2.5419618700e+02, "py": -3.3145983141e+02, "pz": -2.7480662051e+02, "e": 5.0000000000e+02}, "mass": 0.0000000000e+00, "proper_lifetime": 0.0000e+00, "spin": 1.0000e+00}
+       ],
+       "extra": {}
+},
+{
+ "process_id": 1, "weight": 1.0422300e-01, "scale": 1.00000000e+03, "alpha_ew": 7.54677100e-03, "alpha_qcd": 8.68436700e-02,
+ 	"particles": [
+      {"pdg_id": -11, "status": -1,    "mother_1_id": 0,    "mother_2_id": 0,    "color_1": 0,    "color_2": 0, "momentum": {"px": 0.0000000000e+00, "py": 0.0000000000e+00, "pz": 5.0000000000e+02, "e": 5.0000000000e+02}, "mass": 0.0000000000e+00, "proper_lifetime": 0.0000e+00, "spin": 1.0000e+00},
+       {"pdg_id": 11, "status": -1,    "mother_1_id": 0,    "mother_2_id": 0,    "color_1": 0,    "color_2": 0, "momentum": {"px": -0.0000000000e+00, "py": -0.0000000000e+00, "pz": -5.0000000000e+02, "e": 5.0000000000e+02}, "mass": 0.0000000000e+00, "proper_lifetime": 0.0000e+00, "spin": -1.0000e+00},
+      {"pdg_id": -13,  "status": 1,    "mother_1_id": 1,    "mother_2_id": 2,    "color_1": 0,    "color_2": 0, "momentum": {"px": 4.0501910648e+02, "py": -2.5329041953e+02, "pz": -1.4766003779e+02, "e": 5.0000000000e+02}, "mass": 0.0000000000e+00, "proper_lifetime": 0.0000e+00, "spin": -1.0000e+00},
+       {"pdg_id": 13,  "status": 1,    "mother_1_id": 1,    "mother_2_id": 2,    "color_1": 0,    "color_2": 0, "momentum": {"px": -4.0501910648e+02, "py": 2.5329041953e+02, "pz": 1.4766003779e+02, "e": 5.0000000000e+02}, "mass": 0.0000000000e+00, "proper_lifetime": 0.0000e+00, "spin": 1.0000e+00}
+       ],
+       "extra": {}
+},
+{
+ "process_id": 1, "weight": 1.0422300e-01, "scale": 1.00000000e+03, "alpha_ew": 7.54677100e-03, "alpha_qcd": 8.68436700e-02,
+ 	"particles": [
+      {"pdg_id": -11, "status": -1,    "mother_1_id": 0,    "mother_2_id": 0,    "color_1": 0,    "color_2": 0, "momentum": {"px": 0.0000000000e+00, "py": 0.0000000000e+00, "pz": 5.0000000000e+02, "e": 5.0000000000e+02}, "mass": 0.0000000000e+00, "proper_lifetime": 0.0000e+00, "spin": -1.0000e+00},
+       {"pdg_id": 11, "status": -1,    "mother_1_id": 0,    "mother_2_id": 0,    "color_1": 0,    "color_2": 0, "momentum": {"px": -0.0000000000e+00, "py": -0.0000000000e+00, "pz": -5.0000000000e+02, "e": 5.0000000000e+02}, "mass": 0.0000000000e+00, "proper_lifetime": 0.0000e+00, "spin": 1.0000e+00},
+      {"pdg_id": -13,  "status": 1,    "mother_1_id": 1,    "mother_2_id": 2,    "color_1": 0,    "color_2": 0, "momentum": {"px": 3.5954875983e+02, "py": -3.2680111689e+02, "pz": 1.1800728496e+02, "e": 5.0000000000e+02}, "mass": 0.0000000000e+00, "proper_lifetime": 0.0000e+00, "spin": -1.0000e+00},
+       {"pdg_id": 13,  "status": 1,    "mother_1_id": 1,    "mother_2_id": 2,    "color_1": 0,    "color_2": 0, "momentum": {"px": -3.5954875983e+02, "py": 3.2680111689e+02, "pz": -1.1800728496e+02, "e": 5.0000000000e+02}, "mass": 0.0000000000e+00, "proper_lifetime": 0.0000e+00, "spin": 1.0000e+00}
+       ],
+       "extra": {}
+},
+{
+ "process_id": 1, "weight": 1.0422300e-01, "scale": 1.00000000e+03, "alpha_ew": 7.54677100e-03, "alpha_qcd": 8.68436700e-02,
+ 	"particles": [
+      {"pdg_id": -11, "status": -1,    "mother_1_id": 0,    "mother_2_id": 0,    "color_1": 0,    "color_2": 0, "momentum": {"px": 0.0000000000e+00, "py": 0.0000000000e+00, "pz": 5.0000000000e+02, "e": 5.0000000000e+02}, "mass": 0.0000000000e+00, "proper_lifetime": 0.0000e+00, "spin": -1.0000e+00},
+       {"pdg_id": 11, "status": -1,    "mother_1_id": 0,    "mother_2_id": 0,    "color_1": 0,    "color_2": 0, "momentum": {"px": -0.0000000000e+00, "py": -0.0000000000e+00, "pz": -5.0000000000e+02, "e": 5.0000000000e+02}, "mass": 0.0000000000e+00, "proper_lifetime": 0.0000e+00, "spin": 1.0000e+00},
+      {"pdg_id": -13,  "status": 1,    "mother_1_id": 1,    "mother_2_id": 2,    "color_1": 0,    "color_2": 0, "momentum": {"px": 7.9021235612e+01, "py": -2.0744516928e+02, "pz": -4.4802025185e+02, "e": 5.0000000000e+02}, "mass": 0.0000000000e+00, "proper_lifetime": 0.0000e+00, "spin": 1.0000e+00},
+       {"pdg_id": 13,  "status": 1,    "mother_1_id": 1,    "mother_2_id": 2,    "color_1": 0,    "color_2": 0, "momentum": {"px": -7.9021235612e+01, "py": 2.0744516928e+02, "pz": 4.4802025185e+02, "e": 5.0000000000e+02}, "mass": 0.0000000000e+00, "proper_lifetime": 0.0000e+00, "spin": -1.0000e+00}
+       ],
+       "extra": {}
+},
+{
+ "process_id": 1, "weight": 1.0422300e-01, "scale": 1.00000000e+03, "alpha_ew": 7.54677100e-03, "alpha_qcd": 8.68436700e-02,
+ 	"particles": [
+      {"pdg_id": -11, "status": -1,    "mother_1_id": 0,    "mother_2_id": 0,    "color_1": 0,    "color_2": 0, "momentum": {"px": 0.0000000000e+00, "py": 0.0000000000e+00, "pz": 5.0000000000e+02, "e": 5.0000000000e+02}, "mass": 0.0000000000e+00, "proper_lifetime": 0.0000e+00, "spin": 1.0000e+00},
+       {"pdg_id": 11, "status": -1,    "mother_1_id": 0,    "mother_2_id": 0,    "color_1": 0,    "color_2": 0, "momentum": {"px": -0.0000000000e+00, "py": -0.0000000000e+00, "pz": -5.0000000000e+02, "e": 5.0000000000e+02}, "mass": 0.0000000000e+00, "proper_lifetime": 0.0000e+00, "spin": -1.0000e+00},
+      {"pdg_id": -13,  "status": 1,    "mother_1_id": 1,    "mother_2_id": 2,    "color_1": 0,    "color_2": 0, "momentum": {"px": 7.4150401346e+01, "py": -4.0536696459e+02, "pz": 2.8315956985e+02, "e": 5.0000000000e+02}, "mass": 0.0000000000e+00, "proper_lifetime": 0.0000e+00, "spin": 1.0000e+00},
+       {"pdg_id": 13,  "status": 1,    "mother_1_id": 1,    "mother_2_id": 2,    "color_1": 0,    "color_2": 0, "momentum": {"px": -7.4150401346e+01, "py": 4.0536696459e+02, "pz": -2.8315956985e+02, "e": 5.0000000000e+02}, "mass": 0.0000000000e+00, "proper_lifetime": 0.0000e+00, "spin": -1.0000e+00}
+       ],
+       "extra": {}
+}
+]
+}
