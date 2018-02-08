@@ -193,7 +193,6 @@ mod tests {
     use quickcheck;
     use serde_json;
     use std::fs;
-    use std::io::Read;
     use std::str;
 
     use {Particle, ProcInfo, ReadLhe, WriteLhe};
@@ -892,10 +891,7 @@ Generated using numbers
     #[test]
     fn read_sample_files() {
         for file_name in SAMPLE_FILES {
-            let mut file = fs::File::open(file_name).unwrap();
-            let mut contents = Vec::new();
-            file.read_to_end(&mut contents).unwrap();
-            if let Err(e) = LheFile::read_from_lhe(&contents).to_full_result() {
+            if let Err(e) = LheFile::read_lhe_from_file(file_name) {
                 panic!("Failed to read file {}: {:?}", file_name, e);
             }
         }
@@ -904,10 +900,7 @@ Generated using numbers
     #[test]
     fn roundtrip_sample_files() {
         for file_name in SAMPLE_FILES {
-            let mut file = fs::File::open(file_name).unwrap();
-            let mut contents = Vec::new();
-            file.read_to_end(&mut contents).unwrap();
-            let lhe = match LheFile::read_from_lhe(&contents).to_full_result() {
+            let lhe = match LheFile::read_lhe_from_file(file_name) {
                 Ok(l) => l,
                 Err(e) => panic!("Failed to read: {:?}", e),
             };
@@ -929,10 +922,7 @@ Generated using numbers
     fn validate_sample_files() {
         for file_name in SAMPLE_FILES {
             use std::path::Path;
-            let mut file = fs::File::open(file_name).unwrap();
-            let mut contents = Vec::new();
-            file.read_to_end(&mut contents).unwrap();
-            let lhe = LheFile::read_from_lhe(&contents).to_full_result().unwrap();
+            let lhe = LheFile::read_lhe_from_file(file_name).unwrap();
             let json = Path::new(file_name);
             let base = json.file_stem().unwrap();
             let json = json.with_file_name(format!("{}_string.json", base.to_str().unwrap()));

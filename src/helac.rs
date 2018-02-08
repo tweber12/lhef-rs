@@ -1017,7 +1017,6 @@ mod tests {
     use quickcheck;
     use serde_json;
     use std::fs;
-    use std::io::Read;
     use std::str;
 
     use {ReadLhe, WriteLhe};
@@ -1532,20 +1531,13 @@ File generated with HELAC-DIPOLES
 
     #[test]
     fn read_rs() {
-        let mut file = fs::File::open("tests/real_world_files/helac_dipoles_rs.lhe").unwrap();
-        let mut contents = Vec::new();
-        file.read_to_end(&mut contents).unwrap();
-        LheFileRS::read_from_lhe(&contents).unwrap();
+        LheFileRS::read_lhe_from_file(&"tests/real_world_files/helac_dipoles_rs.lhe").unwrap();
     }
 
     #[test]
     fn validate_rs() {
-        let mut file = fs::File::open("tests/real_world_files/helac_dipoles_rs.lhe").unwrap();
-        let mut contents = Vec::new();
-        file.read_to_end(&mut contents).unwrap();
-        let lhe = LheFileRS::read_from_lhe(&contents)
-            .to_full_result()
-            .unwrap();
+        let lhe =
+            LheFileRS::read_lhe_from_file(&"tests/real_world_files/helac_dipoles_rs.lhe").unwrap();
         let mut file = fs::File::open("tests/real_world_files/helac_dipoles_rs.json").unwrap();
         let valid: LheFileRS = serde_json::from_reader(&mut file).unwrap();
         assert_eq!(lhe, valid);
@@ -1553,13 +1545,11 @@ File generated with HELAC-DIPOLES
 
     #[test]
     fn roundtrip_rs() {
-        let mut file = fs::File::open("tests/real_world_files/helac_dipoles_rs.lhe").unwrap();
-        let mut contents = Vec::new();
-        file.read_to_end(&mut contents).unwrap();
-        let lhe = match LheFileRS::read_from_lhe(&contents).to_full_result() {
-            Ok(l) => l,
-            Err(e) => panic!("Failed to read: {:?}", e),
-        };
+        let lhe =
+            match LheFileRS::read_lhe_from_file(&"tests/real_world_files/helac_dipoles_rs.lhe") {
+                Ok(l) => l,
+                Err(e) => panic!("Failed to read: {:?}", e),
+            };
 
         let mut bytes = Vec::new();
         lhe.write_lhe(&mut bytes).unwrap();
@@ -1572,18 +1562,13 @@ File generated with HELAC-DIPOLES
 
     #[test]
     fn read_i() {
-        let mut file = fs::File::open("tests/real_world_files/helac_dipoles_i.lhe").unwrap();
-        let mut contents = Vec::new();
-        file.read_to_end(&mut contents).unwrap();
-        LheFileI::read_from_lhe(&contents).unwrap();
+        LheFileI::read_lhe_from_file(&"tests/real_world_files/helac_dipoles_i.lhe").unwrap();
     }
 
     #[test]
     fn roundtrip_i() {
-        let mut file = fs::File::open("tests/real_world_files/helac_dipoles_i.lhe").unwrap();
-        let mut contents = Vec::new();
-        file.read_to_end(&mut contents).unwrap();
-        let lhe = match LheFileI::read_from_lhe(&contents).to_full_result() {
+        let lhe = match LheFileI::read_lhe_from_file(&"tests/real_world_files/helac_dipoles_i.lhe")
+        {
             Ok(l) => l,
             Err(e) => panic!("Failed to read: {:?}", e),
         };
@@ -1599,10 +1584,8 @@ File generated with HELAC-DIPOLES
 
     #[test]
     fn validate_i() {
-        let mut file = fs::File::open("tests/real_world_files/helac_dipoles_i.lhe").unwrap();
-        let mut contents = Vec::new();
-        file.read_to_end(&mut contents).unwrap();
-        let lhe = LheFileI::read_from_lhe(&contents).to_full_result().unwrap();
+        let lhe =
+            LheFileI::read_lhe_from_file(&"tests/real_world_files/helac_dipoles_i.lhe").unwrap();
         let mut file = fs::File::open("tests/real_world_files/helac_dipoles_i.json").unwrap();
         let valid: LheFileI = serde_json::from_reader(&mut file).unwrap();
         assert_eq!(lhe, valid);
@@ -1610,21 +1593,16 @@ File generated with HELAC-DIPOLES
 
     #[test]
     fn read_kp() {
-        let mut file = fs::File::open("tests/real_world_files/helac_dipoles_kp.lhe").unwrap();
-        let mut contents = Vec::new();
-        file.read_to_end(&mut contents).unwrap();
-        LheFileKP::read_from_lhe(&contents).unwrap();
+        LheFileKP::read_lhe_from_file(&"tests/real_world_files/helac_dipoles_kp.lhe").unwrap();
     }
 
     #[test]
     fn roundtrip_kp() {
-        let mut file = fs::File::open("tests/real_world_files/helac_dipoles_kp.lhe").unwrap();
-        let mut contents = Vec::new();
-        file.read_to_end(&mut contents).unwrap();
-        let lhe = match LheFileKP::read_from_lhe(&contents).to_full_result() {
-            Ok(l) => l,
-            Err(e) => panic!("Failed to read: {:?}", e),
-        };
+        let lhe =
+            match LheFileKP::read_lhe_from_file(&"tests/real_world_files/helac_dipoles_kp.lhe") {
+                Ok(l) => l,
+                Err(e) => panic!("Failed to read: {:?}", e),
+            };
 
         let mut bytes = Vec::new();
         lhe.write_lhe(&mut bytes).unwrap();
@@ -1637,12 +1615,8 @@ File generated with HELAC-DIPOLES
 
     #[test]
     fn validate_kp() {
-        let mut file = fs::File::open("tests/real_world_files/helac_dipoles_kp.lhe").unwrap();
-        let mut contents = Vec::new();
-        file.read_to_end(&mut contents).unwrap();
-        let lhe = LheFileKP::read_from_lhe(&contents)
-            .to_full_result()
-            .unwrap();
+        let lhe =
+            LheFileKP::read_lhe_from_file(&"tests/real_world_files/helac_dipoles_kp.lhe").unwrap();
         let mut file = fs::File::open("tests/real_world_files/helac_dipoles_kp.json").unwrap();
         let valid: LheFileKP = serde_json::from_reader(&mut file).unwrap();
         assert_eq!(lhe, valid);
@@ -1650,18 +1624,14 @@ File generated with HELAC-DIPOLES
 
     #[test]
     fn read_1loop() {
-        let mut file = fs::File::open("tests/real_world_files/helac_1loop_virt.lhe").unwrap();
-        let mut contents = Vec::new();
-        file.read_to_end(&mut contents).unwrap();
-        LheFile1loop::read_from_lhe(&contents).unwrap();
+        LheFile1loop::read_lhe_from_file(&"tests/real_world_files/helac_1loop_virt.lhe").unwrap();
     }
 
     #[test]
     fn roundtrip_1loop() {
-        let mut file = fs::File::open("tests/real_world_files/helac_1loop_virt.lhe").unwrap();
-        let mut contents = Vec::new();
-        file.read_to_end(&mut contents).unwrap();
-        let lhe = match LheFile1loop::read_from_lhe(&contents).to_full_result() {
+        let lhe = match LheFile1loop::read_lhe_from_file(
+            &"tests/real_world_files/helac_1loop_virt.lhe",
+        ) {
             Ok(l) => l,
             Err(e) => panic!("Failed to read: {:?}", e),
         };
@@ -1677,11 +1647,7 @@ File generated with HELAC-DIPOLES
 
     #[test]
     fn validate_1loop() {
-        let mut file = fs::File::open("tests/real_world_files/helac_1loop_virt.lhe").unwrap();
-        let mut contents = Vec::new();
-        file.read_to_end(&mut contents).unwrap();
-        let lhe = LheFile1loop::read_from_lhe(&contents)
-            .to_full_result()
+        let lhe = LheFile1loop::read_lhe_from_file(&"tests/real_world_files/helac_1loop_virt.lhe")
             .unwrap();
         let mut file = fs::File::open("tests/real_world_files/helac_1loop_virt.json").unwrap();
         let valid: LheFile1loop = serde_json::from_reader(&mut file).unwrap();

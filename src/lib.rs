@@ -29,8 +29,14 @@ pub mod plain;
 pub mod string;
 
 use lorentz_vector::LorentzVector;
+
+use std::error;
+use std::fmt;
+use std::fs;
 use std::io;
+use std::io::Read;
 use std::marker;
+use std::path::Path;
 
 #[cfg(test)]
 use quickcheck::Arbitrary;
@@ -46,10 +52,66 @@ where
     Self: marker::Sized,
 {
     fn read_from_lhe(&[u8]) -> nom::IResult<&[u8], Self>;
+
+    fn read_lhe_from_file<P: AsRef<Path>>(path: &P) -> Result<Self, ReadError> {
+        let mut file = fs::File::open(path)?;
+        let mut contents = Vec::new();
+        file.read_to_end(&mut contents)?;
+        Self::read_from_lhe(&contents)
+            .to_full_result()
+            .map_err(ReadError::Nom)
+    }
 }
 
 pub trait WriteLhe {
     fn write_lhe<W: io::Write>(&self, &mut W) -> io::Result<()>;
+
+    fn write_lhe_to_file<P: AsRef<Path>>(&self, path: P) -> io::Result<()> {
+        let mut file = fs::File::create(path)?;
+        self.write_lhe(&mut file)
+    }
+}
+
+#[derive(Debug)]
+pub enum ReadError {
+    Io(io::Error),
+    Nom(nom::IError),
+}
+
+impl From<io::Error> for ReadError {
+    fn from(err: io::Error) -> ReadError {
+        ReadError::Io(err)
+    }
+}
+
+impl fmt::Display for ReadError {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match *self {
+            ReadError::Io(ref err) => {
+                write!(f, "Failed to read the lhe file with an IO error: {}", err)
+            }
+            ReadError::Nom(ref err) => write!(
+                f,
+                "Failed to read the lhe file with a parse error: {:?}",
+                err
+            ),
+        }
+    }
+}
+
+impl error::Error for ReadError {
+    fn description(&self) -> &str {
+        match *self {
+            ReadError::Io(..) => &"Failed to read the lhe file with an IO error",
+            ReadError::Nom(..) => &"Failed to read the lhe file with a parse error",
+        }
+    }
+    fn cause(&self) -> Option<&error::Error> {
+        match *self {
+            ReadError::Io(ref err) => Some(err),
+            ReadError::Nom(_) => None,
+        }
+    }
 }
 
 #[derive(Clone, Debug, PartialEq)]
