@@ -33,14 +33,14 @@ impl ReadLhe for Comment {
 }
 
 impl WriteLhe for Comment {
-    fn write_lhe<W: io::Write>(&self, writer: &mut W) -> io::Result<()> {
+    fn write_lhe<W: io::Write>(&self, _writer: &mut W) -> io::Result<()> {
         Ok(())
     }
 }
 
 #[cfg(test)]
 impl Arbitrary for Comment {
-    fn arbitrary<G: Gen>(gen: &mut G) -> Comment {
+    fn arbitrary<G: Gen>(_gen: &mut G) -> Comment {
         Comment {}
     }
 }
@@ -63,14 +63,14 @@ impl ReadLhe for Header {
 }
 
 impl WriteLhe for Header {
-    fn write_lhe<W: io::Write>(&self, writer: &mut W) -> io::Result<()> {
+    fn write_lhe<W: io::Write>(&self, _writer: &mut W) -> io::Result<()> {
         Ok(())
     }
 }
 
 #[cfg(test)]
 impl Arbitrary for Header {
-    fn arbitrary<G: Gen>(gen: &mut G) -> Header {
+    fn arbitrary<G: Gen>(_gen: &mut G) -> Header {
         Header {}
     }
 }
@@ -86,14 +86,14 @@ impl ReadLhe for InitExtra {
 }
 
 impl WriteLhe for InitExtra {
-    fn write_lhe<W: io::Write>(&self, writer: &mut W) -> io::Result<()> {
+    fn write_lhe<W: io::Write>(&self, _writer: &mut W) -> io::Result<()> {
         Ok(())
     }
 }
 
 #[cfg(test)]
 impl Arbitrary for InitExtra {
-    fn arbitrary<G: Gen>(gen: &mut G) -> InitExtra {
+    fn arbitrary<G: Gen>(_gen: &mut G) -> InitExtra {
         InitExtra {}
     }
 }
@@ -109,14 +109,14 @@ impl ReadLhe for EventExtra {
 }
 
 impl WriteLhe for EventExtra {
-    fn write_lhe<W: io::Write>(&self, writer: &mut W) -> io::Result<()> {
+    fn write_lhe<W: io::Write>(&self, _writer: &mut W) -> io::Result<()> {
         Ok(())
     }
 }
 
 #[cfg(test)]
 impl Arbitrary for EventExtra {
-    fn arbitrary<G: Gen>(gen: &mut G) -> EventExtra {
+    fn arbitrary<G: Gen>(_gen: &mut G) -> EventExtra {
         EventExtra {}
     }
 }
