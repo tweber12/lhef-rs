@@ -6,6 +6,7 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
+use std::f32;
 use std::f64;
 use std::ops::Mul;
 use std::str;
@@ -52,19 +53,32 @@ macro_rules! permutation_opt {
     }
 }
 
+named!(pub parse_f32<f32>,
+    alt!(
+        parse_finite_float |
+        parse_finite_float_leading => {|x| x} |
+        tag!("Infinity") => {|_| f32::INFINITY} |
+        tag!("-Infinity") => {|_| f32::NEG_INFINITY} |
+        tag!("NaN") => {|_| f32::NAN}
+    )
+);
+
 named!(pub parse_f64<f64>,
     alt!(
-        parse_finite_f64 => {|x| x} |
-        parse_finite_f64_leading => {|x| x} |
+        parse_finite_float |
+        parse_finite_float_leading => {|x| x} |
         tag!("Infinity") => {|_| f64::INFINITY} |
         tag!("-Infinity") => {|_| f64::NEG_INFINITY} |
         tag!("NaN") => {|_| f64::NAN}
     )
 );
 
-named!(
-    parse_finite_f64<f64>,
+fn parse_finite_float<T>(input: &[u8]) -> nom::IResult<&[u8], T>
+where
+    T: FromStr,
+{
     map_res!(
+        input,
         map_res!(
             recognize!(do_parse!(
                 opt!(alt!(tag!("+") | tag!("-"))) >> take_while1!(nom::is_digit)
@@ -79,13 +93,16 @@ named!(
             )),
             str::from_utf8
         ),
-        f64::from_str
+        T::from_str
     )
-);
+}
 
-named!(
-    parse_finite_f64_leading<f64>,
+fn parse_finite_float_leading<T>(input: &[u8]) -> nom::IResult<&[u8], T>
+where
+    T: FromStr,
+{
     map_res!(
+        input,
         map_res!(
             recognize!(do_parse!(
                 opt!(alt!(tag!("+") | tag!("-")))
@@ -100,9 +117,9 @@ named!(
             )),
             str::from_utf8
         ),
-        f64::from_str
+        T::from_str
     )
-);
+}
 
 fn parse_int<T>(input: &[u8]) -> nom::IResult<&[u8], T>
 where
@@ -136,9 +153,13 @@ where
 }
 
 named!(pub parse_i8<i8>, do_parse!(n: parse_int >> (n)));
+named!(pub parse_i16<i16>, do_parse!(n: parse_int >> (n)));
+named!(pub parse_i32<i32>, do_parse!(n: parse_int >> (n)));
 named!(pub parse_i64<i64>, do_parse!(n: parse_int >> (n)));
 
 named!(pub parse_u8<u8>, do_parse!(n: parse_uint >> (n)));
+named!(pub parse_u16<u16>, do_parse!(n: parse_uint >> (n)));
+named!(pub parse_u32<u32>, do_parse!(n: parse_uint >> (n)));
 named!(pub parse_u64<u64>, do_parse!(n: parse_uint >> (n)));
 
 #[cfg(test)]
