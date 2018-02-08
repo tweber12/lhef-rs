@@ -825,8 +825,8 @@ impl Arbitrary for MeInfoKP {
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(test, derive(Serialize, Deserialize))]
 pub struct InitExtra1loop {
-    pdf_sum: PdfSum,
-    norm: Norm,
+    pub pdf_sum: PdfSum,
+    pub norm: Norm,
 }
 
 impl ReadLhe for InitExtra1loop {
@@ -862,9 +862,9 @@ impl Arbitrary for InitExtra1loop {
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(test, derive(Serialize, Deserialize))]
 pub struct Norm {
-    n_unweighted_events: u64,
-    alpha: f64,
-    alpha_err: f64,
+    pub n_unweighted_events: u64,
+    pub alpha: f64,
+    pub alpha_err: f64,
 }
 
 impl ReadLhe for Norm {
@@ -905,8 +905,8 @@ impl Arbitrary for Norm {
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(test, derive(Serialize, Deserialize))]
 pub struct EventExtra1loop {
-    pdf: PdfInfo,
-    me: MeInfo1loop,
+    pub pdf: PdfInfo,
+    pub me: MeInfo1loop,
 }
 
 impl ReadLhe for EventExtra1loop {
@@ -942,15 +942,15 @@ impl Arbitrary for EventExtra1loop {
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(test, derive(Serialize, Deserialize))]
 pub struct MeInfo1loop {
-    max_ew_lo: i64,
-    max_qcd_lo: i64,
-    weight_lo: f64,
-    max_ew_1loop: i64,
-    max_qcd_1loop: i64,
-    weight_1loop: f64,
-    coeff_a: f64,
-    coeff_b: f64,
-    coeff_c: f64,
+    pub max_ew_lo: i64,
+    pub max_qcd_lo: i64,
+    pub weight_lo: f64,
+    pub max_ew_1loop: i64,
+    pub max_qcd_1loop: i64,
+    pub weight_1loop: f64,
+    pub coeff_a: f64,
+    pub coeff_b: f64,
+    pub coeff_c: f64,
 }
 
 impl ReadLhe for MeInfo1loop {
