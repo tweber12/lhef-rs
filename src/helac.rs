@@ -354,10 +354,9 @@ pub struct MeInfoRS {
     pub max_qcd: u8,
     pub real_weight: f64,
     pub scale: f64,
-    pub irun: i8,
     pub dipole_ids: Vec<i8>,
     pub dipole_weights: Vec<f64>,
-    pub dipole_mu_rs: Vec<f64>,
+    pub dipole_mu_rs: Option<Vec<f64>>,
 }
 
 impl ReadLhe for MeInfoRS {
@@ -366,22 +365,24 @@ impl ReadLhe for MeInfoRS {
             input,
             ws!(tag!("#")) >> ws!(tag!("me")) >> weight: ws!(parse_f64) >> max_ew: ws!(parse_u8)
                 >> max_qcd: ws!(parse_u8) >> real_weight: ws!(parse_f64)
-                >> scale: ws!(parse_f64) >> irun: ws!(parse_i8)
+                >> scale: ws!(parse_f64) >> irun: ws!(parse_u8)
                 >> num_dipoles: ws!(parse_u8)
                 >> dipole_ids: count!(ws!(parse_i8), num_dipoles as usize)
                 >> dipole_weights: count!(ws!(parse_f64), num_dipoles as usize)
-                >> dipole_mu_rs: count!(ws!(parse_f64), num_dipoles as usize)
-                >> (MeInfoRS {
-                    weight,
-                    max_ew,
-                    max_qcd,
-                    real_weight,
-                    scale,
-                    irun,
-                    dipole_ids,
-                    dipole_weights,
-                    dipole_mu_rs,
-                })
+                >> dipole_mu_rs:
+                    count!(
+                        ws!(parse_f64),
+                        (if irun > 0 { num_dipoles } else { 0 }) as usize
+                    ) >> (MeInfoRS {
+                weight,
+                max_ew,
+                max_qcd,
+                real_weight,
+                scale,
+                dipole_ids,
+                dipole_weights,
+                dipole_mu_rs: if irun > 0 { Some(dipole_mu_rs) } else { None },
+            })
         )
     }
 }
@@ -396,7 +397,7 @@ impl WriteLhe for MeInfoRS {
             self.max_qcd,
             self.real_weight,
             self.scale,
-            self.irun,
+            if self.dipole_mu_rs.is_some() { 1 } else { 0 },
             self.dipole_ids.len(),
         )?;
         for id in &self.dipole_ids {
@@ -405,8 +406,10 @@ impl WriteLhe for MeInfoRS {
         for weight in &self.dipole_weights {
             write!(writer, " {}", weight)?;
         }
-        for mu_r in &self.dipole_mu_rs {
-            write!(writer, " {}", mu_r)?;
+        if let Some(ref mu_rs) = self.dipole_mu_rs {
+            for mu_r in mu_rs {
+                write!(writer, " {}", mu_r)?;
+            }
         }
         writeln!(writer, "")
     }
@@ -418,11 +421,12 @@ impl Arbitrary for MeInfoRS {
         let dip: Vec<(i8, f64, f64)> = Arbitrary::arbitrary(gen);
         let mut dipole_ids = Vec::new();
         let mut dipole_weights = Vec::new();
-        let mut dipole_mu_rs = Vec::new();
+        let irun: bool = Arbitrary::arbitrary(gen);
+        let mut dipole_mu_rs = if irun { Some(Vec::new()) } else { None };
         for (i, w, m) in dip {
             dipole_ids.push(i);
             dipole_weights.push(w);
-            dipole_mu_rs.push(m);
+            dipole_mu_rs.as_mut().map(|v| v.push(m));
         }
         MeInfoRS {
             weight: Arbitrary::arbitrary(gen),
@@ -430,7 +434,6 @@ impl Arbitrary for MeInfoRS {
             max_qcd: Arbitrary::arbitrary(gen),
             real_weight: Arbitrary::arbitrary(gen),
             scale: Arbitrary::arbitrary(gen),
-            irun: Arbitrary::arbitrary(gen),
             dipole_ids,
             dipole_weights,
             dipole_mu_rs,
@@ -443,7 +446,7 @@ impl Arbitrary for MeInfoRS {
 pub struct JetInfo {
     pub ibvjet1: i8,
     pub ibvjet2: i8,
-    pub ibvjetreco: i8,
+    pub ibvflreco: i8,
 }
 
 impl ReadLhe for JetInfo {
@@ -451,10 +454,10 @@ impl ReadLhe for JetInfo {
         do_parse!(
             input,
             ws!(tag!("#")) >> ws!(tag!("jet")) >> ibvjet1: ws!(parse_i8) >> ibvjet2: ws!(parse_i8)
-                >> ibvjetreco: ws!(parse_i8) >> (JetInfo {
+                >> ibvflreco: ws!(parse_i8) >> (JetInfo {
                 ibvjet1: ibvjet1,
                 ibvjet2: ibvjet2,
-                ibvjetreco: ibvjetreco,
+                ibvflreco: ibvflreco,
             })
         )
     }
@@ -465,7 +468,7 @@ impl WriteLhe for JetInfo {
         writeln!(
             writer,
             "# jet {} {} {}",
-            self.ibvjet1, self.ibvjet2, self.ibvjetreco,
+            self.ibvjet1, self.ibvjet2, self.ibvflreco,
         )
     }
 }
@@ -476,7 +479,7 @@ impl Arbitrary for JetInfo {
         JetInfo {
             ibvjet1: Arbitrary::arbitrary(gen),
             ibvjet2: Arbitrary::arbitrary(gen),
-            ibvjetreco: Arbitrary::arbitrary(gen),
+            ibvflreco: Arbitrary::arbitrary(gen),
         }
     }
 }
@@ -1071,10 +1074,9 @@ mod tests {
             max_qcd: 3,
             real_weight: 4.,
             scale: 5.,
-            irun: 6,
             dipole_ids: vec![7],
             dipole_weights: vec![8.],
-            dipole_mu_rs: vec![9.],
+            dipole_mu_rs: Some(vec![9.]),
         };
         let mut bytes = Vec::new();
         start.write_lhe(&mut bytes).unwrap();
@@ -1233,10 +1235,26 @@ File generated with HELAC-DIPOLES
             max_qcd: 6,
             real_weight: 3.,
             scale: 4.,
-            irun: 5,
             dipole_ids: vec![7, 8],
             dipole_weights: vec![9., 10.],
-            dipole_mu_rs: vec![11., 12.],
+            dipole_mu_rs: Some(vec![11., 12.]),
+        };
+        let result = MeInfoRS::read_from_lhe(bytes).to_full_result().unwrap();
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn read_meinfors_irun0() {
+        let bytes = b"# me 13. 1 6 3. 4. 0 2 7 8 9. 10. 11. 12.\n";
+        let expected = MeInfoRS {
+            weight: 13.,
+            max_ew: 1,
+            max_qcd: 6,
+            real_weight: 3.,
+            scale: 4.,
+            dipole_ids: vec![7, 8],
+            dipole_weights: vec![9., 10.],
+            dipole_mu_rs: None,
         };
         let result = MeInfoRS::read_from_lhe(bytes).to_full_result().unwrap();
         assert_eq!(result, expected);
@@ -1248,7 +1266,7 @@ File generated with HELAC-DIPOLES
         let expected = JetInfo {
             ibvjet1: 1,
             ibvjet2: 2,
-            ibvjetreco: 3,
+            ibvflreco: 3,
         };
         let result = JetInfo::read_from_lhe(bytes).to_full_result().unwrap();
         assert_eq!(result, expected);
@@ -1272,15 +1290,14 @@ File generated with HELAC-DIPOLES
                 max_qcd: 6,
                 real_weight: 3.,
                 scale: 4.,
-                irun: 5,
                 dipole_ids: vec![7, 8],
                 dipole_weights: vec![9., 10.],
-                dipole_mu_rs: vec![11., 12.],
+                dipole_mu_rs: Some(vec![11., 12.]),
             },
             jet: JetInfo {
                 ibvjet1: 1,
                 ibvjet2: 2,
-                ibvjetreco: 3,
+                ibvflreco: 3,
             },
         };
         let result_normal = EventExtraRS::read_from_lhe(bytes_normal)
