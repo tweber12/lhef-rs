@@ -24,7 +24,7 @@ pub type LheFile = LheFileGeneric<Comment, Header, InitExtra, EventExtra>;
 pub struct Comment {}
 
 impl ReadLhe for Comment {
-    fn read_from_lhe(input: &[u8]) -> nom::IResult<&[u8], Comment> {
+    fn read_lhe(input: &[u8]) -> nom::IResult<&[u8], Comment> {
         do_parse!(
             input,
             opt!(delimited!(tag!("<!--"), take_until!("-->"), tag!("-->"))) >> (Comment {})
@@ -50,7 +50,7 @@ impl Arbitrary for Comment {
 pub struct Header {}
 
 impl ReadLhe for Header {
-    fn read_from_lhe(input: &[u8]) -> nom::IResult<&[u8], Header> {
+    fn read_lhe(input: &[u8]) -> nom::IResult<&[u8], Header> {
         do_parse!(
             input,
             opt!(delimited!(
@@ -80,7 +80,7 @@ impl Arbitrary for Header {
 pub struct InitExtra {}
 
 impl ReadLhe for InitExtra {
-    fn read_from_lhe(input: &[u8]) -> nom::IResult<&[u8], InitExtra> {
+    fn read_lhe(input: &[u8]) -> nom::IResult<&[u8], InitExtra> {
         do_parse!(input, take_until!("</init>") >> (InitExtra {}))
     }
 }
@@ -103,7 +103,7 @@ impl Arbitrary for InitExtra {
 pub struct EventExtra {}
 
 impl ReadLhe for EventExtra {
-    fn read_from_lhe(input: &[u8]) -> nom::IResult<&[u8], EventExtra> {
+    fn read_lhe(input: &[u8]) -> nom::IResult<&[u8], EventExtra> {
         do_parse!(input, take_until!("</event>") >> (EventExtra {}))
     }
 }
@@ -143,7 +143,7 @@ mod tests {
                 fn $name(start: $ty) -> quickcheck::TestResult {
                     let mut bytes = Vec::new();
                     start.write_lhe(&mut bytes).unwrap();
-                        let round = match $ty::read_from_lhe(&bytes).to_full_result() {
+                        let round = match $ty::read_lhe(&bytes).to_full_result() {
                         Ok(r) => r,
                         Err(err) => {
                             println!("{}", str::from_utf8(&bytes).unwrap());
@@ -170,9 +170,7 @@ mod tests {
 File generated with HELAC-DIPOLES
 -->";
         let expected = Comment {};
-        let comment = Comment::read_from_lhe(bytes as &[u8])
-            .to_full_result()
-            .unwrap();
+        let comment = Comment::read_lhe(bytes as &[u8]).to_full_result().unwrap();
         assert_eq!(comment, expected);
     }
 
@@ -183,9 +181,7 @@ header line 1
 header line 2
 </header>";
         let expected = Header {};
-        let result = Header::read_from_lhe(bytes as &[u8])
-            .to_full_result()
-            .unwrap();
+        let result = Header::read_lhe(bytes as &[u8]).to_full_result().unwrap();
         assert_eq!(result, expected);
     }
 
@@ -198,9 +194,7 @@ header line 1
 <line> header line 3</line>
 </header>";
         let expected = Header {};
-        let result = Header::read_from_lhe(bytes as &[u8])
-            .to_full_result()
-            .unwrap();
+        let result = Header::read_lhe(bytes as &[u8]).to_full_result().unwrap();
         assert_eq!(result, expected);
     }
 
@@ -240,7 +234,7 @@ extra line 2
             ],
             extra: InitExtra {},
         };
-        let result = InitGeneric::<InitExtra>::read_from_lhe(bytes)
+        let result = InitGeneric::<InitExtra>::read_lhe(bytes)
             .to_full_result()
             .unwrap();
         assert_eq!(result, expected);
@@ -300,7 +294,7 @@ extra line 2
             ],
             extra: EventExtra {},
         };
-        let result = EventGeneric::<EventExtra>::read_from_lhe(bytes)
+        let result = EventGeneric::<EventExtra>::read_lhe(bytes)
             .to_full_result()
             .unwrap();
         assert_eq!(result, expected);
@@ -365,7 +359,7 @@ extra line 2
                 },
             ],
         };
-        let result = LheFile::read_from_lhe(bytes).to_full_result().unwrap();
+        let result = LheFile::read_lhe(bytes).to_full_result().unwrap();
         assert_eq!(result, expected);
     }
 
@@ -399,7 +393,7 @@ Generated using numbers
             },
             events: vec![],
         };
-        let result = LheFile::read_from_lhe(bytes).to_full_result().unwrap();
+        let result = LheFile::read_lhe(bytes).to_full_result().unwrap();
         assert_eq!(result, expected);
     }
 
@@ -435,7 +429,7 @@ header line 1
             },
             events: vec![],
         };
-        let result = LheFile::read_from_lhe(bytes).to_full_result().unwrap();
+        let result = LheFile::read_lhe(bytes).to_full_result().unwrap();
         assert_eq!(result, expected);
     }
 
@@ -474,7 +468,7 @@ header line 1
             },
             events: vec![],
         };
-        let result = LheFile::read_from_lhe(bytes).to_full_result().unwrap();
+        let result = LheFile::read_lhe(bytes).to_full_result().unwrap();
         assert_eq!(result, expected);
     }
 
@@ -613,7 +607,7 @@ header line 1
                 },
             ],
         };
-        let result = LheFile::read_from_lhe(bytes).to_full_result().unwrap();
+        let result = LheFile::read_lhe(bytes).to_full_result().unwrap();
         assert_eq!(result, expected);
     }
 
@@ -752,7 +746,7 @@ Generated using numbers
                 },
             ],
         };
-        let result = LheFile::read_from_lhe(bytes).to_full_result().unwrap();
+        let result = LheFile::read_lhe(bytes).to_full_result().unwrap();
         assert_eq!(result, expected);
     }
 
@@ -786,7 +780,7 @@ Generated using numbers
 
             let mut bytes = Vec::new();
             lhe.write_lhe(&mut bytes).unwrap();
-            let round = match LheFile::read_from_lhe(&bytes).to_full_result() {
+            let round = match LheFile::read_lhe(&bytes).to_full_result() {
                 Ok(l) => l,
                 Err(e) => panic!("Failed to read roundtrip for {}: {:?}", file_name, e),
             };

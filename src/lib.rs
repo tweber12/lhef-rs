@@ -51,13 +51,13 @@ pub trait ReadLhe
 where
     Self: marker::Sized,
 {
-    fn read_from_lhe(&[u8]) -> nom::IResult<&[u8], Self>;
+    fn read_lhe(&[u8]) -> nom::IResult<&[u8], Self>;
 
     fn read_lhe_from_file<P: AsRef<Path>>(path: &P) -> Result<Self, ReadError> {
         let mut file = fs::File::open(path)?;
         let mut contents = Vec::new();
         file.read_to_end(&mut contents)?;
-        Self::read_from_lhe(&contents)
+        Self::read_lhe(&contents)
             .to_full_result()
             .map_err(ReadError::Nom)
     }
@@ -124,7 +124,7 @@ pub struct ProcInfo {
 }
 
 impl ReadLhe for ProcInfo {
-    fn read_from_lhe(input: &[u8]) -> nom::IResult<&[u8], ProcInfo> {
+    fn read_lhe(input: &[u8]) -> nom::IResult<&[u8], ProcInfo> {
         do_parse!(
             input,
             xsect: ws!(parse_f64) >> xsect_err: ws!(parse_f64) >> maximum_weight: ws!(parse_f64)
@@ -176,7 +176,7 @@ pub struct Particle {
 }
 
 impl ReadLhe for Particle {
-    fn read_from_lhe(input: &[u8]) -> nom::IResult<&[u8], Particle> {
+    fn read_lhe(input: &[u8]) -> nom::IResult<&[u8], Particle> {
         do_parse!(
             input,
             pdg_id: ws!(parse_i64) >> status: ws!(parse_i64) >> mother_1_id: ws!(parse_i64)
@@ -261,7 +261,7 @@ mod tests {
             maximum_weight: 3.,
             process_id: 4,
         };
-        let result = ProcInfo::read_from_lhe(bytes).to_full_result().unwrap();
+        let result = ProcInfo::read_lhe(bytes).to_full_result().unwrap();
         assert_eq!(result, expected);
     }
 
@@ -285,7 +285,7 @@ mod tests {
             proper_lifetime: 12.,
             spin: 13.,
         };
-        let result = Particle::read_from_lhe(bytes).to_full_result().unwrap();
+        let result = Particle::read_lhe(bytes).to_full_result().unwrap();
         assert_eq!(result, expected);
     }
 
@@ -293,7 +293,7 @@ mod tests {
         fn proc_info_roundtrip_qc(p: ProcInfo) -> bool {
             let mut bytes = Vec::new();
             p.write_lhe(&mut bytes).unwrap();
-            let round = match ProcInfo::read_from_lhe(&bytes).to_full_result() {
+            let round = match ProcInfo::read_lhe(&bytes).to_full_result() {
                 Ok(r) => r,
                 Err(err) => panic!("Failed to read roundtrip: {:?}", err),
             };
@@ -305,7 +305,7 @@ mod tests {
         fn particle_roundtrip_qc(m: Particle) -> bool {
             let mut bytes = Vec::new();
             m.write_lhe(&mut bytes).unwrap();
-            let round = match Particle::read_from_lhe(&bytes).to_full_result() {
+            let round = match Particle::read_lhe(&bytes).to_full_result() {
                 Ok(r) => r,
                 Err(err) => panic!("Failed to read roundtrip: {:?}", err),
             };

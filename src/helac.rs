@@ -29,7 +29,7 @@ pub type LheFile1loop = LheFileGeneric<Comment, Header, InitExtra1loop, EventExt
 pub struct Comment(pub String);
 
 impl ReadLhe for Comment {
-    fn read_from_lhe(input: &[u8]) -> nom::IResult<&[u8], Comment> {
+    fn read_lhe(input: &[u8]) -> nom::IResult<&[u8], Comment> {
         map_res!(
             input,
             delimited!(tag!("<!--"), take_until!("-->"), tag!("-->")),
@@ -63,7 +63,7 @@ impl Arbitrary for Comment {
 #[cfg_attr(test, derive(Serialize, Deserialize))]
 pub struct Header {}
 impl ReadLhe for Header {
-    fn read_from_lhe(input: &[u8]) -> nom::IResult<&[u8], Header> {
+    fn read_lhe(input: &[u8]) -> nom::IResult<&[u8], Header> {
         nom::IResult::Done(input, Header {})
     }
 }
@@ -88,7 +88,7 @@ pub struct PdfSum {
 }
 
 impl ReadLhe for PdfSum {
-    fn read_from_lhe(input: &[u8]) -> nom::IResult<&[u8], PdfSum> {
+    fn read_lhe(input: &[u8]) -> nom::IResult<&[u8], PdfSum> {
         do_parse!(
             input,
             ws!(tag!("#")) >> ws!(tag!("SUMPDF")) >> n: ws!(parse_u64)
@@ -126,7 +126,7 @@ pub struct PdfInfo {
 }
 
 impl ReadLhe for PdfInfo {
-    fn read_from_lhe(input: &[u8]) -> nom::IResult<&[u8], PdfInfo> {
+    fn read_lhe(input: &[u8]) -> nom::IResult<&[u8], PdfInfo> {
         do_parse!(
             input,
             ws!(tag!("#")) >> ws!(tag!("pdf")) >> x1: ws!(parse_f64) >> x2: ws!(parse_f64)
@@ -161,14 +161,14 @@ pub struct InitExtraRS {
 }
 
 impl ReadLhe for InitExtraRS {
-    fn read_from_lhe(input: &[u8]) -> nom::IResult<&[u8], InitExtraRS> {
+    fn read_lhe(input: &[u8]) -> nom::IResult<&[u8], InitExtraRS> {
         do_parse!(
             input,
             ex:
                 permutation!(
-                    ws!(PdfSum::read_from_lhe),
-                    ws!(DipMapInfo::read_from_lhe),
-                    ws!(JetAlgoInfo::read_from_lhe)
+                    ws!(PdfSum::read_lhe),
+                    ws!(DipMapInfo::read_lhe),
+                    ws!(JetAlgoInfo::read_lhe)
                 ) >> (InitExtraRS {
                 pdf_sum: ex.0,
                 dip_map: ex.1,
@@ -208,7 +208,7 @@ pub struct JetAlgoInfo {
 }
 
 impl ReadLhe for JetAlgoInfo {
-    fn read_from_lhe(input: &[u8]) -> nom::IResult<&[u8], JetAlgoInfo> {
+    fn read_lhe(input: &[u8]) -> nom::IResult<&[u8], JetAlgoInfo> {
         do_parse!(
             input,
             ws!(tag!("#")) >> ws!(tag!("JETALGO")) >> algorithm_id: ws!(parse_i8)
@@ -262,7 +262,7 @@ pub struct DipMapInfo {
 }
 
 impl ReadLhe for DipMapInfo {
-    fn read_from_lhe(input: &[u8]) -> nom::IResult<&[u8], DipMapInfo> {
+    fn read_lhe(input: &[u8]) -> nom::IResult<&[u8], DipMapInfo> {
         do_parse!(
             input,
             ws!(tag!("#")) >> ws!(tag!("DIPMAP")) >> dipole_type: ws!(parse_i8)
@@ -310,14 +310,14 @@ pub struct EventExtraRS {
 }
 
 impl ReadLhe for EventExtraRS {
-    fn read_from_lhe(input: &[u8]) -> nom::IResult<&[u8], EventExtraRS> {
+    fn read_lhe(input: &[u8]) -> nom::IResult<&[u8], EventExtraRS> {
         do_parse!(
             input,
             ex:
                 permutation!(
-                    ws!(PdfInfo::read_from_lhe),
-                    ws!(MeInfoRS::read_from_lhe),
-                    ws!(JetInfo::read_from_lhe)
+                    ws!(PdfInfo::read_lhe),
+                    ws!(MeInfoRS::read_lhe),
+                    ws!(JetInfo::read_lhe)
                 ) >> (EventExtraRS {
                 pdf: ex.0,
                 me: ex.1,
@@ -360,7 +360,7 @@ pub struct MeInfoRS {
 }
 
 impl ReadLhe for MeInfoRS {
-    fn read_from_lhe(input: &[u8]) -> nom::IResult<&[u8], MeInfoRS> {
+    fn read_lhe(input: &[u8]) -> nom::IResult<&[u8], MeInfoRS> {
         do_parse!(
             input,
             ws!(tag!("#")) >> ws!(tag!("me")) >> weight: ws!(parse_f64) >> max_ew: ws!(parse_u8)
@@ -450,7 +450,7 @@ pub struct JetInfo {
 }
 
 impl ReadLhe for JetInfo {
-    fn read_from_lhe(input: &[u8]) -> nom::IResult<&[u8], JetInfo> {
+    fn read_lhe(input: &[u8]) -> nom::IResult<&[u8], JetInfo> {
         do_parse!(
             input,
             ws!(tag!("#")) >> ws!(tag!("jet")) >> ibvjet1: ws!(parse_i8) >> ibvjet2: ws!(parse_i8)
@@ -492,14 +492,13 @@ pub struct EventExtraI {
 }
 
 impl ReadLhe for EventExtraI {
-    fn read_from_lhe(input: &[u8]) -> nom::IResult<&[u8], EventExtraI> {
+    fn read_lhe(input: &[u8]) -> nom::IResult<&[u8], EventExtraI> {
         do_parse!(
             input,
-            ex: permutation!(ws!(PdfInfo::read_from_lhe), ws!(MeInfoI::read_from_lhe))
-                >> (EventExtraI {
-                    pdf: ex.0,
-                    me: ex.1,
-                })
+            ex: permutation!(ws!(PdfInfo::read_lhe), ws!(MeInfoI::read_lhe)) >> (EventExtraI {
+                pdf: ex.0,
+                me: ex.1,
+            })
         )
     }
 }
@@ -534,7 +533,7 @@ pub struct MeInfoI {
 }
 
 impl ReadLhe for MeInfoI {
-    fn read_from_lhe(input: &[u8]) -> nom::IResult<&[u8], MeInfoI> {
+    fn read_lhe(input: &[u8]) -> nom::IResult<&[u8], MeInfoI> {
         do_parse!(
             input,
             ws!(tag!("#")) >> ws!(tag!("me")) >> max_ew: ws!(parse_u8) >> max_qcd: ws!(parse_u8)
@@ -594,7 +593,7 @@ pub struct PdfSumKP {
 }
 
 impl ReadLhe for PdfSumKP {
-    fn read_from_lhe(input: &[u8]) -> nom::IResult<&[u8], PdfSumKP> {
+    fn read_lhe(input: &[u8]) -> nom::IResult<&[u8], PdfSumKP> {
         do_parse!(
             input,
             ws!(tag!("#")) >> ws!(tag!("SUMPDF")) >> n_pdf_g_1: ws!(parse_u64)
@@ -663,14 +662,13 @@ pub struct EventExtraKP {
 }
 
 impl ReadLhe for EventExtraKP {
-    fn read_from_lhe(input: &[u8]) -> nom::IResult<&[u8], EventExtraKP> {
+    fn read_lhe(input: &[u8]) -> nom::IResult<&[u8], EventExtraKP> {
         do_parse!(
             input,
-            ex: permutation!(ws!(PdfInfo::read_from_lhe), ws!(MeInfoKP::read_from_lhe))
-                >> (EventExtraKP {
-                    pdf: ex.0,
-                    me: ex.1,
-                })
+            ex: permutation!(ws!(PdfInfo::read_lhe), ws!(MeInfoKP::read_lhe)) >> (EventExtraKP {
+                pdf: ex.0,
+                me: ex.1,
+            })
         )
     }
 }
@@ -719,7 +717,7 @@ pub struct MeInfoKP {
 }
 
 impl ReadLhe for MeInfoKP {
-    fn read_from_lhe(input: &[u8]) -> nom::IResult<&[u8], MeInfoKP> {
+    fn read_lhe(input: &[u8]) -> nom::IResult<&[u8], MeInfoKP> {
         do_parse!(
             input,
             ws!(tag!("#")) >> ws!(tag!("me")) >> max_ew: ws!(parse_u8) >> max_qcd: ws!(parse_u8)
@@ -830,14 +828,13 @@ pub struct InitExtra1loop {
 }
 
 impl ReadLhe for InitExtra1loop {
-    fn read_from_lhe(input: &[u8]) -> nom::IResult<&[u8], InitExtra1loop> {
+    fn read_lhe(input: &[u8]) -> nom::IResult<&[u8], InitExtra1loop> {
         do_parse!(
             input,
-            ex: permutation!(ws!(PdfSum::read_from_lhe), ws!(Norm::read_from_lhe))
-                >> (InitExtra1loop {
-                    pdf_sum: ex.0,
-                    norm: ex.1,
-                })
+            ex: permutation!(ws!(PdfSum::read_lhe), ws!(Norm::read_lhe)) >> (InitExtra1loop {
+                pdf_sum: ex.0,
+                norm: ex.1,
+            })
         )
     }
 }
@@ -868,7 +865,7 @@ pub struct Norm {
 }
 
 impl ReadLhe for Norm {
-    fn read_from_lhe(input: &[u8]) -> nom::IResult<&[u8], Norm> {
+    fn read_lhe(input: &[u8]) -> nom::IResult<&[u8], Norm> {
         do_parse!(
             input,
             ws!(tag!("#")) >> ws!(tag!("NORM")) >> n_unweighted_events: ws!(parse_u64)
@@ -910,10 +907,10 @@ pub struct EventExtra1loop {
 }
 
 impl ReadLhe for EventExtra1loop {
-    fn read_from_lhe(input: &[u8]) -> nom::IResult<&[u8], EventExtra1loop> {
+    fn read_lhe(input: &[u8]) -> nom::IResult<&[u8], EventExtra1loop> {
         do_parse!(
             input,
-            ex: permutation!(ws!(PdfInfo::read_from_lhe), ws!(MeInfo1loop::read_from_lhe))
+            ex: permutation!(ws!(PdfInfo::read_lhe), ws!(MeInfo1loop::read_lhe))
                 >> (EventExtra1loop {
                     pdf: ex.0,
                     me: ex.1,
@@ -954,7 +951,7 @@ pub struct MeInfo1loop {
 }
 
 impl ReadLhe for MeInfo1loop {
-    fn read_from_lhe(input: &[u8]) -> nom::IResult<&[u8], MeInfo1loop> {
+    fn read_lhe(input: &[u8]) -> nom::IResult<&[u8], MeInfo1loop> {
         do_parse!(
             input,
             ws!(tag!("#")) >> ws!(tag!("me")) >> max_ew_lo: ws!(parse_i64)
@@ -1028,7 +1025,7 @@ mod tests {
                 fn $name(start: $ty) -> quickcheck::TestResult {
                     let mut bytes = Vec::new();
                     start.write_lhe(&mut bytes).unwrap();
-                        let round = match $ty::read_from_lhe(&bytes).to_full_result() {
+                        let round = match $ty::read_lhe(&bytes).to_full_result() {
                         Ok(r) => r,
                         Err(err) => {
                             println!("{}", str::from_utf8(&bytes).unwrap());
@@ -1079,7 +1076,7 @@ mod tests {
         };
         let mut bytes = Vec::new();
         start.write_lhe(&mut bytes).unwrap();
-        let round = match MeInfoRS::read_from_lhe(&bytes).to_full_result() {
+        let round = match MeInfoRS::read_lhe(&bytes).to_full_result() {
             Ok(r) => r,
             Err(err) => {
                 println!("{}", str::from_utf8(&bytes).unwrap());
@@ -1098,9 +1095,7 @@ mod tests {
 File generated with HELAC-DIPOLES
 -->";
         let expected = Comment("File generated with HELAC-DIPOLES".to_string());
-        let comment = Comment::read_from_lhe(bytes as &[u8])
-            .to_full_result()
-            .unwrap();
+        let comment = Comment::read_lhe(bytes as &[u8]).to_full_result().unwrap();
         assert_eq!(comment, expected);
     }
 
@@ -1110,7 +1105,7 @@ File generated with HELAC-DIPOLES
         let expected = PdfSum {
             pdf_sum_pairs: vec![(1, 2), (3, 4), (-1, -2), (0, 8)],
         };
-        let result = PdfSum::read_from_lhe(bytes).to_full_result().unwrap();
+        let result = PdfSum::read_lhe(bytes).to_full_result().unwrap();
         assert_eq!(result, expected);
     }
 
@@ -1120,7 +1115,7 @@ File generated with HELAC-DIPOLES
         let expected = PdfSum {
             pdf_sum_pairs: vec![],
         };
-        let result = PdfSum::read_from_lhe(bytes).to_full_result().unwrap();
+        let result = PdfSum::read_lhe(bytes).to_full_result().unwrap();
         assert_eq!(result, expected);
     }
 
@@ -1132,7 +1127,7 @@ File generated with HELAC-DIPOLES
             x2: 2.0,
             scale: 3.0,
         };
-        let result = PdfInfo::read_from_lhe(bytes).to_full_result().unwrap();
+        let result = PdfInfo::read_lhe(bytes).to_full_result().unwrap();
         assert_eq!(result, expected);
     }
 
@@ -1146,7 +1141,7 @@ File generated with HELAC-DIPOLES
             dr: 4.,
             pt_veto: Some(5.),
         };
-        let result = JetAlgoInfo::read_from_lhe(bytes).to_full_result().unwrap();
+        let result = JetAlgoInfo::read_lhe(bytes).to_full_result().unwrap();
         assert_eq!(result, expected);
     }
 
@@ -1160,7 +1155,7 @@ File generated with HELAC-DIPOLES
             dr: 4.,
             pt_veto: None,
         };
-        let result = JetAlgoInfo::read_from_lhe(bytes).to_full_result().unwrap();
+        let result = JetAlgoInfo::read_lhe(bytes).to_full_result().unwrap();
         assert_eq!(result, expected);
     }
 
@@ -1181,7 +1176,7 @@ File generated with HELAC-DIPOLES
                 (8, 9),
             ],
         };
-        let result = DipMapInfo::read_from_lhe(bytes).to_full_result().unwrap();
+        let result = DipMapInfo::read_lhe(bytes).to_full_result().unwrap();
         assert_eq!(result, expected);
     }
 
@@ -1215,11 +1210,11 @@ File generated with HELAC-DIPOLES
                 pt_veto: None,
             },
         };
-        let result_normal = InitExtraRS::read_from_lhe(bytes_normal)
+        let result_normal = InitExtraRS::read_lhe(bytes_normal)
             .to_full_result()
             .unwrap();
         assert_eq!(result_normal, expected);
-        let result_reverse = InitExtraRS::read_from_lhe(bytes_reverse)
+        let result_reverse = InitExtraRS::read_lhe(bytes_reverse)
             .to_full_result()
             .unwrap();
         assert_eq!(result_reverse, expected);
@@ -1238,7 +1233,7 @@ File generated with HELAC-DIPOLES
             dipole_weights: vec![9., 10.],
             dipole_mu_rs: Some(vec![11., 12.]),
         };
-        let result = MeInfoRS::read_from_lhe(bytes).to_full_result().unwrap();
+        let result = MeInfoRS::read_lhe(bytes).to_full_result().unwrap();
         assert_eq!(result, expected);
     }
 
@@ -1255,7 +1250,7 @@ File generated with HELAC-DIPOLES
             dipole_weights: vec![9., 10.],
             dipole_mu_rs: None,
         };
-        let result = MeInfoRS::read_from_lhe(bytes).to_full_result().unwrap();
+        let result = MeInfoRS::read_lhe(bytes).to_full_result().unwrap();
         assert_eq!(result, expected);
     }
 
@@ -1267,7 +1262,7 @@ File generated with HELAC-DIPOLES
             ibvjet2: 2,
             ibvflreco: 3,
         };
-        let result = JetInfo::read_from_lhe(bytes).to_full_result().unwrap();
+        let result = JetInfo::read_lhe(bytes).to_full_result().unwrap();
         assert_eq!(result, expected);
     }
 
@@ -1299,11 +1294,11 @@ File generated with HELAC-DIPOLES
                 ibvflreco: 3,
             },
         };
-        let result_normal = EventExtraRS::read_from_lhe(bytes_normal)
+        let result_normal = EventExtraRS::read_lhe(bytes_normal)
             .to_full_result()
             .unwrap();
         assert_eq!(result_normal, expected);
-        let result_reverse = EventExtraRS::read_from_lhe(bytes_reverse)
+        let result_reverse = EventExtraRS::read_lhe(bytes_reverse)
             .to_full_result()
             .unwrap();
         assert_eq!(result_reverse, expected);
@@ -1321,7 +1316,7 @@ File generated with HELAC-DIPOLES
             coeff_c: 6.,
             log_term: 7,
         };
-        let result = MeInfoI::read_from_lhe(bytes).to_full_result().unwrap();
+        let result = MeInfoI::read_lhe(bytes).to_full_result().unwrap();
         assert_eq!(result, expected);
     }
 
@@ -1345,11 +1340,11 @@ File generated with HELAC-DIPOLES
                 log_term: 7,
             },
         };
-        let result_normal = EventExtraI::read_from_lhe(bytes_normal)
+        let result_normal = EventExtraI::read_lhe(bytes_normal)
             .to_full_result()
             .unwrap();
         assert_eq!(result_normal, expected);
-        let result_reverse = EventExtraI::read_from_lhe(bytes_reverse)
+        let result_reverse = EventExtraI::read_lhe(bytes_reverse)
             .to_full_result()
             .unwrap();
         assert_eq!(result_reverse, expected);
@@ -1364,7 +1359,7 @@ File generated with HELAC-DIPOLES
             beam_1_quark_ids: vec![5, 6],
             beam_2_quark_ids: vec![8, 9, 10],
         };
-        let result = PdfSumKP::read_from_lhe(bytes).to_full_result().unwrap();
+        let result = PdfSumKP::read_lhe(bytes).to_full_result().unwrap();
         assert_eq!(result, expected);
     }
 
@@ -1395,7 +1390,7 @@ File generated with HELAC-DIPOLES
             weight_b2q_l0: 20.,
             weight_b2q_l1: 21.,
         };
-        let result = MeInfoKP::read_from_lhe(bytes).to_full_result().unwrap();
+        let result = MeInfoKP::read_lhe(bytes).to_full_result().unwrap();
         assert_eq!(result, expected);
     }
 
@@ -1433,11 +1428,11 @@ File generated with HELAC-DIPOLES
                 weight_b2q_l1: 21.,
             },
         };
-        let result_normal = EventExtraKP::read_from_lhe(bytes_normal)
+        let result_normal = EventExtraKP::read_lhe(bytes_normal)
             .to_full_result()
             .unwrap();
         assert_eq!(result_normal, expected);
-        let result_reverse = EventExtraKP::read_from_lhe(bytes_reverse)
+        let result_reverse = EventExtraKP::read_lhe(bytes_reverse)
             .to_full_result()
             .unwrap();
         assert_eq!(result_reverse, expected);
@@ -1451,7 +1446,7 @@ File generated with HELAC-DIPOLES
             alpha: 2.,
             alpha_err: 3.,
         };
-        let result = Norm::read_from_lhe(bytes).to_full_result().unwrap();
+        let result = Norm::read_lhe(bytes).to_full_result().unwrap();
         assert_eq!(result, expected);
     }
 
@@ -1469,11 +1464,11 @@ File generated with HELAC-DIPOLES
                 alpha_err: 3.,
             },
         };
-        let result_normal = InitExtra1loop::read_from_lhe(bytes_normal)
+        let result_normal = InitExtra1loop::read_lhe(bytes_normal)
             .to_full_result()
             .unwrap();
         assert_eq!(result_normal, expected);
-        let result_reverse = InitExtra1loop::read_from_lhe(bytes_reverse)
+        let result_reverse = InitExtra1loop::read_lhe(bytes_reverse)
             .to_full_result()
             .unwrap();
         assert_eq!(result_reverse, expected);
@@ -1493,7 +1488,7 @@ File generated with HELAC-DIPOLES
             coeff_b: 8.,
             coeff_c: 9.,
         };
-        let result = MeInfo1loop::read_from_lhe(bytes).to_full_result().unwrap();
+        let result = MeInfo1loop::read_lhe(bytes).to_full_result().unwrap();
         assert_eq!(result, expected);
     }
 
@@ -1519,11 +1514,11 @@ File generated with HELAC-DIPOLES
                 coeff_c: 9.,
             },
         };
-        let result_normal = EventExtra1loop::read_from_lhe(bytes_normal)
+        let result_normal = EventExtra1loop::read_lhe(bytes_normal)
             .to_full_result()
             .unwrap();
         assert_eq!(result_normal, expected);
-        let result_reverse = EventExtra1loop::read_from_lhe(bytes_reverse)
+        let result_reverse = EventExtra1loop::read_lhe(bytes_reverse)
             .to_full_result()
             .unwrap();
         assert_eq!(result_reverse, expected);
@@ -1553,7 +1548,7 @@ File generated with HELAC-DIPOLES
 
         let mut bytes = Vec::new();
         lhe.write_lhe(&mut bytes).unwrap();
-        let round = match LheFileRS::read_from_lhe(&bytes).to_full_result() {
+        let round = match LheFileRS::read_lhe(&bytes).to_full_result() {
             Ok(l) => l,
             Err(e) => panic!("Failed to read roundtrip: {:?}", e),
         };
@@ -1575,7 +1570,7 @@ File generated with HELAC-DIPOLES
 
         let mut bytes = Vec::new();
         lhe.write_lhe(&mut bytes).unwrap();
-        let round = match LheFileI::read_from_lhe(&bytes).to_full_result() {
+        let round = match LheFileI::read_lhe(&bytes).to_full_result() {
             Ok(l) => l,
             Err(e) => panic!("Failed to read roundtrip: {:?}", e),
         };
@@ -1606,7 +1601,7 @@ File generated with HELAC-DIPOLES
 
         let mut bytes = Vec::new();
         lhe.write_lhe(&mut bytes).unwrap();
-        let round = match LheFileKP::read_from_lhe(&bytes).to_full_result() {
+        let round = match LheFileKP::read_lhe(&bytes).to_full_result() {
             Ok(l) => l,
             Err(e) => panic!("Failed to read roundtrip: {:?}", e),
         };
@@ -1638,7 +1633,7 @@ File generated with HELAC-DIPOLES
 
         let mut bytes = Vec::new();
         lhe.write_lhe(&mut bytes).unwrap();
-        let round = match LheFile1loop::read_from_lhe(&bytes).to_full_result() {
+        let round = match LheFile1loop::read_lhe(&bytes).to_full_result() {
             Ok(l) => l,
             Err(e) => panic!("Failed to read roundtrip: {:?}", e),
         };

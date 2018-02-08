@@ -36,12 +36,12 @@ where
     InitExtra: ReadLhe + PartialEq,
     EventExtra: ReadLhe,
 {
-    fn read_from_lhe(
+    fn read_lhe(
         input: &[u8],
     ) -> nom::IResult<&[u8], LheFileGeneric<Comment, Header, InitExtra, EventExtra>> {
-        let parse_comment = Comment::read_from_lhe;
-        let parse_header = Header::read_from_lhe;
-        let parse_init = InitGeneric::read_from_lhe;
+        let parse_comment = Comment::read_lhe;
+        let parse_header = Header::read_lhe;
+        let parse_init = InitGeneric::read_lhe;
         do_parse!(
             input,
             ws!(tag!("<LesHouchesEvents")) >> ws!(tag!("version=")) >> tag!("\"")
@@ -49,7 +49,7 @@ where
                     map_res!(take_until!("\""), |x| str::from_utf8(x)
                         .map(|x| x.to_string())) >> tag!("\"") >> ws!(tag!(">"))
                 >> hi: permutation_opt!(parse_comment, parse_header, parse_init)
-                >> events: dbg_dmp!(many0!(EventGeneric::read_from_lhe))
+                >> events: dbg_dmp!(many0!(EventGeneric::read_lhe))
                 >> dbg_dmp!(ws!(tag!("</LesHouchesEvents>"))) >> (LheFileGeneric {
                 version,
                 comment: hi.0,
@@ -150,7 +150,7 @@ impl<InitExtra> ReadLhe for InitGeneric<InitExtra>
 where
     InitExtra: ReadLhe,
 {
-    fn read_from_lhe(input: &[u8]) -> nom::IResult<&[u8], InitGeneric<InitExtra>> {
+    fn read_lhe(input: &[u8]) -> nom::IResult<&[u8], InitGeneric<InitExtra>> {
         do_parse!(
             input,
             ws!(tag!("<init>")) >> beam_1_id: ws!(parse_i64) >> beam_2_id: ws!(parse_i64)
@@ -159,8 +159,8 @@ where
                 >> beam_2_pdf_group_id: ws!(parse_i64) >> beam_1_pdf_id: ws!(parse_i64)
                 >> beam_2_pdf_id: ws!(parse_i64) >> weighting_strategy: ws!(parse_i64)
                 >> n_processes: ws!(parse_u64)
-                >> process_info: count!(ws!(ProcInfo::read_from_lhe), n_processes as usize)
-                >> extra: ws!(InitExtra::read_from_lhe) >> ws!(tag!("</init>"))
+                >> process_info: count!(ws!(ProcInfo::read_lhe), n_processes as usize)
+                >> extra: ws!(InitExtra::read_lhe) >> ws!(tag!("</init>"))
                 >> (InitGeneric {
                     beam_1_id,
                     beam_2_id,
@@ -245,14 +245,14 @@ impl<EventExtra> ReadLhe for EventGeneric<EventExtra>
 where
     EventExtra: ReadLhe,
 {
-    fn read_from_lhe(input: &[u8]) -> nom::IResult<&[u8], EventGeneric<EventExtra>> {
+    fn read_lhe(input: &[u8]) -> nom::IResult<&[u8], EventGeneric<EventExtra>> {
         do_parse!(
             input,
             ws!(tag!("<event>")) >> n_particles: ws!(parse_i64) >> process_id: ws!(parse_i64)
                 >> weight: ws!(parse_f64) >> scale: ws!(parse_f64)
                 >> alpha_ew: ws!(parse_f64) >> alpha_qcd: ws!(parse_f64)
-                >> particles: count!(Particle::read_from_lhe, n_particles as usize)
-                >> extra: ws!(EventExtra::read_from_lhe) >> ws!(tag!("</event>"))
+                >> particles: count!(Particle::read_lhe, n_particles as usize)
+                >> extra: ws!(EventExtra::read_lhe) >> ws!(tag!("</event>"))
                 >> (EventGeneric {
                     process_id,
                     weight,
@@ -344,7 +344,7 @@ mod tests {
     #[derive(Clone, Debug, PartialEq)]
     struct Nothing {}
     impl ReadLhe for Nothing {
-        fn read_from_lhe(input: &[u8]) -> nom::IResult<&[u8], Nothing> {
+        fn read_lhe(input: &[u8]) -> nom::IResult<&[u8], Nothing> {
             nom::IResult::Done(input, Nothing {})
         }
     }
@@ -393,7 +393,7 @@ mod tests {
             ],
             extra: Nothing {},
         };
-        let result = InitGeneric::<Nothing>::read_from_lhe(bytes)
+        let result = InitGeneric::<Nothing>::read_lhe(bytes)
             .to_full_result()
             .unwrap();
         assert_eq!(result, expected);
@@ -451,7 +451,7 @@ mod tests {
             ],
             extra: Nothing {},
         };
-        let result = EventGeneric::<Nothing>::read_from_lhe(bytes)
+        let result = EventGeneric::<Nothing>::read_lhe(bytes)
             .to_full_result()
             .unwrap();
         assert_eq!(result, expected);
@@ -580,7 +580,7 @@ mod tests {
                 },
             ],
         };
-        let result = LheFileGeneric::<Nothing, Nothing, Nothing, Nothing>::read_from_lhe(bytes)
+        let result = LheFileGeneric::<Nothing, Nothing, Nothing, Nothing>::read_lhe(bytes)
             .to_full_result()
             .unwrap();
         assert_eq!(result, expected);
@@ -590,7 +590,7 @@ mod tests {
         fn nothing_roundtrip_qc(m: Nothing) -> bool {
             let mut bytes = Vec::new();
             m.write_lhe(&mut bytes).unwrap();
-            let round = match Nothing::read_from_lhe(&bytes).to_full_result() {
+            let round = match Nothing::read_lhe(&bytes).to_full_result() {
                 Ok(r) => r,
                 Err(err) => {
                     panic!("Failed to read roundtrip: {:?}", err);
@@ -604,7 +604,7 @@ mod tests {
         fn event_roundtrip_qc(start: EventGeneric<Nothing>) -> bool {
             let mut bytes = Vec::new();
             start.write_lhe(&mut bytes).unwrap();
-            let round = match EventGeneric::<Nothing>::read_from_lhe(&bytes).to_full_result() {
+            let round = match EventGeneric::<Nothing>::read_lhe(&bytes).to_full_result() {
                 Ok(r) => r,
                 Err(err) => panic!("Failed to read roundtrip: {:?}", err),
             };
@@ -616,7 +616,7 @@ mod tests {
         fn init_roundtrip_qc(start: InitGeneric<Nothing>) -> bool {
             let mut bytes = Vec::new();
             start.write_lhe(&mut bytes).unwrap();
-            let round = match InitGeneric::<Nothing>::read_from_lhe(&bytes).to_full_result() {
+            let round = match InitGeneric::<Nothing>::read_lhe(&bytes).to_full_result() {
                 Ok(r) => r,
                 Err(err) => panic!("Failed to read roundtrip: {:?}", err),
             };
@@ -649,9 +649,8 @@ mod tests {
         };
         let mut bytes = Vec::new();
         start.write_lhe(&mut bytes).unwrap();
-        let round = match LheFileGeneric::<Nothing, Nothing, Nothing, Nothing>::read_from_lhe(
-            &bytes,
-        ).to_full_result()
+        let round = match LheFileGeneric::<Nothing, Nothing, Nothing, Nothing>::read_lhe(&bytes)
+            .to_full_result()
         {
             Ok(r) => r,
             Err(err) => {
@@ -687,9 +686,8 @@ mod tests {
         };
         let mut bytes = Vec::new();
         start.write_lhe(&mut bytes).unwrap();
-        let round = match LheFileGeneric::<Nothing, Nothing, Nothing, Nothing>::read_from_lhe(
-            &bytes,
-        ).to_full_result()
+        let round = match LheFileGeneric::<Nothing, Nothing, Nothing, Nothing>::read_lhe(&bytes)
+            .to_full_result()
         {
             Ok(r) => r,
             Err(err) => {
@@ -714,7 +712,7 @@ mod tests {
             };
             let mut bytes = Vec::new();
             start.write_lhe(&mut bytes).unwrap();
-                let round = match LheFileGeneric::<Nothing, Nothing, Nothing, Nothing>::read_from_lhe(&bytes).to_full_result() {
+                let round = match LheFileGeneric::<Nothing, Nothing, Nothing, Nothing>::read_lhe(&bytes).to_full_result() {
                 Ok(r) => r,
                 Err(err) => {
                     println!("{}", str::from_utf8(&bytes).unwrap());
@@ -729,7 +727,7 @@ mod tests {
         fn lhefile_roundtrip_qc(start: LheFileGeneric<Nothing, Nothing, Nothing, Nothing>) -> quickcheck::TestResult {
             let mut bytes = Vec::new();
             start.write_lhe(&mut bytes).unwrap();
-            let round = match LheFileGeneric::<Nothing, Nothing, Nothing, Nothing>::read_from_lhe(&bytes).to_full_result() {
+            let round = match LheFileGeneric::<Nothing, Nothing, Nothing, Nothing>::read_lhe(&bytes).to_full_result() {
                 Ok(r) => r,
                 Err(err) => {
                     println!("{}", str::from_utf8(&bytes).unwrap());
