@@ -6,6 +6,12 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
+//! A module to read and write lhe files, keeping extra information as strings
+//!
+//! This module contains types that can be used in `LheFileGeneric` to
+//! read lhe files and extract all additional information contained in
+//! the file as strings.
+
 use {ReadLhe, WriteLhe};
 use generic::LheFileGeneric;
 
@@ -18,8 +24,10 @@ use quickcheck::Arbitrary;
 #[cfg(test)]
 use quickcheck::Gen;
 
+/// A file to read and write lhe files, keeping extra information as strings
 pub type LheFile = LheFileGeneric<Comment, Header, InitExtra, EventExtra>;
 
+/// A optional comment in an lhe file, as a string
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(test, derive(Serialize, Deserialize))]
 pub struct Comment {
@@ -68,6 +76,7 @@ impl Arbitrary for Comment {
     }
 }
 
+/// A optional header section in an lhe file, as a string
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(test, derive(Serialize, Deserialize))]
 pub struct Header {
@@ -120,6 +129,7 @@ impl Arbitrary for Header {
     }
 }
 
+/// Extra initialization information, as a string
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(test, derive(Serialize, Deserialize))]
 pub struct InitExtra(pub String);
@@ -154,6 +164,7 @@ impl Arbitrary for InitExtra {
     }
 }
 
+/// Extra event information, as a string
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(test, derive(Serialize, Deserialize))]
 pub struct EventExtra(pub String);

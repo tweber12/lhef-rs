@@ -6,6 +6,12 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
+//! A module to read and write lhe files and ignore all extra information
+//!
+//! This module contains types that can be used in `LheFileGeneric` to
+//! read lhe files and ignore all additional information that might be
+//! contained in the files.
+
 use {ReadLhe, WriteLhe};
 use generic::LheFileGeneric;
 
@@ -17,8 +23,13 @@ use quickcheck::Arbitrary;
 #[cfg(test)]
 use quickcheck::Gen;
 
+/// A type to read and write lhe files and ignore all extra information
 pub type LheFile = LheFileGeneric<Comment, Header, InitExtra, EventExtra>;
 
+/// A dummy comment
+///
+/// This type can read an optional comment from an lhe file, but throws
+/// away the contents.
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(test, derive(Serialize, Deserialize))]
 pub struct Comment {}
@@ -45,6 +56,10 @@ impl Arbitrary for Comment {
     }
 }
 
+/// A dummy lhe file header
+///
+/// This type can read an optional header from an lhe file, but throws
+/// away the contents.
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(test, derive(Serialize, Deserialize))]
 pub struct Header {}
@@ -75,6 +90,10 @@ impl Arbitrary for Header {
     }
 }
 
+/// Dummy initialization information
+///
+/// This type can parse additional initialization that may be present
+/// in the init section of an lhe file, but throws away the contents.
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(test, derive(Serialize, Deserialize))]
 pub struct InitExtra {}
@@ -98,6 +117,10 @@ impl Arbitrary for InitExtra {
     }
 }
 
+/// Dummy event information
+///
+/// This type can parse additional event information that may be present
+/// in the events of an lhe file, but throws away the contents.
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(test, derive(Serialize, Deserialize))]
 pub struct EventExtra {}

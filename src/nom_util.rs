@@ -6,6 +6,15 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
+//! Helper functions to implement parsers for lhe files using nom
+//!
+//! This module contains functions to parse numbers in decimal
+//! represenetation from byte strings.
+//!
+//! `nom` itself has a `double` function to parse `f64`s, but this
+//! function has many limitations, so `parse_f64` from this module is
+//! preferable.
+
 use std::f32;
 use std::f64;
 use std::ops::Mul;
