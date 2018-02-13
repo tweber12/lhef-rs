@@ -10,10 +10,10 @@ categories = ["science"]
 
 [dependencies]
 nom = "3.2.1"
-lorentz_vector = { path = "../lorentz_vector" }
+lorentz_vector = { git = "https://github.com/tweber12/lorentz_vector_rs" }
 
 [dev-dependencies]
 quickcheck = "0.6.0"
 serde = { version = "1.0.27", features=["derive"] }
 serde_json = "1.0.9"
-lorentz_vector = { path = "../lorentz_vector", features=["serde"] }
+lorentz_vector = { git = "https://github.com/tweber12/lorentz_vector_rs", features = ["serde"] }
