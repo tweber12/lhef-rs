@@ -33,7 +33,7 @@
 //! // Energy of beam 1
 //! let beam_1_energy = lhe.init.beam_1_energy;
 //!
-//! // pz of the 3rd particle in the 7th event
+//! // pz of the 4rd particle in the 7th event
 //! let pz = lhe.events[6].particles[3].momentum.pz;
 //! ```
 //!
@@ -285,6 +285,26 @@ impl error::Error for ReadError {
 /// The names in parentheses are the names of the fields in these
 /// papers.
 ///
+/// # Examples
+///
+/// ```rust
+/// use lhef::{ProcInfo, ReadLhe};
+/// use lhef::plain::LheFile;
+///
+/// let bytes = b"\
+/// <LesHouchesEvents version=\"1.0\">
+/// <init>
+/// 2212 2212 6500 6500 0 0 13100 13100 3 2
+/// 2.1 3.2E-03 1.0E+00 1
+/// 4.0 7.4E-03 1.0E+00 2
+/// </init>
+/// </LesHouchesEvents>";
+/// let lhe = LheFile::read_lhe(bytes).to_full_result().unwrap();
+/// assert_eq!(lhe.init.process_info.len(), 2);
+/// assert_eq!(lhe.init.process_info[0].xsect, 2.1);
+/// assert_eq!(lhe.init.process_info[1].xsect_err, 0.0074);
+/// ```
+///
 /// [`lhe`]: https://arxiv.org/abs/hep-ph/0609017
 /// [`LHA common blocks`]: https://arxiv.org/abs/hep-ph/0109068
 #[derive(Clone, Debug, PartialEq)]
@@ -348,6 +368,34 @@ impl Arbitrary for ProcInfo {
 /// The names in parentheses are the names of the fields in these
 /// papers.
 ///
+/// # Examples
+///
+/// ```rust
+/// use lhef::{Particle, ReadLhe};
+/// use lhef::plain::LheFile;
+///
+/// let bytes = b"\
+/// <LesHouchesEvents version=\"1.0\">
+/// <init>
+/// 2212 2212 6500 6500 0 0 13100 13100 3 1
+/// 2.1 3.2E-03 1.0E+00 1
+/// </init>
+/// <event>
+/// 4 1 +1.04e-01 1.00e+03 7.54e-03 8.68e-02
+/// -11 -1 0 0 0 0 +0.00e+00 +0.00e+00 +5.00e+02 5.00e+02 0.00e+00 0.00e+00 -1.00e+00
+///  11 -1 0 0 0 0 -0.00e+00 -0.00e+00 -5.00e+02 5.00e+02 0.00e+00 0.00e+00  1.00e+00
+/// -13  1 1 2 0 0 -1.97e+02 -4.52e+02 -7.94e+01 5.00e+02 0.00e+00 0.00e+00 -1.00e+00
+///  13  1 1 2 0 0 +1.97e+02 +4.52e+02 +7.94e+01 5.00e+02 0.00e+00 0.00e+00  1.00e+00
+/// </event>
+/// </LesHouchesEvents>";
+///
+/// let lhe = LheFile::read_lhe(bytes).to_full_result().unwrap();
+/// let event = &lhe.events[0];
+/// assert_eq!(event.particles.len(), 4);
+/// assert_eq!(event.particles[0].pdg_id, -11);
+/// assert_eq!(event.particles[3].momentum.py, 452.);
+/// ```
+///
 /// [`lhe`]: https://arxiv.org/abs/hep-ph/0609017
 /// [`LHA common blocks`]: https://arxiv.org/abs/hep-ph/0109068
 #[derive(Clone, Debug, PartialEq)]
@@ -357,9 +405,11 @@ pub struct Particle {
     pub pdg_id: PdgId,
     /// The status code of the particle (`ISTUP`)
     pub status: i64,
-    /// The id of the first mother of the particle (`MOTHUP(1)`)
+    /// The id of the first mother of the particle (`MOTHUP(1)`).
+    /// This isn't a pdg id, but a (1 based) index into the particles vector.
     pub mother_1_id: i64,
-    /// The id of the second mother of the particle (`MOTHUP(2)`)
+    /// The id of the second mother of the particle (`MOTHUP(2)`).
+    /// This isn't a pdg id, but a (1 based) index into the particles vector.
     pub mother_2_id: i64,
     /// The color of the particle (`ICOLUP(1)`)
     pub color_1: i64,

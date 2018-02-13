@@ -29,6 +29,54 @@ use quickcheck::Gen;
 ///
 /// This is the main data structure in this library that can be used to
 /// read and write lhe files.
+///
+/// # Examples
+///
+/// ```rust
+/// use lhef::{Particle, ReadLhe};
+/// use lhef::string::{LheFile, Comment, Header, EventExtra};
+///
+/// let bytes = b"\
+/// <LesHouchesEvents version=\"1.0\">
+/// <!-- Process: e+ e- > mu+ mu- -->
+/// <header>
+/// <tag> Important header information </tag>
+/// </header>
+/// <init>
+/// 2212 2212 6500 6500 0 0 13100 13100 3 1
+/// 2.1 3.2E-03 1.0E+00 1
+/// ## Additional initialization information
+/// </init>
+/// <event>
+/// 4 1 +1.04e-01 1.00e+03 7.54e-03 8.68e-02
+/// -11 -1 0 0 0 0 +0.00e+00 +0.00e+00 +5.00e+02 5.00e+02 0.00e+00 0.00e+00 -1.00e+00
+///  11 -1 0 0 0 0 -0.00e+00 -0.00e+00 -5.00e+02 5.00e+02 0.00e+00 0.00e+00  1.00e+00
+/// -13  1 1 2 0 0 -1.97e+02 -4.52e+02 -7.94e+01 5.00e+02 0.00e+00 0.00e+00 -1.00e+00
+///  13  1 1 2 0 0 +1.97e+02 +4.52e+02 +7.94e+01 5.00e+02 0.00e+00 0.00e+00  1.00e+00
+/// ## Additional event information
+/// </event>
+/// </LesHouchesEvents>";
+///
+/// let lhe = LheFile::read_lhe(bytes).to_full_result().unwrap();
+///
+/// assert_eq!(lhe.version, "1.0".to_string());
+///
+/// let Comment { ref comment } = lhe.comment;
+/// assert_eq!(comment, &Some("Process: e+ e- > mu+ mu-".to_string()));
+///
+/// let Header { ref header } = lhe.header;
+/// assert_eq!(header, &Some("<tag> Important header information </tag>".to_string()));
+///
+/// let init = &lhe.init;
+/// assert_eq!(init.beam_1_id, 2212);
+/// assert_eq!(init.process_info[0].process_id, 1);
+///
+/// let event = &lhe.events[0];
+/// assert_eq!(event.process_id, 1);
+/// assert_eq!(event.particles[0].pdg_id, -11);
+/// let EventExtra(ref extra) = event.extra;
+/// assert_eq!(extra, &"# Additional event information".to_string());
+/// ```
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(test, derive(Serialize, Deserialize))]
 pub struct LheFileGeneric<Comment, Header, InitExtra, EventExtra> {
@@ -156,6 +204,31 @@ fn write_closing_file_tag<W: io::Write>(writer: &mut W) -> io::Result<()> {
 /// The names in parentheses are the names of the fields in these
 /// papers.
 ///
+/// # Examples
+///
+/// ```rust
+/// use lhef::{ProcInfo, ReadLhe};
+/// use lhef::string::{LheFile, InitExtra};
+///
+/// let bytes = b"\
+/// <LesHouchesEvents version=\"1.0\">
+/// <init>
+/// 2212 2212 6500 6500 0 0 13100 13100 3 1
+/// 2.1 3.2E-03 1.0E+00 1
+/// ## Extra initialization information
+/// </init>
+/// </LesHouchesEvents>";
+///
+/// let lhe = LheFile::read_lhe(bytes).to_full_result().unwrap();
+/// assert_eq!(lhe.init.beam_2_energy, 6500.);
+/// assert_eq!(lhe.init.beam_1_pdf_id, 13100);
+/// assert_eq!(lhe.init.process_info[0].xsect, 2.1);
+/// assert_eq!(
+///     lhe.init.extra,
+///     InitExtra("# Extra initialization information".to_string())
+/// );
+/// ```
+///
 /// [`lhe`]: https://arxiv.org/abs/hep-ph/0609017
 /// [`LHA common blocks`]: https://arxiv.org/abs/hep-ph/0109068
 #[derive(Clone, Debug, PartialEq)]
@@ -274,6 +347,37 @@ where
 /// documentation of the [`LHA common blocks`].
 /// The names in parentheses are the names of the fields in these
 /// papers.
+///
+/// # Examples
+///
+/// ```rust
+/// use lhef::{Particle, ReadLhe};
+/// use lhef::string::{LheFile, EventExtra};
+///
+/// let bytes = b"\
+/// <LesHouchesEvents version=\"1.0\">
+/// <init>
+/// 2212 2212 6500 6500 0 0 13100 13100 3 1
+/// 2.1 3.2E-03 1.0E+00 1
+/// </init>
+/// <event>
+/// 4 1 +1.04e-01 1.00e+03 7.54e-03 8.68e-02
+/// -11 -1 0 0 0 0 +0.00e+00 +0.00e+00 +5.00e+02 5.00e+02 0.00e+00 0.00e+00 -1.00e+00
+///  11 -1 0 0 0 0 -0.00e+00 -0.00e+00 -5.00e+02 5.00e+02 0.00e+00 0.00e+00  1.00e+00
+/// -13  1 1 2 0 0 -1.97e+02 -4.52e+02 -7.94e+01 5.00e+02 0.00e+00 0.00e+00 -1.00e+00
+///  13  1 1 2 0 0 +1.97e+02 +4.52e+02 +7.94e+01 5.00e+02 0.00e+00 0.00e+00  1.00e+00
+/// ## Additional event information
+/// </event>
+/// </LesHouchesEvents>";
+///
+/// let lhe = LheFile::read_lhe(bytes).to_full_result().unwrap();
+/// let event = &lhe.events[0];
+/// assert_eq!(event.process_id, 1);
+/// assert_eq!(event.alpha_qcd, 0.0868);
+/// assert_eq!(event.particles[0].pdg_id, -11);
+/// let EventExtra(ref extra) = event.extra;
+/// assert_eq!(extra, &"# Additional event information".to_string());
+/// ```
 ///
 /// [`lhe`]: https://arxiv.org/abs/hep-ph/0609017
 /// [`LHA common blocks`]: https://arxiv.org/abs/hep-ph/0109068

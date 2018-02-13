@@ -11,6 +11,69 @@
 //! This module contains types that can be used in `LheFileGeneric` to
 //! read lhe files and ignore all additional information that might be
 //! contained in the files.
+//!
+//! # Examples
+//!
+//! ## Reading a file
+//!
+//! ```rust,ignore
+//! use lhef::ReadLhe;
+//! use lhef::plain::LheFile;
+//!
+//! let lhe = LheFile::read_lhe_from_file(&"events.lhe").unwrap();
+//!
+//! // Energy of beam 1
+//! let beam_1_energy = lhe.init.beam_1_energy;
+//!
+//! // pz of the 4rd particle in the 7th event
+//! let pz = lhe.events[6].particles[3].momentum.pz;
+//! ```
+//!
+//! ## Reading a byte string
+//!
+//! ```rust
+//! use lhef::{Particle, ReadLhe};
+//! use lhef::plain::{LheFile, Comment, Header, InitExtra, EventExtra};
+//!
+//! let bytes = b"\
+//! <LesHouchesEvents version=\"1.0\">
+//! <!-- Process: e+ e- > mu+ mu- -->
+//! <header>
+//! <tag> Important header information </tag>
+//! </header>
+//! <init>
+//! 2212 2212 6500 6500 0 0 13100 13100 3 1
+//! 2.1 3.2E-03 1.0E+00 1
+//! ## Additional initialization information
+//! </init>
+//! <event>
+//! 4 1 +1.04e-01 1.00e+03 7.54e-03 8.68e-02
+//! -11 -1 0 0 0 0 +0.00e+00 +0.00e+00 +5.00e+02 5.00e+02 0.00e+00 0.00e+00 -1.00e+00
+//!  11 -1 0 0 0 0 -0.00e+00 -0.00e+00 -5.00e+02 5.00e+02 0.00e+00 0.00e+00  1.00e+00
+//! -13  1 1 2 0 0 -1.97e+02 -4.52e+02 -7.94e+01 5.00e+02 0.00e+00 0.00e+00 -1.00e+00
+//!  13  1 1 2 0 0 +1.97e+02 +4.52e+02 +7.94e+01 5.00e+02 0.00e+00 0.00e+00  1.00e+00
+//! ## Additional event information
+//! </event>
+//! </LesHouchesEvents>";
+//!
+//! let lhe = LheFile::read_lhe(bytes).to_full_result().unwrap();
+//!
+//! assert_eq!(lhe.version, "1.0".to_string());
+//!
+//! assert_eq!(lhe.comment, Comment {});
+//!
+//! assert_eq!(lhe.header, Header {});
+//!
+//! let init = &lhe.init;
+//! assert_eq!(init.beam_1_id, 2212);
+//! assert_eq!(init.process_info[0].process_id, 1);
+//! assert_eq!(init.extra, InitExtra {});
+//!
+//! let event = &lhe.events[0];
+//! assert_eq!(event.process_id, 1);
+//! assert_eq!(event.particles[0].pdg_id, -11);
+//! assert_eq!(event.extra, EventExtra {});
+//! ```
 
 use {ReadLhe, WriteLhe};
 use generic::LheFileGeneric;
@@ -24,12 +87,103 @@ use quickcheck::Arbitrary;
 use quickcheck::Gen;
 
 /// A type to read and write lhe files and ignore all extra information
+///
+/// Each type of additional information is optional, i.e. files
+/// containing only the mandatory information can also be parsed.
+/// If the file does contain additional information, then it is
+/// ignored by this type.
+///
+/// # Examples
+///
+/// ```rust
+/// use lhef::{Particle, ReadLhe};
+/// use lhef::plain::{LheFile, Comment, Header, InitExtra, EventExtra};
+///
+/// let bytes = b"\
+/// <LesHouchesEvents version=\"1.0\">
+/// <!-- Process: e+ e- > mu+ mu- -->
+/// <header>
+/// <tag> Important header information </tag>
+/// </header>
+/// <init>
+/// 2212 2212 6500 6500 0 0 13100 13100 3 1
+/// 2.1 3.2E-03 1.0E+00 1
+/// ## Additional initialization information
+/// </init>
+/// <event>
+/// 4 1 +1.04e-01 1.00e+03 7.54e-03 8.68e-02
+/// -11 -1 0 0 0 0 +0.00e+00 +0.00e+00 +5.00e+02 5.00e+02 0.00e+00 0.00e+00 -1.00e+00
+///  11 -1 0 0 0 0 -0.00e+00 -0.00e+00 -5.00e+02 5.00e+02 0.00e+00 0.00e+00  1.00e+00
+/// -13  1 1 2 0 0 -1.97e+02 -4.52e+02 -7.94e+01 5.00e+02 0.00e+00 0.00e+00 -1.00e+00
+///  13  1 1 2 0 0 +1.97e+02 +4.52e+02 +7.94e+01 5.00e+02 0.00e+00 0.00e+00  1.00e+00
+/// ## Additional event information
+/// </event>
+/// </LesHouchesEvents>";
+///
+/// let lhe = LheFile::read_lhe(bytes).to_full_result().unwrap();
+///
+/// assert_eq!(lhe.version, "1.0".to_string());
+///
+/// assert_eq!(lhe.comment, Comment {});
+///
+/// assert_eq!(lhe.header, Header {});
+///
+/// let init = &lhe.init;
+/// assert_eq!(init.beam_1_id, 2212);
+/// assert_eq!(init.process_info[0].process_id, 1);
+/// assert_eq!(init.extra, InitExtra {});
+///
+/// let event = &lhe.events[0];
+/// assert_eq!(event.process_id, 1);
+/// assert_eq!(event.particles[0].pdg_id, -11);
+/// assert_eq!(event.extra, EventExtra {});
+/// ```
 pub type LheFile = LheFileGeneric<Comment, Header, InitExtra, EventExtra>;
 
 /// A dummy comment
 ///
 /// This type can read an optional comment from an lhe file, but throws
 /// away the contents.
+///
+/// # Examples
+///
+/// `Comment` behaves the same way, if a header is there...
+///
+/// ```rust
+/// use lhef::{Particle, ReadLhe};
+/// use lhef::plain::{LheFile, Comment};
+///
+/// let bytes = b"\
+/// <LesHouchesEvents version=\"1.0\">
+/// <!-- Process: e+ e- > mu+ mu- -->
+/// <init>
+/// 2212 2212 6500 6500 0 0 13100 13100 3 1
+/// 2.1 3.2E-03 1.0E+00 1
+/// </init>
+/// </LesHouchesEvents>";
+///
+/// let lhe = LheFile::read_lhe(bytes).to_full_result().unwrap();
+///
+/// assert_eq!(lhe.comment, Comment {});
+/// ```
+///
+/// or if it isn't.
+///
+/// ```rust
+/// # use lhef::{Particle, ReadLhe};
+/// # use lhef::plain::{LheFile, Comment};
+/// let bytes = b"\
+/// <LesHouchesEvents version=\"1.0\">
+/// <init>
+/// 2212 2212 6500 6500 0 0 13100 13100 3 1
+/// 2.1 3.2E-03 1.0E+00 1
+/// </init>
+/// </LesHouchesEvents>";
+///
+/// let lhe = LheFile::read_lhe(bytes).to_full_result().unwrap();
+///
+/// assert_eq!(lhe.comment, Comment {});
+/// ```
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(test, derive(Serialize, Deserialize))]
 pub struct Comment {}
@@ -60,6 +214,46 @@ impl Arbitrary for Comment {
 ///
 /// This type can read an optional header from an lhe file, but throws
 /// away the contents.
+///
+/// # Examples
+///
+/// `Header` behaves the same way, if a header is there...
+///
+/// ```rust
+/// use lhef::{Particle, ReadLhe};
+/// use lhef::plain::{LheFile, Header};
+///
+/// let bytes = b"\
+/// <LesHouchesEvents version=\"1.0\">
+/// <header>
+/// <tag> Important header information </tag>
+/// </header>
+/// <init>
+/// 2212 2212 6500 6500 0 0 13100 13100 3 1
+/// 2.1 3.2E-03 1.0E+00 1
+/// </init>
+/// </LesHouchesEvents>";
+///
+/// let lhe = LheFile::read_lhe(bytes).to_full_result().unwrap();
+/// assert_eq!(lhe.header, Header {});
+/// ```
+///
+/// ... or if it isnt.
+///
+/// ```rust
+/// # use lhef::{Particle, ReadLhe};
+/// # use lhef::plain::{LheFile, Header};
+/// let bytes = b"\
+/// <LesHouchesEvents version=\"1.0\">
+/// <init>
+/// 2212 2212 6500 6500 0 0 13100 13100 3 1
+/// 2.1 3.2E-03 1.0E+00 1
+/// </init>
+/// </LesHouchesEvents>";
+///
+/// let lhe = LheFile::read_lhe(bytes).to_full_result().unwrap();
+/// assert_eq!(lhe.header, Header {});
+/// ```
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(test, derive(Serialize, Deserialize))]
 pub struct Header {}
@@ -94,6 +288,27 @@ impl Arbitrary for Header {
 ///
 /// This type can parse additional initialization that may be present
 /// in the init section of an lhe file, but throws away the contents.
+///
+/// # Examples
+///
+/// ```rust
+/// use lhef::{Particle, ReadLhe};
+/// use lhef::plain::{LheFile, InitExtra};
+///
+/// let bytes = b"\
+/// <LesHouchesEvents version=\"1.0\">
+/// <init>
+/// 2212 2212 6500 6500 0 0 13100 13100 3 1
+/// 2.1 3.2E-03 1.0E+00 1
+/// ## Additional initialization information
+/// ## Even more important stuff
+/// 1 2 3 4 5
+/// </init>
+/// </LesHouchesEvents>";
+///
+/// let lhe = LheFile::read_lhe(bytes).to_full_result().unwrap();
+/// assert_eq!(lhe.init.extra, InitExtra{});
+/// ```
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(test, derive(Serialize, Deserialize))]
 pub struct InitExtra {}
@@ -121,6 +336,36 @@ impl Arbitrary for InitExtra {
 ///
 /// This type can parse additional event information that may be present
 /// in the events of an lhe file, but throws away the contents.
+///
+/// # Examples
+///
+/// ```rust
+/// use lhef::{Particle, ReadLhe};
+/// use lhef::plain::{LheFile, EventExtra};
+///
+/// let bytes = b"\
+/// <LesHouchesEvents version=\"1.0\">
+/// <init>
+/// 2212 2212 6500 6500 0 0 13100 13100 3 1
+/// 2.1 3.2E-03 1.0E+00 1
+/// </init>
+/// <event>
+/// 4 1 +1.04e-01 1.00e+03 7.54e-03 8.68e-02
+/// -11 -1 0 0 0 0 +0.00e+00 +0.00e+00 +5.00e+02 5.00e+02 0.00e+00 0.00e+00 -1.00e+00
+///  11 -1 0 0 0 0 -0.00e+00 -0.00e+00 -5.00e+02 5.00e+02 0.00e+00 0.00e+00  1.00e+00
+/// -13  1 1 2 0 0 -1.97e+02 -4.52e+02 -7.94e+01 5.00e+02 0.00e+00 0.00e+00 -1.00e+00
+///  13  1 1 2 0 0 +1.97e+02 +4.52e+02 +7.94e+01 5.00e+02 0.00e+00 0.00e+00  1.00e+00
+/// matrix element = 1.3e-9
+/// ## Additional event information
+///
+/// <rwgt> 5 </rwgt>
+///
+/// </event>
+/// </LesHouchesEvents>";
+///
+/// let lhe = LheFile::read_lhe(bytes).to_full_result().unwrap();
+/// assert_eq!(lhe.events[0].extra, EventExtra{});
+/// ```
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(test, derive(Serialize, Deserialize))]
 pub struct EventExtra {}
