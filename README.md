@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/tweber12/lhef-rs.svg?branch=master)](https://travis-ci.org/tweber12/lhef-rs)
+[![Build status](https://ci.appveyor.com/api/projects/status/f8qmd7jgvij09qwu/branch/master?svg=true)](https://ci.appveyor.com/project/TorstenWeber/lhef-rs/branch/master)
+
 # LHEF
 
 The `lhef` library is a [`rust`] library to read and write files in
