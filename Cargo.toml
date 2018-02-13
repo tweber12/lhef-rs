@@ -9,6 +9,10 @@ readme = "README.md"
 keywords = ["physics", "hep", "lhe", "leshouches"]
 categories = ["science"]
 
+[badges]
+appveyor = { repository = "https://github.com/tweber12/lhef-rs" }
+travis-ci = { repository = "https://github.com/tweber12/lhef-rs" }
+
 [dependencies]
 nom = "3.2.1"
 lorentz_vector = { git = "https://github.com/tweber12/lorentz_vector_rs" }
