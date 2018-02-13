@@ -3,9 +3,10 @@ name = "lhef"
 version = "0.1.0"
 authors = ["Torsten Weber <tweber@physik.rwth-aachen.de>"]
 license = "MIT/Apache-2.0"
-readme = "README.md"
 description = "A library to read and write files in the LesHouchesEvents format"
-keywords = ["physics", "lhe", "leshouches"]
+repository = "https://github.com/tweber12/lhef-rs"
+readme = "README.md"
+keywords = ["physics", "hep", "lhe", "leshouches"]
 categories = ["science"]
 
 [dependencies]
