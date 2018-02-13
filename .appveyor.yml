@@ -20,10 +20,7 @@ install:
 build: false
 
 test_script:
-    - cd slha
     - cargo build --release --target %TARGET% --verbose
-    - cargo test --release --target %TARGET% --verbose
-    - cd ..\slha-test
     - cargo test --release --target %TARGET% --verbose
 
 cache:
